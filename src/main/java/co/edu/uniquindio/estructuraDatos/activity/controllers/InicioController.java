@@ -1,7 +1,5 @@
 package co.edu.uniquindio.estructuraDatos.activity.controllers;
 
-import co.edu.uniquindio.estructuraDatos.activity.model.Model;
-
 public class InicioController {
     public ModelFactoryController mfm;
     public InicioController(){
