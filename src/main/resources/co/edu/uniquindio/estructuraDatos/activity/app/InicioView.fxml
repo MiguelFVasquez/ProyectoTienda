@@ -1,15 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuraDatos.activity.viewControllers.InicioViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="354.0" prefWidth="628.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuraDatos.activity.viewControllers.InicioViewController">
    <children>
-      <Button fx:id="btn1" layoutX="274.0" layoutY="326.0" mnemonicParsing="false" onAction="#accion1" text="Button" />
-      <TextField fx:id="txt1" layoutX="14.0" layoutY="46.0" prefHeight="25.0" prefWidth="571.0" />
+      <TabPane prefHeight="495.0" prefWidth="642.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab text="Inicio Sesión">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="73.0" layoutY="98.0" prefHeight="27.0" prefWidth="82.0" text="Nombre">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="73.0" layoutY="129.0" text="Número de identificación">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="73.0" layoutY="160.0" text="Dirección">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField layoutX="301.0" layoutY="99.0" prefHeight="25.0" prefWidth="262.0" />
+                        <TextField layoutX="301.0" layoutY="130.0" prefHeight="25.0" prefWidth="262.0" />
+                        <TextField layoutX="301.0" layoutY="161.0" prefHeight="25.0" prefWidth="262.0" />
+                        <Button layoutX="279.0" layoutY="274.0" mnemonicParsing="false" text="Iniciar sesión" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Registro">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </AnchorPane>

@@ -12,10 +12,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class InicioViewController implements Initializable {
-    @FXML
-    private TextField txt1;
-    @FXML
-    private Button btn1;
+
 
     private InicioController inicioController;
     Stage stage;
