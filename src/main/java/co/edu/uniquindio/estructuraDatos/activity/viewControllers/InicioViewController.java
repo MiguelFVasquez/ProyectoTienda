@@ -1,15 +1,21 @@
 package co.edu.uniquindio.estructuraDatos.activity.viewControllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import co.edu.uniquindio.estructuraDatos.activity.app.App;
 import co.edu.uniquindio.estructuraDatos.activity.controllers.InicioController;
+import javafx.animation.FadeTransition;
 import javafx.animation.FillTransition;
 import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
@@ -21,10 +27,19 @@ public class InicioViewController {
 
     private InicioController inicioController;
     Stage stage;
+    private App aplicacion;
 
 
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+    public Stage getStage(){
+        return this.stage ;
+    }
+
+    public void show() {
+        stage.show();
+
     }
 
     @FXML
@@ -73,7 +88,28 @@ public class InicioViewController {
     }
 
     @FXML
-    void iniciarSesion(ActionEvent event) {
+    void iniciarSesion(ActionEvent event) throws IOException {
+        FXMLLoader loader= new FXMLLoader();
+        loader.setLocation( App.class.getResource("ClienteView.fxml"));
+        AnchorPane anchorPane= loader.load();
+        ClienteViewController controller = loader.getController();
+        controller.setAplicacion(aplicacion);
+        Scene scene= new Scene(anchorPane);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        controller.init(stage);
+        controller.setInicioViewController( this );
+
+        stage.show();
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), anchorPane);
+
+        // Establecemos la opacidad inicial y final para la transición
+        fadeTransition.setFromValue(0.0);
+        fadeTransition.setToValue(1.0);
+
+        // Iniciamos la transición
+        fadeTransition.play();
+        this.stage.close();
     }
     @FXML
     void registrarse(ActionEvent event) {

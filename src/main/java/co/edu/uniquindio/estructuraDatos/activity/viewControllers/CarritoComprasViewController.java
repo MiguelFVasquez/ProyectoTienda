@@ -3,6 +3,7 @@ package co.edu.uniquindio.estructuraDatos.activity.viewControllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import co.edu.uniquindio.estructuraDatos.activity.app.App;
 import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,9 +12,33 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class CarritoComprasViewController {
+
+    private App aplicacion;
+    private Stage stage;
+
+    public void setAplicacion(App aplicacion) {
+        this.aplicacion = aplicacion;
+
+    }
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+    public Stage getStage(){
+        return this.stage ;
+    }
+
+    public void init(Stage stage2) {
+        this.stage = stage2;
+    }
+
+    public void show() {
+        stage.show();
+
+    }
 
     @FXML
     private ResourceBundle resources;
@@ -51,11 +76,14 @@ public class CarritoComprasViewController {
     void eliminarProducto(ActionEvent event) {
 
     }
+    @FXML
+    void cerrarVentana(ActionEvent event) {
+        this.stage.close();
+    }
 
     @FXML
     void initialize() {
-
-
+        configurarEventos();
     }
 
     private void configurarEventos() {
@@ -67,7 +95,7 @@ public class CarritoComprasViewController {
 
         // Manejamos el evento cuando el mouse sale del botón
         btnComprar.setOnMouseExited(event -> {
-            btnEliminarProducto.setStyle("-fx-background-color: green; -fx-cursor: default; -fx-text-fill:WHITE");
+            btnComprar.setStyle("-fx-background-color: green; -fx-cursor: default; -fx-text-fill:WHITE");
         });
 
         btnEliminarProducto.setOnMouseEntered( event ->  {
