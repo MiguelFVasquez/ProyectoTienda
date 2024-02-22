@@ -24,9 +24,9 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="txtPrecioTotal" alignment="CENTER_RIGHT" editable="false" layoutX="226.0" layoutY="523.0" prefHeight="28.0" prefWidth="198.0" promptText="Total" stylesheets="@css/styles.css" />
+      <TextField fx:id="txtPrecioTotal" alignment="CENTER_RIGHT" disable="true" editable="false" layoutX="226.0" layoutY="523.0" prefHeight="28.0" prefWidth="198.0" promptText="Total" stylesheets="@css/styles.css" />
       <Button fx:id="btnEliminarProducto" layoutX="28.0" layoutY="565.0" mnemonicParsing="false" onAction="#eliminarProducto" prefHeight="28.0" prefWidth="119.0" style="-fx-background-color: red;" text="Eliminar producto" textFill="WHITE" />
       <Button fx:id="btnComprar" layoutX="305.0" layoutY="565.0" mnemonicParsing="false" onAction="#comprarProductos" prefHeight="28.0" prefWidth="119.0" style="-fx-background-color: green;" text="Comprar" textFill="WHITE" />
-      <Button fx:id="btnEliminarProducto1" layoutX="305.0" layoutY="30.0" mnemonicParsing="false" onAction="#eliminarProducto" prefHeight="28.0" prefWidth="119.0" style="-fx-background-color: transparent; -fx-border-color: red;" text="Cerrar ventana" textFill="RED" />
+      <Button fx:id="btnCerrarVentana" layoutX="305.0" layoutY="30.0" mnemonicParsing="false" onAction="#eliminarProducto" prefHeight="28.0" prefWidth="119.0" style="-fx-background-color: transparent; -fx-border-color: red;" text="Cerrar ventana" textFill="RED" />
    </children>
 </AnchorPane>

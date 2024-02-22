@@ -70,8 +70,6 @@ public class InicioViewController {
         inicioController.mfm.initInicioViewController(this);
         configurarEventos();
 
-        // Aplicar la clase de estilo al TabPane
-        tabPane.getStyleClass().add("tab-pane");
     }
 
     @FXML
