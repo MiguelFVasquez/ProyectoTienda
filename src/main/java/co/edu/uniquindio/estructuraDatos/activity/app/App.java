@@ -1,11 +1,14 @@
 package co.edu.uniquindio.estructuraDatos.activity.app;
 
 import co.edu.uniquindio.estructuraDatos.activity.viewControllers.InicioViewController;
+import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -19,5 +22,16 @@ public class App extends Application {
         InicioViewController controller= loader.getController();
         controller.setStage(primaryStage);
         primaryStage.show();
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), AnchorPane);
+
+        // Establecemos la opacidad inicial y final para la transición
+        fadeTransition.setFromValue(0.0);
+        fadeTransition.setToValue(1.0);
+
+        // Iniciamos la transición
+        fadeTransition.play();
+
+
+
     }
 }

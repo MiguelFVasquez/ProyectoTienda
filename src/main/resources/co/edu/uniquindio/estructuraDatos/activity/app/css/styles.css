@@ -1,0 +1,40 @@
+.text-field {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 5px;
+    -fx-border-color: #0a002c; /* Color del borde */
+    -fx-border-width: 1px;
+    -fx-border-radius: 3px;
+    -fx-font-size: 14px;
+    -fx-font-family: Arial, sans-serif;
+}
+
+.text-field:focused {
+    -fx-border-color: #007BFF; /* Color del borde cuando está enfocado */
+    -fx-border-width: 1px;
+    -fx-border-radius: 3px;
+}
+
+.rectangle {
+    -fx-background-color: linear-gradient(to bottom right, #00574a, #3c00ff);
+    -fx-border-color: #000;
+}
+
+.tab-pane {
+    -fx-tab-min-width: 120px; /* Ancho mínimo de las pestañas */
+    -fx-tab-max-width: 120px; /* Ancho máximo de las pestañas */
+}
+
+.tab {
+    -fx-background-color: transparent; /* Fondo transparente */
+}
+
+.tab-label {
+    -fx-font-size: 14px; /* Tamaño de fuente */
+    -fx-font-weight: bold; /* Negrita */
+}
+
+.tab:selected .tab-label {
+    -fx-text-fill: #007BFF; /* Color del texto cuando la pestaña está seleccionada */
+}
+
