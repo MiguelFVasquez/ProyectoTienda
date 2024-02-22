@@ -9,7 +9,7 @@ public interface ITienda {
 
     //----------Metodos para los clientes----------------------------
     public boolean crearCliente(Cliente newCliente) throws ClienteException;
-    public void acualizarCliente(Cliente clienteActualizar);
+    public boolean acualizarCliente(Cliente clienteActualizar) throws ClienteException;
     public boolean eliminarCliente(Cliente clienteEliminar) throws ClienteException;
 
     //----------Metodos para la venta-----------------------

@@ -4,18 +4,29 @@ import co.edu.uniquindio.estructuraDatos.activity.exceptions.ClienteException;
 import co.edu.uniquindio.estructuraDatos.activity.exceptions.VentaException;
 import co.edu.uniquindio.estructuraDatos.activity.model.interfaces.ITienda;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Tienda implements ITienda {
 
+    private String nombre;
+    private HashMap<String,Cliente> mapClientes;
+    private HashMap<String,Producto> mapProductos;
 
-    private List<Cliente> listaClientes;
+    private Set<Producto> listaProductos; //Carrito
     private List<Venta> listaVentas;
+
+
+
     public Tienda() {
-        this.listaClientes = new ArrayList<>();
+    }
+
+    public Tienda(String nombre) {
+        this.nombre= nombre;
+        this.mapClientes = new HashMap<>();
+        this.listaVentas= new ArrayList<>();
+        this.mapProductos = new HashMap<>();
+        this.listaProductos= new HashSet<>();
     }
     //-------------------------CRUD CLIENTE-----------------------------------------
 
@@ -23,52 +34,82 @@ public class Tienda implements ITienda {
      *  Si la lista "clientesIguales" permanece vacia va a @return false, o sea que no se encontro ningun empleado igual
      *      * @param cedula
      *      * @return
-     * @param identificacion
+     * @param
      * @return
      */
-    private boolean verificarCliente(String identificacion){
-        List<Cliente>clientesIguales= this.listaClientes.stream()
-                .filter(c ->c.verificarIdentificacion(identificacion))
-                .collect(Collectors.toList());
-        return !clientesIguales.isEmpty();
+    //-------------------------CRUD CLIENTE---------------------------------
+
+    /**
+     * Metodo para verificar la existencia de un cliente
+     * @param numeroIdentificacion
+     * @return
+     */
+    private boolean verificarCliente(String numeroIdentificacion){
+        return mapClientes.containsKey(numeroIdentificacion);
+    }
+    private Cliente obtenerCliente(String numeroIdentificacion){
+        return mapClientes.getOrDefault(numeroIdentificacion, null);
     }
 
     /**
-     * La idea detrás de usar Optional es indicar de manera explícita que el resultado puede ser nulo, evitando así los problemas asociados con los valores nulos.
-     * @param identificacion
+     *Obtengo la identificacion del newCliente
+     * Si el cliente ya existe no se crea un nuevo cliente con la misma identificacion
+     * Si no, lo añadp al hashMap de clientes
+     * @param newCliente
      * @return
+     * @throws ClienteException
      */
-    private Cliente obtenerCliente(String identificacion){
-        Optional<Cliente> clienteOptional=listaClientes.stream()
-                .filter(c->c.verificarIdentificacion(identificacion))
-                .findFirst();
-        return clienteOptional.orElse(null);
-    }
-    @Override
-    public boolean crearCliente(Cliente newCliente) throws ClienteException {
-        boolean creado=false;
-        if (verificarCliente(newCliente.getNumeroIdentificacion())){
-            throw new ClienteException("El cliente con el número de identicación: " + newCliente.getNumeroIdentificacion() + " ya se encuentra registrado");
+    public boolean crearCliente(Cliente newCliente) throws ClienteException{
+        boolean creado= false;
+        String numIdentificacion= newCliente.getNumeroIdentificacion();
+        if (verificarCliente(numIdentificacion)){
+            throw new ClienteException("El número de identificación " + numIdentificacion+ " ya se encuentra asociado a un cliente");
         }else {
             creado=true;
-            listaClientes.add(newCliente);
+            mapClientes.put(numIdentificacion,newCliente);
         }
         return creado;
     }
 
-    @Override
-    public void acualizarCliente(Cliente clienteActualizar) {
-
+    /**
+     * Obtengo los nuevos valores del cliente
+     * Verifico que el cliente si exista
+     * si existe accedo al metodo set para cambiarle los atributos
+     * @param clienteActualizar
+     * @return
+     * @throws ClienteException
+     */
+    public boolean acualizarCliente(Cliente clienteActualizar) throws ClienteException{
+        boolean actualizado= false;
+        String numIdentificacion= clienteActualizar.getNumeroIdentificacion();
+        String newName= clienteActualizar.getNombre();
+        String newAddress= clienteActualizar.getDireccion();
+        Cliente clienteObtenido= obtenerCliente(numIdentificacion);
+        if (clienteObtenido == null){
+            throw new ClienteException("El cliente con el número de identificación: " + numIdentificacion+ " no ha sido encontrado"  );
+        }else {
+            actualizado= true;
+            clienteObtenido.setNombre(newName);
+            clienteObtenido.setDireccion(newAddress);
+        }
+        return actualizado;
     }
 
-    @Override
-    public boolean eliminarCliente(Cliente clienteEliminar) throws ClienteException {
+    /**
+     * Obtengo la identificacion del cliente y verifico si el cliente si existe
+     * Si existe lo elimino del hashmap de clientes
+     * @param clienteEliminar
+     * @return
+     * @throws ClienteException
+     */
+    public boolean eliminarCliente(Cliente clienteEliminar) throws ClienteException{
         boolean eliminado= false;
-        if (obtenerCliente(clienteEliminar.getNumeroIdentificacion())==null){
-            throw new ClienteException("El cliente con el número de identificación: "+ clienteEliminar.getNumeroIdentificacion()+ " no se encuentra en el sistema");
+        String numIdentificacion= clienteEliminar.getNumeroIdentificacion();
+        if (obtenerCliente(numIdentificacion) == null){
+            throw new ClienteException("El cliente con el número de identificación: " + numIdentificacion+ " no ha sido encontrado"  );
         }else {
             eliminado=true;
-            listaClientes.remove(clienteEliminar);
+            mapClientes.remove(numIdentificacion);
         }
         return eliminado;
     }
@@ -108,7 +149,6 @@ public class Tienda implements ITienda {
             eliminado= true;
             listaVentas.remove(ventaEliminar);
         }
-
         return eliminado;
     }
 }

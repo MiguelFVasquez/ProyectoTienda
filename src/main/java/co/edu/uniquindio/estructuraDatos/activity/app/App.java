@@ -22,7 +22,7 @@ public class App extends Application {
         InicioViewController controller= loader.getController();
         controller.setStage(primaryStage);
         primaryStage.show();
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), AnchorPane);
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2), AnchorPane);
 
         // Establecemos la opacidad inicial y final para la transición
         fadeTransition.setFromValue(0.0);
