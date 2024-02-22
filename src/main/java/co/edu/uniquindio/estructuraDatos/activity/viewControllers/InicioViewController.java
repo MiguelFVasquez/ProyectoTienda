@@ -9,6 +9,7 @@ import javafx.animation.FillTransition;
 import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
@@ -48,7 +49,7 @@ public class InicioViewController {
     private TextField txtIdentificacionInicioSesion;
 
     @FXML
-    private TextField txtIdentificacionRegjstro;
+    private TextField txtIdentificacionRegistro;
 
     @FXML
     private TextField txtNombreRegistro;
@@ -95,6 +96,18 @@ public class InicioViewController {
         scaleOut.setToX(1);
         scaleOut.setToY(1);
 
+        ScaleTransition scaleIn2 = new ScaleTransition(Duration.seconds(0.2), btnRegistrarse);
+        scaleIn2.setFromX(1);
+        scaleIn2.setFromY(1);
+        scaleIn2.setToX(1.1);
+        scaleIn2.setToY(1.1);
+
+        ScaleTransition scaleOut2 = new ScaleTransition(Duration.seconds(0.2), btnRegistrarse);
+        scaleOut2.setFromX(1.1);
+        scaleOut2.setFromY(1.1);
+        scaleOut2.setToX(1);
+        scaleOut2.setToY(1);
+
         // Manejamos el evento cuando el mouse entra en el botón
         btnInicioSesion.setOnMouseEntered(event -> {
             btnInicioSesion.setStyle("-fx-background-color: white; -fx-border-color:   #0a002c; -fx-text-fill:   #0a002c ; -fx-cursor: hand");
@@ -113,6 +126,34 @@ public class InicioViewController {
             presionaAqui.setStyle("-fx-cursor: default");
         });
 
+        btnRegistrarse.setOnMouseEntered(event -> {
+            btnRegistrarse.setStyle("-fx-background-color: white; -fx-border-color: #00574a; -fx-text-fill:   #00574a ; -fx-cursor: hand");
+            scaleIn2.play();
+        });
+
+        // Manejamos el evento cuando el mouse sale del botón
+        btnRegistrarse.setOnMouseExited(event -> {
+            btnRegistrarse.setStyle("-fx-background-color:   #00574a; -fx-cursor: default; -fx-text-fill:WHITE");
+            scaleOut2.play();});
+
+        txtNombreRegistro.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                // Seleccionar el siguiente campo de texto
+                txtIdentificacionRegistro.requestFocus();
+            }
+        });
+        txtIdentificacionRegistro.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                // Seleccionar el siguiente campo de texto
+                txtDireccion.requestFocus();
+            }
+        });
+        txtDireccion.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                // Seleccionar el siguiente campo de texto
+                registrarse( new ActionEvent() );
+            }
+        });
 
 
 

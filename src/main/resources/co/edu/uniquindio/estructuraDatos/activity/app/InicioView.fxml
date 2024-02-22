@@ -95,10 +95,10 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtNombreRegistro" layoutX="297.0" layoutY="119.0" prefHeight="25.0" prefWidth="262.0" />
-                        <TextField fx:id="txtIdentificacionRegjstro" layoutX="297.0" layoutY="150.0" prefHeight="25.0" prefWidth="262.0" />
-                        <TextField fx:id="txtDireccion" layoutX="297.0" layoutY="181.0" prefHeight="25.0" prefWidth="262.0" />
-                        <Button fx:id="btnRegistrarse" layoutX="217.0" layoutY="229.0" mnemonicParsing="false" onAction="#registrarse" prefHeight="41.0" prefWidth="194.0" style="-fx-background-color: transparent; -fx-border-color: #00574a;" text="Registrarse" />
+                        <TextField fx:id="txtNombreRegistro" layoutX="297.0" layoutY="119.0" prefHeight="25.0" prefWidth="262.0" stylesheets="@css/styles.css" />
+                        <TextField fx:id="txtIdentificacionRegistro" layoutX="297.0" layoutY="150.0" prefHeight="25.0" prefWidth="262.0" stylesheets="@css/styles.css" />
+                        <TextField fx:id="txtDireccion" layoutX="297.0" layoutY="181.0" prefHeight="25.0" prefWidth="262.0" styleClass="text-field" stylesheets="@css/styles.css" />
+                        <Button fx:id="btnRegistrarse" layoutX="217.0" layoutY="229.0" mnemonicParsing="false" onAction="#registrarse" prefHeight="41.0" prefWidth="194.0" style="-fx-border-color: #00574a; -fx-background-color: #00574a;" text="Registrarse" textFill="WHITE" />
                         <FontAwesomeIconView glyphName="USER" layoutX="399.0" layoutY="98.0" size="80" tabSize="80">
                            <fill>
                               <LinearGradient endX="1.0" endY="1.0" startX="0.6161137440758293" startY="0.4218009478672986">

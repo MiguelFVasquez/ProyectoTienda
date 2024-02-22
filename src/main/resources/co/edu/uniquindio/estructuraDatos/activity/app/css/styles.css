@@ -2,7 +2,6 @@
     -fx-background-color: transparent;
     -fx-background-insets: 0;
     -fx-padding: 5px;
-    -fx-border-color: #0a002c; /* Color del borde */
     -fx-border-width: 1px;
     -fx-border-radius: 3px;
     -fx-font-size: 14px;
@@ -37,4 +36,31 @@
 .tab:selected .tab-label {
     -fx-text-fill: #007BFF; /* Color del texto cuando la pestaña está seleccionada */
 }
+/* Estilo para la tabla */
+.table-view {
+    -fx-background-color: #FFFFFF; /* Color de fondo */
+}
+
+/* Estilo para las celdas */
+.table-cell {
+    -fx-padding: 5px; /* Espaciado interno */
+    -fx-alignment: center; /* Alineación centrada */
+}
+
+/* Estilo para las filas pares */
+.table-row-cell:even {
+    -fx-background-color: #F5F5F5; /* Color de fondo para filas pares */
+}
+
+/* Estilo para las filas impares */
+.table-row-cell:odd {
+    -fx-background-color: #EAEAEA; /* Color de fondo para filas impares */
+}
+
+/* Estilo para las filas seleccionadas */
+.table-row-cell:selected {
+    -fx-background-color: #007BFF; /* Color de fondo para filas seleccionadas */
+    -fx-text-fill: white; /* Color de texto para filas seleccionadas */
+}
+
 
