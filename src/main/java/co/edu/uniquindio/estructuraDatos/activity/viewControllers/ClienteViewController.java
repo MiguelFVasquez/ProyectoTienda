@@ -112,7 +112,8 @@ public class ClienteViewController {
         controller.init(stage);
 
         stage.show();
-
+        controller.setClienteViewController( this );
+        btnCarritoCompras.setDisable( true );
         stage.setX(stage.getX() + stage.getWidth());
         stage.setY(stage.getY());
 
@@ -135,8 +136,6 @@ public class ClienteViewController {
         controller.show();
         slideIn.play();
         fadeTransition.play();
-
-
     }
 
     @FXML
@@ -165,8 +164,16 @@ public class ClienteViewController {
 
     }
 
+    void activarBtnCarrito(){
+        btnCarritoCompras.setDisable( false);
+    }
+
     @FXML
     void initialize() {
+        configurarEventos();
+    }
+
+    private void configurarEventos(){
         // Manejamos el evento cuando el mouse entra en el botón
         btnGuardarInfo.setOnMouseEntered(event -> {
             btnGuardarInfo.setStyle("-fx-background-color: white; -fx-border-color:   green; -fx-text-fill:   green ; -fx-cursor: hand");
@@ -220,5 +227,7 @@ public class ClienteViewController {
             btnCerrarSesion.setStyle("-fx-background-color:   red; -fx-cursor: default; -fx-text-fill:WHITE");
         });
     }
+
+
 
 }
