@@ -129,6 +129,12 @@
     -fx-background-repeat: no-repeat;
     -fx-background-opacity: 60%;
 }
+.registro-items{
+    -fx-background-image: url('../images/RegistroImage.png');
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-opacity: 60%;
+}
 
 
 

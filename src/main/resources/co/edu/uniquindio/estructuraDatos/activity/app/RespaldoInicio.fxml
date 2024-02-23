@@ -50,12 +50,12 @@
                               </LinearGradient>
                            </fill>
                         </Rectangle>
-                        <Label alignment="CENTER" layoutX="357.0" layoutY="80.0" text="Inicio de sesión" textFill="#0a002c">
+                        <Label alignment="CENTER" layoutX="343.0" layoutY="108.0" text="Número de identificación" textFill="#0a002c">
                            <font>
-                              <Font size="26.0" />
+                              <Font size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnInicioSesion" layoutX="392.0" layoutY="181.0" mnemonicParsing="false" onAction="#iniciarSesion" prefHeight="31.0" prefWidth="106.0" style="-fx-border-color: #0a002c; -fx-background-color: #0a002c;" text="Iniciar sesión" textFill="WHITE" />
+                        <Button fx:id="btnInicioSesion" layoutX="391.0" layoutY="188.0" mnemonicParsing="false" onAction="#iniciarSesion" prefHeight="31.0" prefWidth="106.0" style="-fx-border-color: #0a002c; -fx-background-color: #0a002c;" text="Iniciar sesión" textFill="WHITE" />
                         <FontAwesomeIconView fill="WHITE" glyphName="USER" layoutX="55.0" layoutY="238.0" size="200" styleClass="rectangle" />
                         <Label alignment="CENTER" layoutX="14.0" layoutY="32.0" text="¡Bienvenido cliente!" textFill="WHITE">
                            <font>
@@ -77,7 +77,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <PasswordField fx:id="txtIdentificacionInicioSesion" layoutX="346.0" layoutY="135.0" prefHeight="25.0" prefWidth="197.0" promptText="Número de identificación" style="-fx-border-color: #0a002c;" stylesheets="@css/styles.css" />
+                        <PasswordField fx:id="txtIdentificacionInicioSesion" layoutX="345.0" layoutY="145.0" prefHeight="25.0" prefWidth="197.0" promptText="Número de identificación" style="-fx-border-color: #0a002c;" stylesheets="@css/styles.css" />
                      </children>
                   </AnchorPane>
                </content>
@@ -86,43 +86,49 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <AnchorPane layoutY="-1.0" prefHeight="334.0" prefWidth="628.0" styleClass="registro-items" stylesheets="@css/styles.css">
-                           <children>
-                              <Button fx:id="btnRegistrarse" layoutX="223.0" layoutY="236.0" mnemonicParsing="false" onAction="#registrarse" prefHeight="41.0" prefWidth="194.0" style="-fx-border-color: #00574a; -fx-background-color: #00574a; -fx-background-radius: 10; -fx-border-radius: 10;" text="Registrarse" textFill="WHITE" />
-                              <TextField fx:id="txtDireccion" layoutX="183.0" layoutY="188.0" prefHeight="25.0" prefWidth="262.0" promptText="Dirección" style="-fx-border-color: #00574a;" styleClass="text-field" stylesheets="@css/styles.css" />
-                              <TextField fx:id="txtIdentificacionRegistro" layoutX="183.0" layoutY="154.0" prefHeight="25.0" prefWidth="262.0" promptText="Número de identifiación" style="-fx-border-color: #00574a;" stylesheets="@css/styles.css" />
-                              <TextField fx:id="txtNombreRegistro" layoutX="183.0" layoutY="120.0" prefHeight="25.0" prefWidth="262.0" promptText="Número de identifiación" style="-fx-border-color: #00574a;" stylesheets="@css/styles.css" />
-                              <Label alignment="CENTER" layoutX="196.0" layoutY="38.0" text="Registro" textFill="#0a002c">
-                                 <font>
-                                    <Font size="48.0" />
-                                 </font>
-                                 <graphic>
-                                    <FontAwesomeIconView glyphName="USER" size="80" tabSize="80">
-                                       <fill>
-                                          <LinearGradient endX="1.0" endY="1.0" startX="0.6161137440758293" startY="0.4218009478672986">
-                                             <stops>
-                                                <Stop>
-                                                   <color>
-                                                      <Color green="0.34210526943206787" blue="0.29078948497772217" />
-                                                   </color>
-                                                </Stop>
-                                                <Stop offset="0.006711409395973154">
-                                                   <color>
-                                                      <Color green="0.34117648005485535" blue="0.29019609093666077" />
-                                                   </color>
-                                                </Stop>
-                                                <Stop offset="1.0">
-                                                   <color>
-                                                      <Color green="0.34117648005485535" blue="0.29019609093666077" />
-                                                   </color>
-                                                </Stop>
-                                             </stops>
-                                          </LinearGradient>
-                                       </fill>
-                                    </FontAwesomeIconView>
-                                 </graphic>
-                              </Label>
-                           </children></AnchorPane>
+                        <AnchorPane layoutY="-4.0" prefHeight="334.0" prefWidth="628.0" styleClass="registro-items" stylesheets="@css/styles.css" />
+                        <Label layoutX="69.0" layoutY="118.0" prefHeight="27.0" prefWidth="82.0" text="Nombre" textFill="#00574a">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="69.0" layoutY="149.0" text="Número de identificación" textFill="#00574a">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="69.0" layoutY="180.0" text="Dirección" textFill="#00574a">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtNombreRegistro" layoutX="297.0" layoutY="119.0" prefHeight="25.0" prefWidth="262.0" promptText="Número de identifiación" style="-fx-border-color: #00574a;" stylesheets="@css/styles.css" />
+                        <TextField fx:id="txtIdentificacionRegistro" layoutX="297.0" layoutY="150.0" prefHeight="25.0" prefWidth="262.0" promptText="Número de identifiación" style="-fx-border-color: #00574a;" stylesheets="@css/styles.css" />
+                        <TextField fx:id="txtDireccion" layoutX="297.0" layoutY="181.0" prefHeight="25.0" prefWidth="262.0" promptText="Dirección" style="-fx-border-color: #00574a;" styleClass="text-field" stylesheets="@css/styles.css" />
+                        <Button fx:id="btnRegistrarse" layoutX="217.0" layoutY="229.0" mnemonicParsing="false" onAction="#registrarse" prefHeight="41.0" prefWidth="194.0" style="-fx-border-color: #00574a; -fx-background-color: #00574a;" text="Registrarse" textFill="WHITE" />
+                        <FontAwesomeIconView glyphName="USER" layoutX="399.0" layoutY="98.0" size="80" tabSize="80">
+                           <fill>
+                              <LinearGradient endX="1.0" endY="1.0" startX="0.6161137440758293" startY="0.4218009478672986">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color green="0.34210526943206787" blue="0.29078948497772217" />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="0.006711409395973154">
+                                       <color>
+                                          <Color green="0.34117648005485535" blue="0.29019609093666077" />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color green="0.34117648005485535" blue="0.29019609093666077" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </LinearGradient>
+                           </fill>
+                        </FontAwesomeIconView>
                      </children>
                   </AnchorPane>
                </content>

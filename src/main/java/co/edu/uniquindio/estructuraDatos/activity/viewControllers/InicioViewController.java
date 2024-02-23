@@ -61,10 +61,10 @@ public class InicioViewController {
     private TextField txtDireccion;
 
     @FXML
-    private TextField txtIdentificacionInicioSesion;
+    private PasswordField txtIdentificacionInicioSesion;
 
     @FXML
-    private TextField txtIdentificacionRegistro;
+    private TextField  txtIdentificacionRegistro;
 
     @FXML
     private TextField txtNombreRegistro;
