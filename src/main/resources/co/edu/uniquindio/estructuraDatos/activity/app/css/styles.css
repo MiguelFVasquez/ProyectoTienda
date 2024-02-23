@@ -12,10 +12,31 @@
     -fx-border-color: #007BFF; /* Color del borde cuando está enfocado */
     -fx-border-width: 1px;
     -fx-border-radius: 3px;
+
+}
+.text-field2 {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 5px;
+    -fx-border-width: 1px;
+    -fx-border-radius: 3px;
+    -fx-font-size: 14px;
+    -fx-font-family: Arial, sans-serif;
+}
+
+.text-field2:focused {
+    -fx-background-color: white;
+    -fx-border-color: #007BFF; /* Color del borde cuando está enfocado */
+    -fx-border-width: 1px;
+    -fx-border-radius: 3px;
+
+}
+.text-field2.edited{
+    -fx-background-color: white;
 }
 
 .rectangle {
-    -fx-background-color: linear-gradient(to bottom right, #00574a, #3c00ff);
+    -fx-background-color: linear-gradient(to bottom right, #00574a, #0a002c);
     -fx-border-color: #000;
 }
 
@@ -62,5 +83,54 @@
     -fx-background-color: #007BFF; /* Color de fondo para filas seleccionadas */
     -fx-text-fill: white; /* Color de texto para filas seleccionadas */
 }
+
+
+.buttonRed{
+    -fx-background-color: red;
+    -fx-border-color: red;
+    -fx-text-fill:   white ;
+
+}
+.buttonRed:hover{
+    -fx-background-color: transparent;
+    -fx-text-fill:   red;
+    -fx-cursor: hand;
+}
+
+.buttonGreen{
+    -fx-background-color: green;
+    -fx-border-color: green;
+    -fx-text-fill:   white ;
+
+}
+.buttonGreen:hover{
+    -fx-background-color: transparent;
+    -fx-text-fill:   white;
+    -fx-cursor: hand;
+}
+.button-Green-WhiteBack{
+    -fx-background-color: green;
+    -fx-border-color: green;
+    -fx-text-fill:   white ;
+
+}
+.button-Green-WhiteBack:hover{
+    -fx-background-color: transparent;
+    -fx-text-fill:   green;
+    -fx-cursor: hand;
+}
+.button:hover{
+    -fx-cursor: hand;
+}
+
+.carrito-background{
+    -fx-background-image: url('../images/CarritoBackground.jpeg');
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-opacity: 60%;
+}
+
+
+
 
 

@@ -18,6 +18,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class ClienteViewController {
@@ -79,6 +80,9 @@ public class ClienteViewController {
     private Button btnGuardarInfo;
 
     @FXML
+    private Button btnBuscarProducto;
+
+    @FXML
     private TableColumn<?, ?> columnPrecio;
 
     @FXML
@@ -100,6 +104,13 @@ public class ClienteViewController {
     private TextField txtNumeroIdentificacion;
 
     @FXML
+    private TextField txtCantidad;
+
+    @FXML
+    private TextField txtBuscarProducto;
+
+
+    @FXML
     void abrirVentanaCarrito(ActionEvent event) throws IOException {
         FXMLLoader loader= new FXMLLoader();
         loader.setLocation( App.class.getResource("CarritoView.fxml"));
@@ -111,6 +122,7 @@ public class ClienteViewController {
         stage.setScene(scene);
         controller.init(stage);
 
+        stage.setTitle( "Carrito de compras" );
         stage.show();
         controller.setClienteViewController( this );
         btnCarritoCompras.setDisable( true );
@@ -140,6 +152,10 @@ public class ClienteViewController {
 
     @FXML
     void agregarAlCarrito(ActionEvent event) {
+
+    }
+    @FXML
+    void buscarProducto(ActionEvent event) {
 
     }
 
@@ -175,14 +191,6 @@ public class ClienteViewController {
 
     private void configurarEventos(){
         // Manejamos el evento cuando el mouse entra en el botón
-        btnGuardarInfo.setOnMouseEntered(event -> {
-            btnGuardarInfo.setStyle("-fx-background-color: white; -fx-border-color:   green; -fx-text-fill:   green ; -fx-cursor: hand");
-        });
-
-        // Manejamos el evento cuando el mouse sale del botón
-        btnGuardarInfo.setOnMouseExited(event -> {
-            btnGuardarInfo.setStyle("-fx-background-color:  green; -fx-cursor: default; -fx-text-fill:WHITE");
-        });
 
         btnCambiarInfo.setOnMouseEntered(event -> {
             btnCambiarInfo.setStyle("-fx-background-color: white; -fx-border-color:    #b26500; -fx-text-fill:    #b26500 ; -fx-cursor: hand");
@@ -194,38 +202,17 @@ public class ClienteViewController {
         });
 
         btnCarritoCompras.setOnMouseEntered(event -> {
-            btnCarritoCompras.setStyle("-fx-background-color: white; -fx-border-color:    #b26500; -fx-text-fill:    #b26500 ; -fx-cursor: hand");
+            btnCarritoCompras.setStyle("-fx-background-color: #b26500;-fx-border-color:    transparent;-fx-cursor: hand");
         });
 
         // Manejamos el evento cuando el mouse sale del botón
         btnCarritoCompras.setOnMouseExited(event -> {
-            btnCarritoCompras.setStyle("-fx-background-color:  #b26500; -fx-cursor: default; -fx-text-fill:WHITE");
+            btnCarritoCompras.setStyle("-fx-background-color:  transparent; -fx-border-color:    #b26500; -fx-cursor: default");
         });
 
-        btnCancelarCambios.setOnMouseEntered( event ->  {
-            btnCancelarCambios.setStyle("-fx-background-color: white; -fx-border-color:   red; -fx-text-fill:   red ; -fx-cursor: hand");
-        });
-        btnCancelarCambios.setOnMouseExited( event ->  {
-            btnCancelarCambios.setStyle("-fx-background-color: red; -fx-cursor: default; -fx-text-fill:WHITE");
 
-        });
 
-        btnAgregarCarrito.setOnMouseEntered( event ->  {
-            btnAgregarCarrito.setStyle("-fx-background-color: white; -fx-border-color:   green; -fx-text-fill:   green ; -fx-cursor: hand");
-        });
-        btnAgregarCarrito.setOnMouseExited( event ->  {
-            btnAgregarCarrito.setStyle("-fx-background-color: green; -fx-cursor: default; -fx-text-fill:WHITE");
 
-        });
-
-        btnCerrarSesion.setOnMouseEntered(event -> {
-            btnCerrarSesion.setStyle("-fx-background-color: white; -fx-border-color: red; -fx-text-fill:   red ; -fx-cursor: hand");
-        });
-
-        // Manejamos el evento cuando el mouse sale del botón
-        btnCerrarSesion.setOnMouseExited(event -> {
-            btnCerrarSesion.setStyle("-fx-background-color:   red; -fx-cursor: default; -fx-text-fill:WHITE");
-        });
     }
 
 

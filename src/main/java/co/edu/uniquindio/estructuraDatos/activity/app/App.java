@@ -21,6 +21,8 @@ public class App extends Application {
         primaryStage.setScene(scene);
         InicioViewController controller= loader.getController();
         controller.setStage(primaryStage);
+
+        primaryStage.setTitle( "Tienda" );
         primaryStage.show();
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2), AnchorPane);
 

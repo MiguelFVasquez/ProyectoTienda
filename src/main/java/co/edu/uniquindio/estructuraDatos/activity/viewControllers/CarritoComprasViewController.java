@@ -86,13 +86,12 @@ public class CarritoComprasViewController {
 
     @FXML
     void cerrarVentana(ActionEvent event) {
-        this.stage.close();
         clienteViewController.activarBtnCarrito();
+        this.stage.close();
     }
 
     @FXML
     void initialize() {
-        configurarEventos();
     }
 
     private void configurarEventos() {

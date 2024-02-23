@@ -100,6 +100,7 @@ public class InicioViewController {
         controller.init(stage);
         controller.setInicioViewController( this );
 
+        stage.setTitle( "Tienda" );
         stage.show();
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), anchorPane);
 
