@@ -90,31 +90,62 @@ public class InicioViewController {
 
     @FXML
     void iniciarSesion(ActionEvent event) throws IOException {
-        FXMLLoader loader= new FXMLLoader();
-        loader.setLocation( App.class.getResource("ClienteView.fxml"));
-        AnchorPane anchorPane= loader.load();
-        ClienteViewController controller = loader.getController();
-        controller.setAplicacion(aplicacion);
-        Scene scene= new Scene(anchorPane);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        controller.init(stage);
-        controller.setInicioViewController( this );
+        String id = txtIdentificacionInicioSesion.getText();
+        if(id.equals( "0000" )){
+            FXMLLoader loader= new FXMLLoader();
+            loader.setLocation( App.class.getResource("AdminView.fxml"));
+            AnchorPane anchorPane= loader.load();
+            AdminViewController controller = loader.getController();
+            controller.setAplicacion(aplicacion);
+            Scene scene= new Scene(anchorPane);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            controller.init(stage);
+            controller.setInicioViewController( this );
 
-        stage.setTitle( "Tienda" );
-        stage.show();
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), anchorPane);
+            stage.setTitle( "Tienda" );
+            stage.show();
+            FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), anchorPane);
 
-        // Establecemos la opacidad inicial y final para la transición
-        fadeTransition.setFromValue(0.0);
-        fadeTransition.setToValue(1.0);
+            // Establecemos la opacidad inicial y final para la transición
+            fadeTransition.setFromValue(0.0);
+            fadeTransition.setToValue(1.0);
 
-        // Iniciamos la transición
-        fadeTransition.play();
-        this.stage.close();
+            // Iniciamos la transición
+            fadeTransition.play();
+            txtIdentificacionInicioSesion.clear();
+            this.stage.close();
+        }
+        else {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation( App.class.getResource( "ClienteView.fxml" ) );
+            AnchorPane anchorPane = loader.load();
+            ClienteViewController controller = loader.getController();
+            controller.setAplicacion( aplicacion );
+            Scene scene = new Scene( anchorPane );
+            Stage stage = new Stage();
+            stage.setScene( scene );
+            controller.init( stage );
+            controller.setInicioViewController( this );
+
+            stage.setTitle( "Tienda" );
+            stage.show();
+            FadeTransition fadeTransition = new FadeTransition( Duration.seconds( 1 ) , anchorPane );
+
+            // Establecemos la opacidad inicial y final para la transición
+            fadeTransition.setFromValue( 0.0 );
+            fadeTransition.setToValue( 1.0 );
+
+            // Iniciamos la transición
+            fadeTransition.play();
+            txtIdentificacionInicioSesion.clear();
+            this.stage.close();
+        }
     }
     @FXML
-    void registrarse(ActionEvent event) {
+    void registrarse(ActionEvent event) throws IOException {
+
+
     }
 
     @FXML
@@ -194,15 +225,27 @@ public class InicioViewController {
         txtDireccion.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 // Seleccionar el siguiente campo de texto
-                registrarse( new ActionEvent() );
+                try {
+                    registrarse( new ActionEvent() );
+                } catch (IOException e) {
+                    throw new RuntimeException( e );
+                }
+            }
+        });
+        txtIdentificacionInicioSesion.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                // Seleccionar el siguiente campo de texto
+                try {
+                    iniciarSesion( new ActionEvent() );
+                } catch (IOException e) {
+                    throw new RuntimeException( e );
+                }
             }
         });
 
 
 
-
-
-
     }
+
 
 }
