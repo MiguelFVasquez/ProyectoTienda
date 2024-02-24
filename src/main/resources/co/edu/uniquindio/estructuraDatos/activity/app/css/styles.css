@@ -134,7 +134,7 @@
 }
 
 .carrito-background{
-    -fx-background-image: url('../images/CarritoBackground.jpeg');
+    -fx-background-image: url('../images/CarritoBackground.png');
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
     -fx-background-opacity: 60%;

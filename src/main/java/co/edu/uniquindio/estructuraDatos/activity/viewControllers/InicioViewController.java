@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import co.edu.uniquindio.estructuraDatos.activity.app.App;
 import co.edu.uniquindio.estructuraDatos.activity.controllers.InicioController;
+import co.edu.uniquindio.estructuraDatos.activity.exceptions.ClienteException;
 import javafx.animation.FadeTransition;
 import javafx.animation.FillTransition;
 import javafx.animation.ScaleTransition;
@@ -29,7 +30,7 @@ public class InicioViewController {
     Stage stage;
     private App aplicacion;
 
-
+    // FUNCIONES DE APERTURA DE VENTANA
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -79,48 +80,16 @@ public class InicioViewController {
     private TabPane tabPane;
 
 
-    @FXML
-    void initialize() {
-        inicioController= new InicioController();
-        inicioController.mfm.initInicioViewController(this);
-        configurarEventos();
-        tabRegistro.setDisable( true );
 
-    }
-
+    //--------------------------------------------TAB INICIO DE SESION--------------------------------------------------
     @FXML
     void iniciarSesion(ActionEvent event) throws IOException {
         String id = txtIdentificacionInicioSesion.getText();
-        if(id.equals( "0000" )){
-            FXMLLoader loader= new FXMLLoader();
-            loader.setLocation( App.class.getResource("AdminView.fxml"));
-            AnchorPane anchorPane= loader.load();
-            AdminViewController controller = loader.getController();
-            controller.setAplicacion(aplicacion);
-            Scene scene= new Scene(anchorPane);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            controller.init(stage);
-            controller.setInicioViewController( this );
-
-            stage.setTitle( "Tienda" );
-            stage.show();
-            FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), anchorPane);
-
-            // Establecemos la opacidad inicial y final para la transición
-            fadeTransition.setFromValue(0.0);
-            fadeTransition.setToValue(1.0);
-
-            // Iniciamos la transición
-            fadeTransition.play();
-            txtIdentificacionInicioSesion.clear();
-            this.stage.close();
-        }
-        else {
+        if ( id.equals( "0000" ) ) {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation( App.class.getResource( "ClienteView.fxml" ) );
+            loader.setLocation( App.class.getResource( "AdminView.fxml" ) );
             AnchorPane anchorPane = loader.load();
-            ClienteViewController controller = loader.getController();
+            AdminViewController controller = loader.getController();
             controller.setAplicacion( aplicacion );
             Scene scene = new Scene( anchorPane );
             Stage stage = new Stage();
@@ -140,12 +109,55 @@ public class InicioViewController {
             fadeTransition.play();
             txtIdentificacionInicioSesion.clear();
             this.stage.close();
+        } else {
+            if ( !id.isEmpty() ) {
+                if ( esNumero( id ) ) {
+                    if ( verificarCliente( id ) ) {
+                        FXMLLoader loader = new FXMLLoader();
+                        loader.setLocation( App.class.getResource( "ClienteView.fxml" ) );
+                        AnchorPane anchorPane = loader.load();
+                        ClienteViewController controller = loader.getController();
+                        controller.setAplicacion( aplicacion );
+                        Scene scene = new Scene( anchorPane );
+                        Stage stage = new Stage();
+                        stage.setScene( scene );
+                        controller.init( stage );
+                        controller.setInicioViewController( this );
+
+                        stage.setTitle( "Tienda" );
+                        stage.show();
+                        FadeTransition fadeTransition = new FadeTransition( Duration.seconds( 1 ) , anchorPane );
+
+                        // Establecemos la opacidad inicial y final para la transición
+                        fadeTransition.setFromValue( 0.0 );
+                        fadeTransition.setToValue( 1.0 );
+
+                        // Iniciamos la transición
+                        fadeTransition.play();
+                        txtIdentificacionInicioSesion.clear();
+                        this.stage.close();
+                    } else {
+                        txtIdentificacionInicioSesion.clear();
+                        mostrarMensaje( "Notificación" , "Credencial no válida" ,
+                                "El número de identificación no se encuentra registrado" , Alert.AlertType.INFORMATION
+                        );
+                    }
+                } else {
+                    txtIdentificacionInicioSesion.clear();
+                    mostrarMensaje( "Notificación" , "Credencial incorrecta" ,
+                            "La identificación debe ser númerica" , Alert.AlertType.INFORMATION
+                    );
+                }
+            } else {
+                mostrarMensaje( "Notificación" , "Espacio en blanco" ,
+                        "Ingrese una identificación" , Alert.AlertType.INFORMATION
+                );
+            }
         }
     }
-    @FXML
-    void registrarse(ActionEvent event) throws IOException {
 
-
+    private boolean verificarCliente(String id) {
+        return inicioController.mfm.verificarCliente( id );
     }
 
     @FXML
@@ -155,6 +167,39 @@ public class InicioViewController {
 
     }
 
+
+
+    //---------------------------------------TAB DE REGISTRO------------------------------------------------------------
+    @FXML
+    void registrarse(ActionEvent event) throws IOException, ClienteException {
+        String nombre = txtNombreRegistro.getText();
+        String id = txtIdentificacionRegistro.getText();
+        String direccion = txtDireccion.getText();
+
+        if(validarDatos( nombre,id,direccion )){
+            if(registrarCliente(nombre, id, direccion)){
+                mostrarMensaje( "Notificación", "Cliente creado con éxito","", Alert.AlertType.INFORMATION );
+                limpiarCampos();
+            }else{
+                mostrarMensaje( "Notificación", "Cliente no creado",
+                        "La identifiación ingresada ya se encuentra registrada" , Alert.AlertType.INFORMATION );
+                txtIdentificacionRegistro.clear();
+            }
+        }
+    }
+
+    void limpiarCampos(){
+        txtDireccion.clear();
+        txtNombreRegistro.clear();
+        txtIdentificacionRegistro.clear();
+    }
+
+    private boolean registrarCliente(String nombre , String id , String direccion) throws ClienteException {
+        return inicioController.mfm.registrarCliente( nombre,id,direccion );
+    }
+
+
+    //-------------------------------FUNCIONES UTILITARIAS-----------------------------------------------------------
     private void configurarEventos() {
 
         // Creamos una transición de escala que dura 0.2 segundos
@@ -229,6 +274,8 @@ public class InicioViewController {
                     registrarse( new ActionEvent() );
                 } catch (IOException e) {
                     throw new RuntimeException( e );
+                } catch (ClienteException e) {
+                    throw new RuntimeException( e );
                 }
             }
         });
@@ -247,5 +294,60 @@ public class InicioViewController {
 
     }
 
+    @FXML
+    void initialize() {
+        inicioController= new InicioController();
+        inicioController.mfm.initInicioViewController(this);
+        configurarEventos();
+        tabRegistro.setDisable( true );
 
+    }
+
+    public void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertype) {
+        Alert alert = new Alert(alertype);
+        alert.setTitle(titulo);
+        alert.setHeaderText(header);
+        alert.setContentText(contenido);
+        alert.showAndWait();
+    }
+
+    private boolean esNumero(String string) {
+        try {
+            Float.parseFloat(string);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private boolean validarDatos(String nombre, String id, String direccion) {
+        String notificacion = "";
+
+		/*Se valida que el saldo ingresado no sea null ni sea cadena vacía,
+		además se valida que sea numérico para su correcta conversión */
+
+
+        if (nombre == null || nombre.isEmpty()) {
+            notificacion += "Ingrese su nombre\n";
+        }
+
+        if (id == null || id.isEmpty()) {
+            notificacion += "Ingrese su número de identificación\n";
+        } else {
+            if (!esNumero(id)) {
+                notificacion += "El número ingresado debe ser numérico\n";
+            }
+        }
+        if (direccion == null || direccion.isEmpty()) {
+            notificacion += "Ingrese su dirección\n";
+        }
+        if (!notificacion.isEmpty()) {
+            mostrarMensaje("Notificación", "Registro fallido",
+                    notificacion
+                    , Alert.AlertType.WARNING);
+            return false;
+        }
+        return true;
+    }
 }
+

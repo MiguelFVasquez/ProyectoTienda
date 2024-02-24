@@ -44,10 +44,10 @@ public class Tienda implements ITienda {
      * @param numeroIdentificacion
      * @return
      */
-    private boolean verificarCliente(String numeroIdentificacion){
+    public boolean verificarCliente(String numeroIdentificacion){
         return mapClientes.containsKey(numeroIdentificacion);
     }
-    private Cliente obtenerCliente(String numeroIdentificacion){
+    public Cliente obtenerCliente(String numeroIdentificacion){
         return mapClientes.getOrDefault(numeroIdentificacion, null);
     }
 
