@@ -3,6 +3,8 @@ module com.example.clase {
     requires javafx.fxml;
     requires javafx.graphics;
     requires javafx.base;
+    requires java.logging;
+    requires java.desktop;
 
 
     opens co.edu.uniquindio.estructuraDatos.activity.app to javafx.graphics, javafx.fxml;

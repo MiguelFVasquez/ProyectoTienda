@@ -178,8 +178,11 @@ public class InicioViewController {
 
         if(validarDatos( nombre,id,direccion )){
             if(registrarCliente(nombre, id, direccion)){
-                mostrarMensaje( "Notificación", "Cliente creado con éxito","", Alert.AlertType.INFORMATION );
+                mostrarMensaje( "Notificación", "Cliente creado con éxito","Ahora inicie sesión", Alert.AlertType.INFORMATION );
+                inicioController.mfm.serializarClienteRegistrado();
+                tabPane.getSelectionModel().select( tabInicio );
                 limpiarCampos();
+                tabRegistro.setDisable( true );
             }else{
                 mostrarMensaje( "Notificación", "Cliente no creado",
                         "La identifiación ingresada ya se encuentra registrada" , Alert.AlertType.INFORMATION );

@@ -16,7 +16,45 @@ public class Tienda implements ITienda {
     private Set<Producto> listaProductos; //Carrito
     private List<Venta> listaVentas;
 
+    public String getNombre() {
+        return nombre;
+    }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public HashMap<String, Cliente> getMapClientes() {
+        return mapClientes;
+    }
+
+    public void setMapClientes(HashMap<String, Cliente> mapClientes) {
+        this.mapClientes = mapClientes;
+    }
+
+    public HashMap<String, Producto> getMapProductos() {
+        return mapProductos;
+    }
+
+    public void setMapProductos(HashMap<String, Producto> mapProductos) {
+        this.mapProductos = mapProductos;
+    }
+
+    public Set<Producto> getListaProductos() {
+        return listaProductos;
+    }
+
+    public void setListaProductos(Set<Producto> listaProductos) {
+        this.listaProductos = listaProductos;
+    }
+
+    public List<Venta> getListaVentas() {
+        return listaVentas;
+    }
+
+    public void setListaVentas(List<Venta> listaVentas) {
+        this.listaVentas = listaVentas;
+    }
 
     public Tienda() {
     }
