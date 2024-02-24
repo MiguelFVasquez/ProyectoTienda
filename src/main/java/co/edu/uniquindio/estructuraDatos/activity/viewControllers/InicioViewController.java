@@ -55,7 +55,7 @@ public class InicioViewController {
     private Button btnRegistrarse;
 
     @FXML
-    private Label presionaAqui;
+    private Button presionaAqui;
 
     @FXML
     private TextField txtDireccion;
@@ -84,6 +84,7 @@ public class InicioViewController {
         inicioController= new InicioController();
         inicioController.mfm.initInicioViewController(this);
         configurarEventos();
+        tabRegistro.setDisable( true );
 
     }
 
@@ -114,6 +115,13 @@ public class InicioViewController {
     }
     @FXML
     void registrarse(ActionEvent event) {
+    }
+
+    @FXML
+    void activarTabRegistro(ActionEvent event) {
+        tabRegistro.setDisable( false ); // Habilita el tab de registro al presionar el botón de registro
+        tabPane.getSelectionModel().select( tabRegistro ); // Cambia a la pestaña de registro automáticamente
+
     }
 
     private void configurarEventos() {
@@ -189,6 +197,8 @@ public class InicioViewController {
                 registrarse( new ActionEvent() );
             }
         });
+
+
 
 
 

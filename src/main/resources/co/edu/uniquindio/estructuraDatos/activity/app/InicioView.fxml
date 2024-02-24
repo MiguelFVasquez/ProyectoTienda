@@ -67,17 +67,13 @@
                               <Font size="11.0" />
                            </font>
                         </Label>
-                        <Label fx:id="presionaAqui" alignment="CENTER" layoutX="466.0" layoutY="288.0" prefHeight="23.0" prefWidth="76.0" text="Presiona aquí" textFill="#3c00ff">
-                           <font>
-                              <Font size="11.0" />
-                           </font>
-                        </Label>
                         <Label alignment="CENTER" layoutX="330.0" layoutY="53.0" textFill="#0a002c">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
                         <PasswordField fx:id="txtIdentificacionInicioSesion" layoutX="346.0" layoutY="135.0" prefHeight="25.0" prefWidth="197.0" promptText="Número de identificación" style="-fx-border-color: #0a002c;" stylesheets="@css/styles.css" />
+                        <Button fx:id="presionaAqui" layoutX="459.0" layoutY="286.0" mnemonicParsing="false" onAction="#activarTabRegistro" prefHeight="27.0" prefWidth="98.0" styleClass="button-links" stylesheets="@css/styles.css" text="Presiona aquí" textFill="#3c00ff" />
                      </children>
                   </AnchorPane>
                </content>
@@ -90,8 +86,8 @@
                            <children>
                               <Button fx:id="btnRegistrarse" layoutX="223.0" layoutY="236.0" mnemonicParsing="false" onAction="#registrarse" prefHeight="41.0" prefWidth="194.0" style="-fx-border-color: #00574a; -fx-background-color: #00574a; -fx-background-radius: 10; -fx-border-radius: 10;" text="Registrarse" textFill="WHITE" />
                               <TextField fx:id="txtDireccion" layoutX="183.0" layoutY="188.0" prefHeight="25.0" prefWidth="262.0" promptText="Dirección" style="-fx-border-color: #00574a;" styleClass="text-field" stylesheets="@css/styles.css" />
-                              <TextField fx:id="txtIdentificacionRegistro" layoutX="183.0" layoutY="154.0" prefHeight="25.0" prefWidth="262.0" promptText="Número de identifiación" style="-fx-border-color: #00574a;" stylesheets="@css/styles.css" />
-                              <TextField fx:id="txtNombreRegistro" layoutX="183.0" layoutY="120.0" prefHeight="25.0" prefWidth="262.0" promptText="Número de identifiación" style="-fx-border-color: #00574a;" stylesheets="@css/styles.css" />
+                              <TextField fx:id="txtIdentificacionRegistro" layoutX="183.0" layoutY="154.0" prefHeight="25.0" prefWidth="262.0" promptText="Número de identificación" style="-fx-border-color: #00574a;" stylesheets="@css/styles.css" />
+                              <TextField fx:id="txtNombreRegistro" layoutX="183.0" layoutY="120.0" prefHeight="25.0" prefWidth="262.0" promptText="Nombre" style="-fx-border-color: #00574a;" stylesheets="@css/styles.css" />
                               <Label alignment="CENTER" layoutX="196.0" layoutY="38.0" text="Registro" textFill="#0a002c">
                                  <font>
                                     <Font size="48.0" />
