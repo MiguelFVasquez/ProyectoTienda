@@ -119,7 +119,17 @@
     -fx-text-fill:   green;
     -fx-cursor: hand;
 }
+
 .button:hover{
+    -fx-cursor: hand;
+}
+
+.button-links{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill:   #3c00ff ;
+}
+.button-links{
     -fx-cursor: hand;
 }
 
