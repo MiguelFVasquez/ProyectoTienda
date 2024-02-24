@@ -1,4 +1,4 @@
-Nadie está trabajando 
+Trabajando en el proyecto: @Shuh3n
 
 Taks
 - Cuando se lanza la excepción de Cliente al registrar, no deja enviar una Alert para mostrar de manera visual la razón de error.
