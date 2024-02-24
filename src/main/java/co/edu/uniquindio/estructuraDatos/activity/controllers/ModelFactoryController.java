@@ -47,6 +47,10 @@ public class ModelFactoryController {
     public void initInicioViewController(InicioViewController inicioViewController){
         this.inicioViewController= inicioViewController;
     }
+    public void initClienteController(ClienteViewController initClienteViewController){
+        this.clienteViewController= initClienteViewController;
+    }
+
 
 
     //--------------------------FUNCIONES DE INICIO SESION----------------------------------------------------------
@@ -68,6 +72,21 @@ public class ModelFactoryController {
         }
 
     }
+    public Cliente obtenerCliente(String id) {
+        return tienda.obtenerCliente( id );
+    }
+
+    public void mostrarInfoCliente(Cliente cliente){
+        clienteViewController.nombreCliente.setText( cliente.getNombre() );
+        clienteViewController.txtNombreCliente.setText( cliente.getNombre() );
+        clienteViewController.txtNumeroIdentificacion.setText( cliente.getNumeroIdentificacion() );
+        clienteViewController.txtDireccion.setText( cliente.getDireccion() );
+    }
+
+
+
+
+    //-------------------------------------------FUNCIONES DE SERIALIZADO-----------------------------------------------
     public void serializarClienteRegistrado() throws IOException {
         Persistence.guardarClientes( tienda.getMapClientes() );
     }

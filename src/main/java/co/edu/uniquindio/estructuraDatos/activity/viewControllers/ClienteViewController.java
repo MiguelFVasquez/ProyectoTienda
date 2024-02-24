@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.estructuraDatos.activity.app.App;
+import co.edu.uniquindio.estructuraDatos.activity.controllers.ClienteController;
+import co.edu.uniquindio.estructuraDatos.activity.model.Cliente;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -23,9 +25,12 @@ import javafx.util.Duration;
 
 public class ClienteViewController {
 
+    private Cliente cliente;
+
     private InicioViewController inicioViewController;
     Stage stage;
     private App aplicacion;
+    private ClienteController clienteController = new ClienteController();
 
     public InicioViewController getInicioViewController() {
         return inicioViewController;
@@ -53,6 +58,14 @@ public class ClienteViewController {
     public void show() {
         stage.show();
 
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     @FXML
@@ -89,19 +102,19 @@ public class ClienteViewController {
     private TableColumn<?, ?> columnProducto;
 
     @FXML
-    private Label nombreCliente;
+    public Label nombreCliente;
 
     @FXML
     private TableView<?> tableViewProductos;
 
     @FXML
-    private TextField txtDireccion;
+    public TextField txtDireccion;
 
     @FXML
-    private TextField txtNombreCliente;
+    public TextField txtNombreCliente;
 
     @FXML
-    private TextField txtNumeroIdentificacion;
+    public TextField txtNumeroIdentificacion;
 
     @FXML
     private TextField txtCantidad;
@@ -184,9 +197,18 @@ public class ClienteViewController {
         btnCarritoCompras.setDisable( false);
     }
 
+
+    void deshabilitarCampos(){
+        txtNumeroIdentificacion.setEditable( false );
+        txtNumeroIdentificacion.setEditable( false );
+        txtDireccion.setEditable( false );
+    }
     @FXML
     void initialize() {
+        clienteController.mfm.initClienteController(this);
+
         configurarEventos();
+
     }
 
     private void configurarEventos(){
@@ -216,5 +238,8 @@ public class ClienteViewController {
     }
 
 
-
+    public void setInfoCliente(Cliente cliente) {
+        clienteController.mfm.mostrarInfoCliente( cliente );
+        deshabilitarCampos();
+    }
 }
