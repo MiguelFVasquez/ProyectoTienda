@@ -11,7 +11,7 @@ public class Cliente implements ICliente {
     private String nombre;
     private String numeroIdentificacion;
     private String direccion;
-    private Set<Producto> listaProductos; //Carrito
+    private CarritoCompra carritoCliente;
 
     public Cliente() {
     }
@@ -20,7 +20,7 @@ public class Cliente implements ICliente {
         this.nombre = nombre;
         this.numeroIdentificacion = numeroIdentificacion;
         this.direccion = direccion;
-        this.listaProductos = new HashSet<>();
+        this.carritoCliente = new CarritoCompra();
     }
 
     public String getNombre() {
@@ -54,16 +54,11 @@ public class Cliente implements ICliente {
     }
 
     //--------------FUNCIONALIDAD CARRITO----------------------------
-    private boolean verificarProducto(Producto newProducto){
-        return listaProductos.contains(newProducto);
-    }
     private boolean verificarCantidadProducto(Producto newProducto){
-        return false;
+        return newProducto.verificarCantidad(newProducto.getCantidad());
     }
     private Producto obtenerProducto(String codigo){
-        for (Producto producto: listaProductos) {
-            if (producto.verificarCodigo(codigo)) return producto;
-        }
+
         return null;
     }
 
@@ -74,16 +69,8 @@ public class Cliente implements ICliente {
      * @throws ProductoException
      */
     @Override
-    public boolean agregarACarrito(Producto newProducto) throws ProductoException {
-        boolean agregado= false;
-
-        if (verificarProducto(newProducto)){
-            throw new ProductoException("El producto ya se encuentra en el carrito");
-        }else {
-            agregado=true;
-            listaProductos.add(newProducto);
-        }
-        return agregado;
+    public void agregarACarrito(Producto newProducto) throws ProductoException {
+        carritoCliente.agregarACarro(newProducto);
     }
 
     /**
@@ -99,8 +86,7 @@ public class Cliente implements ICliente {
         if (productoObtenido==null){
             throw  new ProductoException("El producto de código: " + eliminarProducto.getCodigo()+ " no ha sido encontrado");
         }else {
-            eliminado=true;
-            listaProductos.remove(productoObtenido);
+            carritoCliente.eliminarDeCarrito(eliminarProducto);
         }
         return eliminado;
     }

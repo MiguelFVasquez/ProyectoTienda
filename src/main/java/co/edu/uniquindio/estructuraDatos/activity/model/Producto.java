@@ -1,8 +1,10 @@
 package co.edu.uniquindio.estructuraDatos.activity.model;
 
 import java.util.Objects;
-
-public class Producto {
+import lombok.*;
+@Getter
+@Setter
+public class Producto implements Comparable<Producto> {
     private Integer cantidad;
     private String codigo;
     private String nombre;
@@ -18,37 +20,6 @@ public class Producto {
         this.precio = precio;
     }
 
-    public Integer getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(Integer cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(Double precio) {
-        this.precio = precio;
-    }
     //-------------FUNCIONES PROPIAS---------------
     public boolean verificarCodigo(String codigo){
         return this.codigo.equals(codigo);
@@ -67,5 +38,10 @@ public class Producto {
     @Override
     public int hashCode() {
         return Objects.hash(codigo);
+    }
+
+    @Override
+    public int compareTo(Producto otroProducto) {
+        return this.getCantidad().compareTo(otroProducto.getCantidad());
     }
 }

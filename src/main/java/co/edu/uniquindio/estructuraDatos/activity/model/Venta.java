@@ -1,10 +1,14 @@
 package co.edu.uniquindio.estructuraDatos.activity.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-public class Venta {
+public class Venta implements Comparable<Venta>  {
     private String codigo;
     private String fecha;
+    private List<DetalleVenta> lisaDetalles;
+    private Cliente clienteVenta;
 
     public Venta() {
     }
@@ -12,7 +16,17 @@ public class Venta {
     public Venta(String codigo, String fecha) {
         this.codigo = codigo;
         this.fecha = fecha;
+        this.lisaDetalles = new ArrayList<>();
+        this.clienteVenta = new Cliente();
     }
+    //-------------METODOS PROPIOS---------------------
+
+    public boolean verificarCodigo(String codigo){
+        return this.codigo.equals(codigo);
+    }
+
+    //---------------------------------
+
 
     public String getCodigo() {
         return codigo;
@@ -29,10 +43,21 @@ public class Venta {
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
-    //-------------METODOS PROPIOS---------------------
 
-    public boolean verificarCodigo(String codigo){
-        return this.codigo.equals(codigo);
+    public List<DetalleVenta> getLisaDetalles() {
+        return lisaDetalles;
+    }
+
+    public void setLisaDetalles(List<DetalleVenta> lisaDetalles) {
+        this.lisaDetalles = lisaDetalles;
+    }
+
+    public Cliente getClienteVenta() {
+        return clienteVenta;
+    }
+
+    public void setClienteVenta(Cliente clienteVenta) {
+        this.clienteVenta = clienteVenta;
     }
 
     @Override
@@ -46,5 +71,10 @@ public class Venta {
     @Override
     public int hashCode() {
         return Objects.hash(codigo);
+    }
+
+    @Override
+    public int compareTo(Venta o) {
+        return this.getFecha().compareTo(o.getFecha());
     }
 }

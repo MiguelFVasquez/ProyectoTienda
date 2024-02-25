@@ -4,6 +4,6 @@ import co.edu.uniquindio.estructuraDatos.activity.exceptions.ProductoException;
 import co.edu.uniquindio.estructuraDatos.activity.model.Producto;
 
 public interface ICliente {
-    public boolean agregarACarrito(Producto newProducto) throws ProductoException;
+    public void agregarACarrito(Producto newProducto) throws ProductoException;
     public boolean eliminarDeCarrito(Producto eliminarProducto) throws ProductoException;
 }

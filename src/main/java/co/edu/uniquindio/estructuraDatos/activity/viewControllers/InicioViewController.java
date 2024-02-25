@@ -179,18 +179,12 @@ public class InicioViewController {
         String direccion = txtDireccion.getText();
 
         if(validarDatos( nombre,id,direccion )){
-            if(registrarCliente(nombre, id, direccion)){
-                mostrarMensaje( "Notificación", "Cliente creado con éxito","Ahora inicie sesión", Alert.AlertType.INFORMATION );
+            registrarCliente(nombre, id, direccion);
                 inicioController.mfm.serializarClienteRegistrado();
                 tabPane.getSelectionModel().select( tabInicio );
                 limpiarCampos();
                 tabRegistro.setDisable( true );
-            }else{
-                mostrarMensaje( "Notificación", "Cliente no creado",
-                        "La identifiación ingresada ya se encuentra registrada" , Alert.AlertType.INFORMATION );
-                txtIdentificacionRegistro.clear();
             }
-        }
     }
 
     void limpiarCampos(){
@@ -199,10 +193,23 @@ public class InicioViewController {
         txtIdentificacionRegistro.clear();
     }
 
-    private boolean registrarCliente(String nombre , String id , String direccion) throws ClienteException {
-        return inicioController.mfm.registrarCliente( nombre,id,direccion );
+    private void registrarCliente(String nombre , String id , String direccion) throws ClienteException {
+        try{
+            if(inicioController.mfm.registrarCliente(nombre,id,direccion)){
+                mostrarMensaje("Notificación ","Cliente registrado", "El cliente ha sido registrado con exito", Alert.AlertType.INFORMATION);
+            }
+        }catch (ClienteException ce){
+            mostrarMensaje("Notificación", "Cliente no registrado", ce.getMessage(), Alert.AlertType.INFORMATION);
+        }
     }
+    @FXML
+    void initialize() {
+        inicioController= new InicioController();
+        inicioController.mfm.initInicioViewController(this);
+        configurarEventos();
+        tabRegistro.setDisable( true );
 
+    }
 
     //-------------------------------FUNCIONES UTILITARIAS-----------------------------------------------------------
     private void configurarEventos() {
@@ -299,14 +306,6 @@ public class InicioViewController {
 
     }
 
-    @FXML
-    void initialize() {
-        inicioController= new InicioController();
-        inicioController.mfm.initInicioViewController(this);
-        configurarEventos();
-        tabRegistro.setDisable( true );
-
-    }
 
     public void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertype) {
         Alert alert = new Alert(alertype);

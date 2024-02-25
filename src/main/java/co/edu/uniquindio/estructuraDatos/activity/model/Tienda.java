@@ -1,60 +1,23 @@
 package co.edu.uniquindio.estructuraDatos.activity.model;
 
 import co.edu.uniquindio.estructuraDatos.activity.exceptions.ClienteException;
+import co.edu.uniquindio.estructuraDatos.activity.exceptions.ProductoException;
 import co.edu.uniquindio.estructuraDatos.activity.exceptions.VentaException;
 import co.edu.uniquindio.estructuraDatos.activity.model.interfaces.ITienda;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
+import lombok.*;
+@Getter
+@Setter
 public class Tienda implements ITienda {
 
     private String nombre;
     private HashMap<String,Cliente> mapClientes;
     private HashMap<String,Producto> mapProductos;
-
-    private Set<Producto> listaProductos; //Carrito
     private List<Venta> listaVentas;
+    private Set<Producto> inventario;
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public HashMap<String, Cliente> getMapClientes() {
-        return mapClientes;
-    }
-
-    public void setMapClientes(HashMap<String, Cliente> mapClientes) {
-        this.mapClientes = mapClientes;
-    }
-
-    public HashMap<String, Producto> getMapProductos() {
-        return mapProductos;
-    }
-
-    public void setMapProductos(HashMap<String, Producto> mapProductos) {
-        this.mapProductos = mapProductos;
-    }
-
-    public Set<Producto> getListaProductos() {
-        return listaProductos;
-    }
-
-    public void setListaProductos(Set<Producto> listaProductos) {
-        this.listaProductos = listaProductos;
-    }
-
-    public List<Venta> getListaVentas() {
-        return listaVentas;
-    }
-
-    public void setListaVentas(List<Venta> listaVentas) {
-        this.listaVentas = listaVentas;
-    }
 
     public Tienda() {
     }
@@ -62,20 +25,11 @@ public class Tienda implements ITienda {
     public Tienda(String nombre) {
         this.nombre= nombre;
         this.mapClientes = new HashMap<>();
-        this.listaVentas= new ArrayList<>();
+        this.listaVentas= new LinkedList<>();
         this.mapProductos = new HashMap<>();
-        this.listaProductos= new HashSet<>();
+        this.inventario= new TreeSet<>();
     }
     //-------------------------CRUD CLIENTE-----------------------------------------
-
-    /**
-     *  Si la lista "clientesIguales" permanece vacia va a @return false, o sea que no se encontro ningun empleado igual
-     *      * @param cedula
-     *      * @return
-     * @param
-     * @return
-     */
-    //-------------------------CRUD CLIENTE---------------------------------
 
     /**
      * Metodo para verificar la existencia de un cliente
@@ -101,7 +55,7 @@ public class Tienda implements ITienda {
         boolean creado= false;
         String numIdentificacion= newCliente.getNumeroIdentificacion();
         if (verificarCliente(numIdentificacion)){
-            throw new ClienteException("El número de identificación " + numIdentificacion+ " ya se encuentra asociado a un cliente");
+            throw new ClienteException("El cliente con el número de identificación: " + numIdentificacion+ " ya se encuentra registrados");
         }else {
             creado=true;
             mapClientes.put(numIdentificacion,newCliente);
@@ -157,7 +111,7 @@ public class Tienda implements ITienda {
     private boolean verificarVenta(String codigo){
         List<Venta>ventasIguales= this.listaVentas.stream()
                 .filter(v->v.verificarCodigo(codigo))
-                .collect(Collectors.toList());
+                .toList();
         return !ventasIguales.isEmpty();
     }
     private Venta obtenerVenta(String codigo){
@@ -174,6 +128,7 @@ public class Tienda implements ITienda {
         }else {
             creado= true;
             listaVentas.add(newVenta);
+            Collections.sort(listaVentas);
         }
         return creado;
     }
@@ -189,4 +144,56 @@ public class Tienda implements ITienda {
         }
         return eliminado;
     }
+
+    //---------------PRODCTOS-----------------------------------------------
+
+    private boolean verificarProducto(String codigo){
+        return mapClientes.containsKey(codigo);
+    }
+
+    /**
+     * Si el producto ya existe lo que se hace es setear la cantidad existente del producto
+     *
+     * @param newProducto
+     * @return
+     */
+    @Override
+    public boolean agregarProducto(Producto newProducto) {
+        boolean creado= false;
+        if (verificarProducto(newProducto.getCodigo())){
+            Producto productoAux= mapProductos.get(newProducto.getCodigo());
+            int newCantidad= productoAux.getCantidad()+ newProducto.getCantidad();
+            productoAux.setCantidad(newCantidad);
+            creado=true;
+        }else {
+            mapProductos.put(newProducto.getCodigo(), newProducto);
+            inventario.add(newProducto);
+            creado=true;
+        }
+        return creado;
+    }
+
+    /**
+     *
+     * El metodo para eliminar, lo que hace es restar la cantidad del producto cuando se hace la venta
+     *
+     * @param productoEliminar
+     * @return
+     * @throws ProductoException
+     */
+    @Override
+    public boolean eliminarProducto(Producto productoEliminar) throws ProductoException {
+        boolean eliminado= false;
+        if (verificarProducto(productoEliminar.getCodigo())){
+            Producto productoAux= mapProductos.get(productoEliminar.getCodigo());
+            int newCantidad= productoAux.getCantidad() - productoEliminar.getCantidad();
+            productoAux.setCantidad(newCantidad);
+            eliminado=true;
+        }else {
+            throw new ProductoException("El producto " + productoEliminar.getNombre() + "no ha sido encontrado");
+        }
+        return eliminado;
+    }
+
+
 }

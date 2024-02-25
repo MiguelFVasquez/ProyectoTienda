@@ -1,6 +1,7 @@
 package co.edu.uniquindio.estructuraDatos.activity.controllers;
 
 import co.edu.uniquindio.estructuraDatos.activity.exceptions.ClienteException;
+import co.edu.uniquindio.estructuraDatos.activity.model.CarritoCompra;
 import co.edu.uniquindio.estructuraDatos.activity.model.Cliente;
 import co.edu.uniquindio.estructuraDatos.activity.model.Tienda;
 import co.edu.uniquindio.estructuraDatos.activity.persistence.Persistence;
@@ -60,6 +61,7 @@ public class ModelFactoryController {
     }
 
     public boolean registrarCliente(String nombre, String id, String direccion) throws ClienteException {
+
         Cliente cliente = new Cliente(nombre,id,direccion);
         return tienda.crearCliente(cliente);
     }

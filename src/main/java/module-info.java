@@ -5,6 +5,7 @@ module com.example.clase {
     requires javafx.base;
     requires java.logging;
     requires java.desktop;
+    requires lombok;
 
 
     opens co.edu.uniquindio.estructuraDatos.activity.app to javafx.graphics, javafx.fxml;
