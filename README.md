@@ -1,7 +1,7 @@
-Trabajando en el proyecto: Florez
+Trabajando en el proyecto: Nadie
 
 Taks
--Hacer que corra la aplicación.
-
+- Funciones de administrador
+- Funciones de carrito
 - Eliminar el cliente del txt al eliminarlo de la tienda.
 
