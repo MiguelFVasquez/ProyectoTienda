@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import co.edu.uniquindio.estructuraDatos.activity.app.App;
 import co.edu.uniquindio.estructuraDatos.activity.controllers.ClienteController;
+import co.edu.uniquindio.estructuraDatos.activity.exceptions.ClienteException;
 import co.edu.uniquindio.estructuraDatos.activity.model.Cliente;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
@@ -13,11 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -174,12 +171,37 @@ public class ClienteViewController {
 
     @FXML
     void cambiarInfo(ActionEvent event) {
-
+        gestionActivos( true );
+        mostrarMensaje( "Notifiación" , "Cambie su información",
+                "Presione en los campos de texto para cambiar su información", Alert.AlertType.INFORMATION  );
     }
 
     @FXML
     void cancelarCambioInfo(ActionEvent event) {
+        Alert alert = new Alert( Alert.AlertType.CONFIRMATION );
+        alert.setTitle( "Confirmación" );
+        alert.setHeaderText( "¿Estás seguro deseas cancelar los cambios?" );
+        alert.setContentText( "Presiona OK para confirmar o Cancelar para cancelar." );
 
+        // Mostrar la ventana de confirmación y esperar a que el usuario elija una opción
+        alert.showAndWait().ifPresent( response -> {
+            if ( response == javafx.scene.control.ButtonType.OK ) {
+                System.out.println( "El usuario confirmó." );
+                gestionActivos( false );
+                clienteController.mfm.mostrarInfoCliente( clienteController.mfm.obtenerCliente( txtNumeroIdentificacion.getText() ) );
+            } else {
+                System.out.println( "El usuario canceló." );
+            }
+        } );
+
+    }
+
+    void gestionActivos(boolean flag){
+        txtNombreCliente.setEditable( flag );
+        txtDireccion.setEditable( flag );
+        btnCancelarCambios.setVisible( flag );
+        btnGuardarInfo.setVisible( flag );
+        btnCambiarInfo.setDisable( flag );
     }
 
     @FXML
@@ -189,7 +211,28 @@ public class ClienteViewController {
     }
 
     @FXML
-    void guardarInfoCambiada(ActionEvent event) {
+    void guardarInfoCambiada(ActionEvent event) throws ClienteException, IOException {
+        String nombre = txtNombreCliente.getText();
+        String direccion = txtDireccion.getText();
+        Cliente cliente1 = new Cliente(nombre,txtNumeroIdentificacion.getText(), direccion);
+        if(validarDatos( nombre, direccion )){
+            if(actualizarCliente( cliente1 )){
+                gestionActivos( false );
+                clienteController.mfm.serializarClienteRegistrado();
+            }
+        }
+
+    }
+    boolean actualizarCliente(Cliente cliente){
+        try{
+           if(clienteController.mfm.actualizarCliente(cliente)){
+               mostrarMensaje("Notificación", "Cambio de información realizado con éxito", "", Alert.AlertType.INFORMATION);
+               return true;
+           }
+        } catch (ClienteException e) {
+            mostrarMensaje("Notificación", "Cambio de información fallido", e.getMessage(), Alert.AlertType.INFORMATION);
+        }
+        return false;
 
     }
 
@@ -199,14 +242,14 @@ public class ClienteViewController {
 
 
     void deshabilitarCampos(){
-        txtNumeroIdentificacion.setEditable( false );
+        txtNombreCliente.setEditable( false );
         txtNumeroIdentificacion.setEditable( false );
         txtDireccion.setEditable( false );
     }
     @FXML
     void initialize() {
         clienteController.mfm.initClienteController(this);
-
+        deshabilitarCampos();
         configurarEventos();
 
     }
@@ -234,12 +277,59 @@ public class ClienteViewController {
 
 
 
-
     }
+
 
 
     public void setInfoCliente(Cliente cliente) {
         clienteController.mfm.mostrarInfoCliente( cliente );
         deshabilitarCampos();
+    }
+
+    //--------------------------------------FUNCIONES UTILITARIAS-------------------------------------------------------
+    public void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertype) {
+        Alert alert = new Alert(alertype);
+        alert.setTitle(titulo);
+        alert.setHeaderText(header);
+        alert.setContentText(contenido);
+        alert.showAndWait();
+    }
+
+    private boolean esNumero(String string) {
+        try {
+            Float.parseFloat(string);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private boolean validarDatos(String nombre, String direccion) {
+        String notificacion = "";
+
+		/*Se valida que el saldo ingresado no sea null ni sea cadena vacía,
+		además se valida que sea numérico para su correcta conversión */
+
+        if (nombre == null || nombre.isEmpty()) {
+            notificacion += "Ingrese su nombre\n";
+        } else {
+            if (esNumero(nombre)) {
+                notificacion += "El nombre ingresado no puede ser numérico\n";
+            }
+        }
+        if (direccion == null || direccion.isEmpty()) {
+            notificacion += "Ingrese su dirección\n";
+        } else {
+            if (esNumero(direccion)) {
+                notificacion += "La dirección ingresada no puede ser numérica\n";
+            }
+        }
+        if (!notificacion.isEmpty()) {
+            mostrarMensaje("Notificación", "Cambio de información fallido",
+                    notificacion
+                    , Alert.AlertType.WARNING);
+            return false;
+        }
+        return true;
     }
 }

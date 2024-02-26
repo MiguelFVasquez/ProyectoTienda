@@ -21,6 +21,7 @@ public class ModelFactoryController {
 
 
 
+
     private static class SingletonHolder {
         // El constructor de Singleton puede ser llamado desde aquí al ser protected
         private final static ModelFactoryController eINSTANCE = new ModelFactoryController();
@@ -83,6 +84,10 @@ public class ModelFactoryController {
         clienteViewController.txtNombreCliente.setText( cliente.getNombre() );
         clienteViewController.txtNumeroIdentificacion.setText( cliente.getNumeroIdentificacion() );
         clienteViewController.txtDireccion.setText( cliente.getDireccion() );
+    }
+
+    public boolean actualizarCliente(Cliente cliente) throws ClienteException {
+        return tienda.acualizarCliente( cliente );
     }
 
 

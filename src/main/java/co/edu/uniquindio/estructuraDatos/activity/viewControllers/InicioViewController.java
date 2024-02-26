@@ -178,13 +178,16 @@ public class InicioViewController {
         String id = txtIdentificacionRegistro.getText();
         String direccion = txtDireccion.getText();
 
-        if(validarDatos( nombre,id,direccion )){
-            registrarCliente(nombre, id, direccion);
+        if ( validarDatos( nombre , id , direccion ) ) {
+            if ( registrarCliente( nombre , id , direccion )){
                 inicioController.mfm.serializarClienteRegistrado();
                 tabPane.getSelectionModel().select( tabInicio );
                 limpiarCampos();
                 tabRegistro.setDisable( true );
+            }else{
+                txtIdentificacionRegistro.clear();
             }
+        }
     }
 
     void limpiarCampos(){
@@ -193,14 +196,16 @@ public class InicioViewController {
         txtIdentificacionRegistro.clear();
     }
 
-    private void registrarCliente(String nombre , String id , String direccion) throws ClienteException {
+    private boolean registrarCliente(String nombre , String id , String direccion) throws ClienteException {
         try{
             if(inicioController.mfm.registrarCliente(nombre,id,direccion)){
                 mostrarMensaje("Notificación ","Cliente registrado", "El cliente ha sido registrado con exito", Alert.AlertType.INFORMATION);
+                return true;
             }
         }catch (ClienteException ce){
             mostrarMensaje("Notificación", "Cliente no registrado", ce.getMessage(), Alert.AlertType.INFORMATION);
         }
+        return false;
     }
     @FXML
     void initialize() {
