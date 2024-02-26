@@ -1,9 +1,7 @@
 package co.edu.uniquindio.estructuraDatos.activity.model;
 
 import java.util.Objects;
-import lombok.*;
-@Getter
-@Setter
+
 public class Producto implements Comparable<Producto> {
     private Integer cantidad;
     private String codigo;
@@ -17,6 +15,38 @@ public class Producto implements Comparable<Producto> {
         this.cantidad = cantidad;
         this.codigo = codigo;
         this.nombre = nombre;
+        this.precio = precio;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 

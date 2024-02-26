@@ -1,15 +1,10 @@
 package co.edu.uniquindio.estructuraDatos.activity.model;
-
 import co.edu.uniquindio.estructuraDatos.activity.exceptions.ClienteException;
 import co.edu.uniquindio.estructuraDatos.activity.exceptions.ProductoException;
 import co.edu.uniquindio.estructuraDatos.activity.exceptions.VentaException;
 import co.edu.uniquindio.estructuraDatos.activity.model.interfaces.ITienda;
-
 import java.util.*;
-import java.util.stream.Collectors;
-import lombok.*;
-@Getter
-@Setter
+
 public class Tienda implements ITienda {
 
     private String nombre;
@@ -29,6 +24,47 @@ public class Tienda implements ITienda {
         this.mapProductos = new HashMap<>();
         this.inventario= new TreeSet<>();
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public HashMap<String, Cliente> getMapClientes() {
+        return mapClientes;
+    }
+
+    public void setMapClientes(HashMap<String, Cliente> mapClientes) {
+        this.mapClientes = mapClientes;
+    }
+
+    public HashMap<String, Producto> getMapProductos() {
+        return mapProductos;
+    }
+
+    public void setMapProductos(HashMap<String, Producto> mapProductos) {
+        this.mapProductos = mapProductos;
+    }
+
+    public List<Venta> getListaVentas() {
+        return listaVentas;
+    }
+
+    public void setListaVentas(List<Venta> listaVentas) {
+        this.listaVentas = listaVentas;
+    }
+
+    public Set<Producto> getInventario() {
+        return inventario;
+    }
+
+    public void setInventario(Set<Producto> inventario) {
+        this.inventario = inventario;
+    }
+
     //-------------------------CRUD CLIENTE-----------------------------------------
 
     /**

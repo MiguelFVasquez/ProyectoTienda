@@ -5,11 +5,10 @@ module com.example.clase {
     requires javafx.base;
     requires java.logging;
     requires java.desktop;
-    requires lombok;
-
 
     opens co.edu.uniquindio.estructuraDatos.activity.app to javafx.graphics, javafx.fxml;
-    opens co.edu.uniquindio.estructuraDatos.activity.viewControllers to javafx.fxml;
     opens co.edu.uniquindio.estructuraDatos.activity.model to javafx.base;
+    opens co.edu.uniquindio.estructuraDatos.activity.viewControllers to javafx.fxml;
+
     exports co.edu.uniquindio.estructuraDatos.activity.model;
 }
