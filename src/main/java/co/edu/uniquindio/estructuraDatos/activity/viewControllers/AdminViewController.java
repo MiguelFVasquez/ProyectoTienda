@@ -1,9 +1,17 @@
 package co.edu.uniquindio.estructuraDatos.activity.viewControllers;
 
 import java.net.URL;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.estructuraDatos.activity.app.App;
+import co.edu.uniquindio.estructuraDatos.activity.controllers.AdminController;
+import co.edu.uniquindio.estructuraDatos.activity.controllers.ClienteController;
+import co.edu.uniquindio.estructuraDatos.activity.model.Cliente;
+import co.edu.uniquindio.estructuraDatos.activity.model.Tienda;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class AdminViewController {
@@ -18,6 +27,7 @@ public class AdminViewController {
     private App aplicacion;
 
     private Stage stage;
+    private AdminController adminController = new AdminController();
 
     public void setAplicacion(App aplicacion) {
         this.aplicacion = aplicacion;
@@ -64,16 +74,16 @@ public class AdminViewController {
     private Button btnEliminarCliente;
 
     @FXML
-    private TableColumn<?, ?> columnCantidadProductos;
+    private TableColumn<String, ?> columnCantidadProductos;
 
     @FXML
-    private TableColumn<?, ?> columnDireccion;
+    private TableColumn<String, Cliente> columnDireccion;
 
     @FXML
-    private TableColumn<?, ?> columnIdentificacion;
+    private TableColumn<String, Cliente> columnIdentificacion;
 
     @FXML
-    private TableColumn<?, ?> columnNombre;
+    private TableColumn<String, Cliente> columnNombre;
 
     @FXML
     private TableColumn<?, ?> columnPrecio;
@@ -88,13 +98,17 @@ public class AdminViewController {
     private Label nombreCliente1;
 
     @FXML
-    private TableView<?> tableViewClientes;
+    private TableView<Cliente> tableViewClientes;
 
     @FXML
     private TableView<?> tableViewProductos;
 
     @FXML
     private TextField txtBuscarProducto;
+    private ObservableList<Cliente> listaClientes = FXCollections.observableArrayList();
+
+
+
 
     @FXML
     void buscarProducto(ActionEvent event) {
@@ -112,9 +126,24 @@ public class AdminViewController {
 
     }
 
+
+
+    //--------------------------------FUNCIONES UTILITARIAS-------------------------------------------------------------
+
+    private ObservableList<Cliente> getListaClientes(){
+        HashMap<String, Cliente> clientesMap = adminController.mfm.getClientes();
+        listaClientes.addAll( clientesMap.values());
+        return listaClientes;
+    }
     @FXML
     void initialize() {
 
+        adminController.mfm.initAdminController( this );
+        this.columnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        this.columnIdentificacion.setCellValueFactory(new PropertyValueFactory<>("numeroIdentificacion"));
+        this.columnDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
+        tableViewClientes.getItems().clear();
+        tableViewClientes.setItems( getListaClientes());
     }
 
 

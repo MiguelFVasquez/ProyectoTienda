@@ -5,7 +5,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.estructuraDatos.activity.app.App;
+import co.edu.uniquindio.estructuraDatos.activity.controllers.AdminController;
 import co.edu.uniquindio.estructuraDatos.activity.controllers.ClienteController;
+import co.edu.uniquindio.estructuraDatos.activity.controllers.InicioController;
 import co.edu.uniquindio.estructuraDatos.activity.exceptions.ClienteException;
 import co.edu.uniquindio.estructuraDatos.activity.model.Cliente;
 import javafx.animation.FadeTransition;
@@ -193,7 +195,6 @@ public class ClienteViewController {
                 System.out.println( "El usuario canceló." );
             }
         } );
-
     }
 
     void gestionActivos(boolean flag){

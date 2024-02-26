@@ -11,6 +11,7 @@ import co.edu.uniquindio.estructuraDatos.activity.viewControllers.ClienteViewCon
 import co.edu.uniquindio.estructuraDatos.activity.viewControllers.InicioViewController;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class ModelFactoryController {
     private InicioViewController inicioViewController;
@@ -51,6 +52,13 @@ public class ModelFactoryController {
     }
     public void initClienteController(ClienteViewController initClienteViewController){
         this.clienteViewController= initClienteViewController;
+    }
+    public void initAdminController(AdminViewController initAdminViewController){
+        this.adminViewController= initAdminViewController;
+    }
+
+    public HashMap<String, Cliente> getClientes(){
+        return tienda.getMapClientes();
     }
 
 
