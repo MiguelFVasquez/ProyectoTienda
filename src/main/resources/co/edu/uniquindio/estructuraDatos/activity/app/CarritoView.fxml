@@ -27,7 +27,7 @@
       </Label>
       <TextField fx:id="txtPrecioTotal" alignment="CENTER_RIGHT" disable="true" editable="false" layoutX="335.0" layoutY="534.0" prefHeight="28.0" prefWidth="133.0" promptText="Total" style="-fx-border-color: gray;" stylesheets="@css/styles.css" />
       <Button fx:id="btnEliminarProducto" layoutX="72.0" layoutY="604.0" mnemonicParsing="false" onAction="#eliminarProducto" prefHeight="28.0" prefWidth="119.0" styleClass="buttonRed" stylesheets="@css/styles.css" text="Eliminar producto" textFill="WHITE" />
-      <Button fx:id="btnComprar" layoutX="349.0" layoutY="604.0" mnemonicParsing="false" onAction="#comprarProductos" prefHeight="28.0" prefWidth="119.0" styleClass="buttonGreen" stylesheets="@css/styles.css" text="Comprar" textFill="WHITE" />
+      <Button fx:id="btnComprar" layoutX="349.0" layoutY="604.0" mnemonicParsing="false" onAction="#comprarProductos" prefHeight="28.0" prefWidth="119.0" styleClass="button-Green-WhiteBack" stylesheets="@css/styles.css" text="Comprar" textFill="WHITE" />
       <Button fx:id="btnCerrarVentana" layoutX="349.0" layoutY="69.0" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="28.0" prefWidth="119.0" style="-fx-background-color: red; -fx-border-color: red;" stylesheets="@css/styles.css" text="Cerrar ventana" textFill="WHITE">
          <graphic>
             <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" />
