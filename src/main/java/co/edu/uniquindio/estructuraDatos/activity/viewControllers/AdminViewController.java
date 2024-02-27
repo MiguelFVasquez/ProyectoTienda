@@ -1,24 +1,18 @@
 package co.edu.uniquindio.estructuraDatos.activity.viewControllers;
 
+import java.io.IOException;
 import java.net.URL;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.estructuraDatos.activity.app.App;
 import co.edu.uniquindio.estructuraDatos.activity.controllers.AdminController;
-import co.edu.uniquindio.estructuraDatos.activity.controllers.ClienteController;
 import co.edu.uniquindio.estructuraDatos.activity.model.Cliente;
-import co.edu.uniquindio.estructuraDatos.activity.model.Tienda;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -123,9 +117,43 @@ public class AdminViewController {
 
     @FXML
     void eliminarCliente(ActionEvent event) {
+        Cliente selectedItem = tableViewClientes.getSelectionModel().getSelectedItem();
+        Alert alert = new Alert( Alert.AlertType.CONFIRMATION );
+        alert.setTitle( "Confirmación" );
+        alert.setHeaderText( "¿Estás seguro de que deseas eliminar el cliente " + selectedItem.getNombre() + "?" );
+        alert.setContentText( "Presiona ACEPTAR para confirmar o Cancelar para cancelar." );
+
+        // Mostrar la ventana de confirmación y esperar a que el usuario elija una opción
+        alert.showAndWait().ifPresent( response -> {
+
+            if ( response == ButtonType.OK ) {
+                System.out.println( "El usuario confirmó." );
+                if(eliminarClienteSeleccionado( selectedItem.getNumeroIdentificacion())){
+                    listaClientes.remove(selectedItem);
+                    try {
+                        adminController.mfm.serializarClientes();
+                    } catch (IOException e) {
+                        throw new RuntimeException( e );
+                    }
+                }
+            } else {
+                System.out.println( "El usuario canceló." );
+            }
+        } );
 
     }
 
+    private boolean eliminarClienteSeleccionado(String numeroIdentificacion) {
+        try{
+            if(adminController.mfm.eliminarCliente(numeroIdentificacion)){
+                mostrarMensaje("Notificación", "Cliente eliminado", "Cliente eliminado con éxito", Alert.AlertType.INFORMATION);
+                return true;
+            }
+        } catch (Exception e) {
+            mostrarMensaje("Notificación", "Cliente no eliminado", e.getMessage(), Alert.AlertType.INFORMATION);
+        }
+        return false;
+    }
 
 
     //--------------------------------FUNCIONES UTILITARIAS-------------------------------------------------------------
@@ -137,13 +165,69 @@ public class AdminViewController {
     }
     @FXML
     void initialize() {
-
+        btnEliminarCliente.setDisable( true );
         adminController.mfm.initAdminController( this );
         this.columnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         this.columnIdentificacion.setCellValueFactory(new PropertyValueFactory<>("numeroIdentificacion"));
         this.columnDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
         tableViewClientes.getItems().clear();
         tableViewClientes.setItems( getListaClientes());
+        gestionEventos();
+    }
+
+    void gestionEventos(){
+        tableViewClientes.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                btnEliminarCliente.setDisable(false); // Habilitar el botón si hay un elemento seleccionado
+            } else {
+                btnEliminarCliente.setDisable(true); // Deshabilitar el botón si no hay ningún elemento seleccionado
+            }
+        });
+    }
+    public void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertype) {
+        Alert alert = new Alert(alertype);
+        alert.setTitle(titulo);
+        alert.setHeaderText(header);
+        alert.setContentText(contenido);
+        alert.showAndWait();
+    }
+
+    private boolean esNumero(String string) {
+        try {
+            Float.parseFloat(string);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private boolean validarDatos(String nombre, String direccion) {
+        String notificacion = "";
+
+		/*Se valida que el saldo ingresado no sea null ni sea cadena vacía,
+		además se valida que sea numérico para su correcta conversión */
+
+        if (nombre == null || nombre.isEmpty()) {
+            notificacion += "Ingrese su nombre\n";
+        } else {
+            if (esNumero(nombre)) {
+                notificacion += "El nombre ingresado no puede ser numérico\n";
+            }
+        }
+        if (direccion == null || direccion.isEmpty()) {
+            notificacion += "Ingrese su dirección\n";
+        } else {
+            if (esNumero(direccion)) {
+                notificacion += "La dirección ingresada no puede ser numérica\n";
+            }
+        }
+        if (!notificacion.isEmpty()) {
+            mostrarMensaje("Notificación", "Cambio de información fallido",
+                    notificacion
+                    , Alert.AlertType.WARNING);
+            return false;
+        }
+        return true;
     }
 
 

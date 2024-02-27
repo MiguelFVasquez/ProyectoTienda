@@ -5,9 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.estructuraDatos.activity.app.App;
-import co.edu.uniquindio.estructuraDatos.activity.controllers.AdminController;
 import co.edu.uniquindio.estructuraDatos.activity.controllers.ClienteController;
-import co.edu.uniquindio.estructuraDatos.activity.controllers.InicioController;
 import co.edu.uniquindio.estructuraDatos.activity.exceptions.ClienteException;
 import co.edu.uniquindio.estructuraDatos.activity.model.Cliente;
 import javafx.animation.FadeTransition;
@@ -19,7 +17,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class ClienteViewController {
@@ -219,7 +216,7 @@ public class ClienteViewController {
         if(validarDatos( nombre, direccion )){
             if(actualizarCliente( cliente1 )){
                 gestionActivos( false );
-                clienteController.mfm.serializarClienteRegistrado();
+                clienteController.mfm.serializarClientes();
             }
         }
 

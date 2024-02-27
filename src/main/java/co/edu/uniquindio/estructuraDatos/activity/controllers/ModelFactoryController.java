@@ -1,7 +1,6 @@
 package co.edu.uniquindio.estructuraDatos.activity.controllers;
 
 import co.edu.uniquindio.estructuraDatos.activity.exceptions.ClienteException;
-import co.edu.uniquindio.estructuraDatos.activity.model.CarritoCompra;
 import co.edu.uniquindio.estructuraDatos.activity.model.Cliente;
 import co.edu.uniquindio.estructuraDatos.activity.model.Tienda;
 import co.edu.uniquindio.estructuraDatos.activity.persistence.Persistence;
@@ -19,7 +18,6 @@ public class ModelFactoryController {
     private AdminViewController adminViewController;
     private CarritoComprasViewController carritoComprasViewController;
     static Tienda tienda;
-
 
 
 
@@ -98,11 +96,17 @@ public class ModelFactoryController {
         return tienda.acualizarCliente( cliente );
     }
 
+    //--------------------------------------FUNCIONES ADMIN-------------------------------------------------------------
+    public boolean eliminarCliente(String numeroIdentificacion) throws ClienteException {
+       return tienda.eliminarCliente( obtenerCliente( numeroIdentificacion ) );
+    }
+
+
 
 
 
     //-------------------------------------------FUNCIONES DE SERIALIZADO-----------------------------------------------
-    public void serializarClienteRegistrado() throws IOException {
+    public void serializarClientes() throws IOException {
         Persistence.guardarClientes( tienda.getMapClientes() );
     }
 

@@ -2,14 +2,12 @@ package co.edu.uniquindio.estructuraDatos.activity.viewControllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.estructuraDatos.activity.app.App;
 import co.edu.uniquindio.estructuraDatos.activity.controllers.InicioController;
 import co.edu.uniquindio.estructuraDatos.activity.exceptions.ClienteException;
 import javafx.animation.FadeTransition;
-import javafx.animation.FillTransition;
 import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.util.Duration;
@@ -180,7 +177,7 @@ public class InicioViewController {
 
         if ( validarDatos( nombre , id , direccion ) ) {
             if ( registrarCliente( nombre , id , direccion )){
-                inicioController.mfm.serializarClienteRegistrado();
+                inicioController.mfm.serializarClientes();
                 tabPane.getSelectionModel().select( tabInicio );
                 limpiarCampos();
                 tabRegistro.setDisable( true );
@@ -199,7 +196,7 @@ public class InicioViewController {
     private boolean registrarCliente(String nombre , String id , String direccion) throws ClienteException {
         try{
             if(inicioController.mfm.registrarCliente(nombre,id,direccion)){
-                mostrarMensaje("Notificación ","Cliente registrado", "El cliente ha sido registrado con exito", Alert.AlertType.INFORMATION);
+                mostrarMensaje("Notificación ","Cliente registrado con éxito", "Ahora Inicie sesión", Alert.AlertType.INFORMATION);
                 return true;
             }
         }catch (ClienteException ce){
