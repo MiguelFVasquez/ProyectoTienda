@@ -313,7 +313,7 @@ public class ClienteViewController {
         refrescarTableViewProductos();
     }
     private ObservableList<Producto> getListaProductos() {
-        HashMap<String, Producto> productosMap = clienteController.mfm.getProductos();
+        HashMap<String, Producto> productosMap = clienteController.mfm.getListaProductos();
         listaProductos.addAll( productosMap.values() );
         return listaProductos;
     }

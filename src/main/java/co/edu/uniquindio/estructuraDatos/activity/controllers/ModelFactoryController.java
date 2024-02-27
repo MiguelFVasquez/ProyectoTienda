@@ -102,7 +102,7 @@ public class ModelFactoryController {
         return tienda.acualizarCliente( cliente );
     }
     //----------------------------------------FUNCIONES DE PRODUCTO-----------------------------------------------------
-    public HashMap<String, Producto> getProductos() {
+    public HashMap<String, Producto> getListaProductos() {
         return tienda.getMapProductos();
     }
 

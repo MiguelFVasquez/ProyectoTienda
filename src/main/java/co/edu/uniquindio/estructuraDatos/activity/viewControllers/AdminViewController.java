@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import co.edu.uniquindio.estructuraDatos.activity.app.App;
 import co.edu.uniquindio.estructuraDatos.activity.controllers.AdminController;
 import co.edu.uniquindio.estructuraDatos.activity.model.Cliente;
+import co.edu.uniquindio.estructuraDatos.activity.model.Producto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -66,10 +67,26 @@ public class AdminViewController {
 
     @FXML
     private Button btnEliminarCliente;
+    @FXML
+    private Label nombreCliente;
 
     @FXML
-    private TableColumn<String, ?> columnCantidadProductos;
+    private Label nombreCliente1;
+    @FXML
+    private TextField txtBuscarProducto;
+    //----------------table view productos------------------------------
+    @FXML
+    private TableView<Producto> tableViewProductos;
+    @FXML
+    private TableColumn<Producto, Double> columnPrecio;
 
+    @FXML
+    private TableColumn<Producto, String> columnProducto;
+    @FXML
+    private TableColumn<Producto, Integer> columnCantidadProductos;
+    //---------------Table vieew clientes------------------------
+    @FXML
+    private TableView<Cliente> tableViewClientes;
     @FXML
     private TableColumn<String, Cliente> columnDireccion;
 
@@ -79,30 +96,85 @@ public class AdminViewController {
     @FXML
     private TableColumn<String, Cliente> columnNombre;
 
-    @FXML
-    private TableColumn<?, ?> columnPrecio;
-
-    @FXML
-    private TableColumn<?, ?> columnProducto;
-
-    @FXML
-    private Label nombreCliente;
-
-    @FXML
-    private Label nombreCliente1;
-
-    @FXML
-    private TableView<Cliente> tableViewClientes;
-
-    @FXML
-    private TableView<?> tableViewProductos;
-
-    @FXML
-    private TextField txtBuscarProducto;
+    //-Variables utilitarias
     private ObservableList<Cliente> listaClientes = FXCollections.observableArrayList();
+    private ObservableList<Producto> listaProductos= FXCollections.observableArrayList();
 
+    //------------------FUNCIONES UTILITARIAS-----------------------------------------
+    public void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertype) {
+        Alert alert = new Alert(alertype);
+        alert.setTitle(titulo);
+        alert.setHeaderText(header);
+        alert.setContentText(contenido);
+        alert.showAndWait();
+    }
 
+    private boolean esNumero(String string) {
+        try {
+            Float.parseFloat(string);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
+    private boolean validarDatos(String nombre, String direccion) {
+        String notificacion = "";
+
+		/*Se valida que el saldo ingresado no sea null ni sea cadena vacía,
+		además se valida que sea numérico para su correcta conversión */
+
+        if (nombre == null || nombre.isEmpty()) {
+            notificacion += "Ingrese su nombre\n";
+        } else {
+            if (esNumero(nombre)) {
+                notificacion += "El nombre ingresado no puede ser numérico\n";
+            }
+        }
+        if (direccion == null || direccion.isEmpty()) {
+            notificacion += "Ingrese su dirección\n";
+        } else {
+            if (esNumero(direccion)) {
+                notificacion += "La dirección ingresada no puede ser numérica\n";
+            }
+        }
+        if (!notificacion.isEmpty()) {
+            mostrarMensaje("Notificación", "Cambio de información fallido",
+                    notificacion
+                    , Alert.AlertType.WARNING);
+            return false;
+        }
+        return true;
+    }
+    private ObservableList<Cliente> getListaClientes(){
+        HashMap<String, Cliente> clientesMap = adminController.mfm.getClientes();
+        listaClientes.addAll( clientesMap.values());
+        return listaClientes;
+    }
+    private ObservableList<Producto> getListaProductos(){
+        HashMap<String,Producto> productosMap=adminController.mfm.getListaProductos();
+        listaProductos.addAll(productosMap.values());
+        return listaProductos;
+    }
+    void refrescarTableViews(){
+        tableViewClientes.getItems().clear();
+        tableViewClientes.setItems( getListaClientes());
+
+        tableViewProductos.getItems().clear();
+        tableViewProductos.setItems(getListaProductos());
+    }
+
+    void gestionEventos(){
+        tableViewClientes.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                btnEliminarCliente.setDisable(false); // Habilitar el botón si hay un elemento seleccionado
+            } else {
+                btnEliminarCliente.setDisable(true); // Deshabilitar el botón si no hay ningún elemento seleccionado
+            }
+        });
+    }
+
+    //-------------------------------EVENTOS DE BOTONES----------------------------
 
     @FXML
     void buscarProducto(ActionEvent event) {
@@ -156,84 +228,22 @@ public class AdminViewController {
     }
 
 
-    //--------------------------------FUNCIONES UTILITARIAS-------------------------------------------------------------
 
-    private ObservableList<Cliente> getListaClientes(){
-        HashMap<String, Cliente> clientesMap = adminController.mfm.getClientes();
-        listaClientes.addAll( clientesMap.values());
-        return listaClientes;
-    }
     @FXML
     void initialize() {
         btnEliminarCliente.setDisable( true );
         adminController.mfm.initAdminController( this );
-
+        //Iniciar los valores de la tableview de clientes
         this.columnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         this.columnIdentificacion.setCellValueFactory(new PropertyValueFactory<>("numeroIdentificacion"));
         this.columnDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
-        refrescarTableViewClientes();
+        //Iniciar los valores de la tableview de productos
+        this.columnProducto.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        this.columnCantidadProductos.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+        this.columnPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+
+        refrescarTableViews();
         gestionEventos();
     }
-
-    void refrescarTableViewClientes(){
-        tableViewClientes.getItems().clear();
-        tableViewClientes.setItems( getListaClientes());
-    }
-
-    void gestionEventos(){
-        tableViewClientes.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                btnEliminarCliente.setDisable(false); // Habilitar el botón si hay un elemento seleccionado
-            } else {
-                btnEliminarCliente.setDisable(true); // Deshabilitar el botón si no hay ningún elemento seleccionado
-            }
-        });
-    }
-    public void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertype) {
-        Alert alert = new Alert(alertype);
-        alert.setTitle(titulo);
-        alert.setHeaderText(header);
-        alert.setContentText(contenido);
-        alert.showAndWait();
-    }
-
-    private boolean esNumero(String string) {
-        try {
-            Float.parseFloat(string);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    private boolean validarDatos(String nombre, String direccion) {
-        String notificacion = "";
-
-		/*Se valida que el saldo ingresado no sea null ni sea cadena vacía,
-		además se valida que sea numérico para su correcta conversión */
-
-        if (nombre == null || nombre.isEmpty()) {
-            notificacion += "Ingrese su nombre\n";
-        } else {
-            if (esNumero(nombre)) {
-                notificacion += "El nombre ingresado no puede ser numérico\n";
-            }
-        }
-        if (direccion == null || direccion.isEmpty()) {
-            notificacion += "Ingrese su dirección\n";
-        } else {
-            if (esNumero(direccion)) {
-                notificacion += "La dirección ingresada no puede ser numérica\n";
-            }
-        }
-        if (!notificacion.isEmpty()) {
-            mostrarMensaje("Notificación", "Cambio de información fallido",
-                    notificacion
-                    , Alert.AlertType.WARNING);
-            return false;
-        }
-        return true;
-    }
-
 
 }
