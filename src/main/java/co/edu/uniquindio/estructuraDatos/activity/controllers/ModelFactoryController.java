@@ -1,6 +1,7 @@
 package co.edu.uniquindio.estructuraDatos.activity.controllers;
 
 import co.edu.uniquindio.estructuraDatos.activity.exceptions.ClienteException;
+import co.edu.uniquindio.estructuraDatos.activity.exceptions.ProductoException;
 import co.edu.uniquindio.estructuraDatos.activity.model.Cliente;
 import co.edu.uniquindio.estructuraDatos.activity.model.Producto;
 import co.edu.uniquindio.estructuraDatos.activity.model.Tienda;
@@ -102,6 +103,10 @@ public class ModelFactoryController {
         return tienda.getMapProductos();
     }
 
+    public boolean agregarProductoCarritoCliente(Producto selectedItem, String id) throws ProductoException {
+        return tienda.agregarProductoCliente( selectedItem , id );
+    }
+
     //--------------------------------------FUNCIONES ADMIN-------------------------------------------------------------
     public boolean eliminarCliente(String numeroIdentificacion) throws ClienteException {
        return tienda.eliminarCliente( obtenerCliente( numeroIdentificacion ) );
@@ -115,6 +120,11 @@ public class ModelFactoryController {
     public void serializarClientes() throws IOException {
         Persistence.guardarClientes( tienda.getMapClientes() );
     }
+    public void serializarProductos() throws IOException {
+        Persistence.guardarProductos( tienda.getMapProductos() );
+
+    }
+
 
 
 

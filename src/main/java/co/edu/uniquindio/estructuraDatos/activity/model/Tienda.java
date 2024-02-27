@@ -181,10 +181,10 @@ public class Tienda implements ITienda {
         return eliminado;
     }
 
-    //---------------PRODCTOS-----------------------------------------------
+    //---------------PRODUCTOS-----------------------------------------------
 
     private boolean verificarProducto(String codigo){
-        return mapClientes.containsKey(codigo);
+        return mapProductos.containsKey(codigo);
     }
 
     /**
@@ -226,9 +226,22 @@ public class Tienda implements ITienda {
             productoAux.setCantidad(newCantidad);
             eliminado=true;
         }else {
-            throw new ProductoException("El producto " + productoEliminar.getNombre() + "no ha sido encontrado");
+            throw new ProductoException("El producto " + productoEliminar.getNombre() + " no ha sido encontrado");
         }
         return eliminado;
+    }
+
+    public boolean agregarProductoCliente(Producto producto, String id) throws ProductoException {
+        boolean agregado = false;
+        if(verificarProducto( producto.getCodigo() )){
+            Cliente cliente = obtenerCliente( id );
+            cliente.agregarACarrito( producto );
+            eliminarProducto( producto );
+            agregado = true;
+        }else{
+            throw new ProductoException("El producto " + producto.getNombre() + " no ha sido encontrado");
+        }
+        return agregado;
     }
 
 

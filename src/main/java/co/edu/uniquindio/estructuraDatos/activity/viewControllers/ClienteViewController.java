@@ -128,54 +128,7 @@ public class ClienteViewController {
 
     private ObservableList<Producto> listaProductos = FXCollections.observableArrayList();
 
-    @FXML
-    void abrirVentanaCarrito(ActionEvent event) throws IOException {
-        FXMLLoader loader= new FXMLLoader();
-        loader.setLocation( App.class.getResource("CarritoView.fxml"));
-        AnchorPane anchorPane= loader.load();
-        CarritoComprasViewController controller = loader.getController();
-        controller.setAplicacion(aplicacion);
-        Scene scene= new Scene(anchorPane);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        controller.init(stage);
-
-        stage.setTitle( "Carrito de compras" );
-        stage.show();
-        controller.setClienteViewController( this );
-        btnCarritoCompras.setDisable( true );
-        stage.setX(stage.getX() + stage.getWidth());
-        stage.setY(stage.getY());
-
-
-        // Crear una transición de deslizamiento para la nueva ventana
-        TranslateTransition slideIn = new TranslateTransition(Duration.seconds(0.5), stage.getScene().getRoot());
-        slideIn.setFromX(this.stage.getWidth());
-        slideIn.setToX(0);
-
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), anchorPane);
-
-        // Establecemos la opacidad inicial y final para la transición
-        fadeTransition.setFromValue(0.0);
-        fadeTransition.setToValue(1.0);
-
-        // Iniciamos la transición
-
-
-        // Mostrar la nueva ventana y ejecutar las transiciones
-        controller.show();
-        slideIn.play();
-        fadeTransition.play();
-    }
-
-    @FXML
-    void agregarAlCarrito(ActionEvent event) {
-
-    }
-    @FXML
-    void buscarProducto(ActionEvent event) {
-
-    }
+    private static final String VALOR_DEFECTO = "1";
 
     @FXML
     void cambiarInfo(ActionEvent event) {
@@ -230,6 +183,7 @@ public class ClienteViewController {
         }
 
     }
+
     boolean actualizarCliente(Cliente cliente){
         try{
            if(clienteController.mfm.actualizarCliente(cliente)){
@@ -243,10 +197,9 @@ public class ClienteViewController {
 
     }
 
-    void activarBtnCarrito(){
-        btnCarritoCompras.setDisable( false);
+    void activarBtnCarrito(Boolean flag){
+        btnCarritoCompras.setDisable( flag);
     }
-
 
     void deshabilitarCampos(){
         txtNombreCliente.setEditable( false );
@@ -254,12 +207,94 @@ public class ClienteViewController {
         txtDireccion.setEditable( false );
     }
 
+    //-------------------------------------FUNCIONES TAB PRODUCTOS------------------------------------------------------
+    @FXML
+    void abrirVentanaCarrito(ActionEvent event) throws IOException {
+        FXMLLoader loader= new FXMLLoader();
+        loader.setLocation( App.class.getResource("CarritoView.fxml"));
+        AnchorPane anchorPane= loader.load();
+        CarritoComprasViewController controller = loader.getController();
+        controller.setAplicacion(aplicacion);
+        Scene scene= new Scene(anchorPane);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        controller.init(stage);
+
+        stage.setTitle( "Carrito de compras" );
+        stage.show();
+        controller.setClienteViewController( this );
+        btnCarritoCompras.setDisable( true );
+        stage.setX(stage.getX() + stage.getWidth());
+        stage.setY(stage.getY());
+
+
+        // Crear una transición de deslizamiento para la nueva ventana
+        TranslateTransition slideIn = new TranslateTransition(Duration.seconds(0.5), stage.getScene().getRoot());
+        slideIn.setFromX(this.stage.getWidth());
+        slideIn.setToX(0);
+
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), anchorPane);
+
+        // Establecemos la opacidad inicial y final para la transición
+        fadeTransition.setFromValue(0.0);
+        fadeTransition.setToValue(1.0);
+
+        // Iniciamos la transición
+
+
+        // Mostrar la nueva ventana y ejecutar las transiciones
+        controller.show();
+        slideIn.play();
+        fadeTransition.play();
+    }
+
+    @FXML
+    void agregarAlCarrito(ActionEvent event) throws IOException {
+        Producto selectedItem = tableViewProductos.getSelectionModel().getSelectedItem();
+        int cantidad = Integer.parseInt( txtCantidad.getText() );
+        Producto productoAux = new Producto(cantidad, selectedItem.getCodigo(), selectedItem.getNombre(), selectedItem.getPrecio());
+        if(agregarProducto(productoAux)){
+            mostrarMensaje( "Notificación", "Producto agregado al carrito" , cantidad + " de " + selectedItem.getNombre() +
+                    ". Puedes ver tu pedido en el botón carrito de compras" , Alert.AlertType.INFORMATION);
+            clienteController.mfm.serializarProductos();
+            refrescarTableViewProductos();
+            activarBtnCarrito( false );
+        }
+
+
+
+    }
+
+    private boolean agregarProducto(Producto selectedItem) {
+        String id = txtNumeroIdentificacion.getText();
+        try{
+            if(clienteController.mfm.agregarProductoCarritoCliente(selectedItem, id))
+                return true;
+        } catch (Exception e) {
+            throw new RuntimeException( e );
+        }
+        return false;
+    }
+
+    @FXML
+    void buscarProducto(ActionEvent event) {
+
+    }
+
 
 
     //-----------------------------------------FUNCIONES UTILITARIAS----------------------------------------------------
+
+    void habilitarCamposProducto(boolean flag){
+        btnAgregarCarrito.setDisable(flag);
+        txtCantidad.setDisable( flag );
+    }
     @FXML
     void initialize() {
+        txtCantidad.setText(VALOR_DEFECTO);
+        habilitarCamposProducto( true );
         clienteController.mfm.initClienteController( this );
+        activarBtnCarrito( true );
         deshabilitarCampos();
         configurarEventos();
         this.columnProducto.setCellValueFactory(new PropertyValueFactory<>("nombre"));
@@ -299,7 +334,28 @@ public class ClienteViewController {
             btnCarritoCompras.setStyle("-fx-background-color:  transparent; -fx-border-color:    #b26500; -fx-cursor: default");
         });
 
+        tableViewProductos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                habilitarCamposProducto( false ); // Habilitar el botón si hay un elemento seleccionado
+            } else {
+                habilitarCamposProducto( true ); // Deshabilitar el botón si no hay ningún elemento seleccionado
+            }
+        });
+        TextFormatter<String> formatter = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("[0-9]*")) {
+                return change;
+            }
+            return null;
+        });
+        // Aplicar el TextFormatter al TextField
+        txtCantidad.setTextFormatter(formatter);
 
+        txtCantidad.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                txtCantidad.setText(VALOR_DEFECTO);
+            }
+        });
 
     }
 

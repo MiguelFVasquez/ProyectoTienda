@@ -86,7 +86,7 @@ public class CarritoComprasViewController {
 
     @FXML
     void cerrarVentana(ActionEvent event) {
-        clienteViewController.activarBtnCarrito();
+        clienteViewController.activarBtnCarrito(false);
         this.stage.close();
     }
 

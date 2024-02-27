@@ -9,7 +9,9 @@ public class CarritoCompra {
     private ArrayList<Producto> listaProductos;
 
     public CarritoCompra() {
-
+        this.codigoCarro="0";
+        this.listaCodigosProductos = new HashSet<>();
+        this.listaProductos = new ArrayList<>();
     }
 
     public CarritoCompra(String codigoCarro) {

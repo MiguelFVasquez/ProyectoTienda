@@ -23,6 +23,10 @@ public class Cliente implements ICliente {
         this.carritoCliente = new CarritoCompra();
     }
 
+    public void setCarritoCliente(CarritoCompra carritoCliente) {
+        this.carritoCliente = carritoCliente;
+    }
+
     public String getNombre() {
         return nombre;
     }

@@ -1,5 +1,6 @@
 package co.edu.uniquindio.estructuraDatos.activity.persistence;
 
+import co.edu.uniquindio.estructuraDatos.activity.model.CarritoCompra;
 import co.edu.uniquindio.estructuraDatos.activity.model.Cliente;
 import co.edu.uniquindio.estructuraDatos.activity.model.Producto;
 import co.edu.uniquindio.estructuraDatos.activity.model.Tienda;
@@ -56,7 +57,7 @@ public class Persistence {
             cliente.setNombre(linea.split("@@")[0]);
             cliente.setNumeroIdentificacion(linea.split("@@")[1]);
             cliente.setDireccion(linea.split("@@")[2]);
-            
+            cliente.setCarritoCliente( new CarritoCompra() );
             clientes.put(linea.split("@@")[1],cliente);
         }
         return clientes;
