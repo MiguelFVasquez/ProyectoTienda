@@ -1,10 +1,18 @@
-Trabajando en el proyecto: Shuh3n
+Trabajando en el proyecto: Nadie
 
-Taks
-- Activar botón "Eliminar Cliente" solamente cuando esté seleccionado un cliente.
+***Taks***
+- ~~Activar botón "Eliminar Cliente" solamente cuando esté seleccionado un cliente.~~
+- ~~Cambio de información cliente~~
 - Funciones de administrador
 - Funciones de carrito
-- Eliminar el cliente del txt al eliminarlo de la tienda [Serialización]
+- Mostrar productos en cliente 
+- Gestión en Administrador
+
+***Serializado***
+- ~~Eliminar el cliente del txt al eliminarlo de la tienda.~~
+- Serializado productos
+
+**No borren las taks, tachenlas para saber que llevamos**
 
 
 
