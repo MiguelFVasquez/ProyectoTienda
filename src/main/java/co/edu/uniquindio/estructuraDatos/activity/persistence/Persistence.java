@@ -57,7 +57,8 @@ public class Persistence {
             cliente.setNombre(linea.split("@@")[0]);
             cliente.setNumeroIdentificacion(linea.split("@@")[1]);
             cliente.setDireccion(linea.split("@@")[2]);
-            cliente.setCarritoCliente( new CarritoCompra() );
+            cliente.setCarritoCliente( new CarritoCompra());
+
             clientes.put(linea.split("@@")[1],cliente);
         }
         return clientes;
@@ -71,7 +72,7 @@ public class Persistence {
                     + cliente.getNumeroIdentificacion() + "@@"
                     + cliente.getDireccion() + "\n";
         }
-        ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_PRODUCTOS, contenido, false);
+        ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_CLIENTES, contenido, false);
     }
     public static void guardarProductos(HashMap<String,Producto> listaProductos) throws IOException {
         String contenido = "";

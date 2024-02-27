@@ -1,26 +1,30 @@
 package co.edu.uniquindio.estructuraDatos.activity.viewControllers;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.estructuraDatos.activity.app.App;
-import javafx.animation.ScaleTransition;
+import co.edu.uniquindio.estructuraDatos.activity.controllers.ClienteController;
+import co.edu.uniquindio.estructuraDatos.activity.model.Cliente;
+import co.edu.uniquindio.estructuraDatos.activity.model.Producto;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class CarritoComprasViewController {
     private Stage stage;
 
     private ClienteViewController clienteViewController;
     private App aplicacion;
-
+    private ClienteController carritoController = new ClienteController();
+    private ObservableList<Producto> listaProductosCliente = FXCollections.observableArrayList();
+    private String identificacionCliente;
 
 
     //FUNCIONES UTILIRARIAS
@@ -45,6 +49,7 @@ public class CarritoComprasViewController {
 
     public void setClienteViewController(ClienteViewController clienteViewController) {
         this.clienteViewController = clienteViewController;
+        this.identificacionCliente = clienteViewController.txtNumeroIdentificacion.getText();
     }
 
     @FXML
@@ -69,10 +74,17 @@ public class CarritoComprasViewController {
     private TableColumn<?, ?> columnProducto;
 
     @FXML
-    private TableView<?> tableViewCarrito;
+    private TableColumn<String, Producto> columnCantidad;
+
+    @FXML
+    private TableView<Producto> tableViewCarrito;
 
     @FXML
     private TextField txtPrecioTotal;
+    @FXML
+    private TextField txtCantidadEliminar;
+    private static final String VALOR_DEFECTO = "1";
+
 
     @FXML
     void comprarProductos(ActionEvent event) {
@@ -81,7 +93,50 @@ public class CarritoComprasViewController {
 
     @FXML
     void eliminarProducto(ActionEvent event) {
+        Producto selectedItem = tableViewCarrito.getSelectionModel().getSelectedItem();
+        int cantidadElim = Integer.parseInt( txtCantidadEliminar.getText() );
+        selectedItem.setCantidad( cantidadElim );
+        Alert alert = new Alert( Alert.AlertType.CONFIRMATION );
+        alert.setTitle( "Confirmación" );
+        alert.setHeaderText( "¿Estás seguro deseas eliminar "+
+                selectedItem.getCantidad() + " de" + selectedItem.getNombre() +  "?" );
+        alert.setContentText( "Presiona ACEPTAR para confirmar o CANCELAR para cancelar." );
 
+        // Mostrar la ventana de confirmación y esperar a que el usuario elija una opción
+        alert.showAndWait().ifPresent( response -> {
+            if ( response == javafx.scene.control.ButtonType.OK ) {
+                System.out.println( "El usuario confirmó." );
+                gestionActivos( false );
+                eliminarProductoCarrito(selectedItem);
+                tableViewCarrito.getSelectionModel().setSelectionMode( null );
+                refrescarTableViewProductos( carritoController.mfm.obtenerCliente(identificacionCliente) );
+                clienteViewController.refrescarTableViewProductos();
+                try {
+                    carritoController.mfm.serializarProductos();
+                } catch (IOException e) {
+                    throw new RuntimeException( e );
+                }
+            } else {
+                System.out.println( "El usuario canceló." );
+            }
+        } );
+
+    }
+
+    private void eliminarProductoCarrito(Producto selectedItem) {
+        try{
+            if(carritoController.mfm.eliminarProducto(selectedItem, clienteViewController.txtNumeroIdentificacion.getText())){
+                mostrarMensaje( "Notificación","Producto eliminado","Se ha eliminado el producto del carrito",
+                        Alert.AlertType.INFORMATION );
+            }
+        } catch (Exception e) {
+            throw new RuntimeException( e );
+        }
+    }
+
+    void gestionActivos(boolean flag){
+        btnEliminarProducto.setDisable( !flag );
+        txtCantidadEliminar.setEditable( flag );
     }
 
     @FXML
@@ -90,8 +145,60 @@ public class CarritoComprasViewController {
         this.stage.close();
     }
 
+
+    //------------------------------FUNCIONES UTILITARIAS---------------------------------------------------------------
     @FXML
     void initialize() {
+        txtCantidadEliminar.setText( "1" );
+        carritoController.mfm.initCarritoController( this );
+        this.columnProducto.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        this.columnPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+        this.columnCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+        gestionEventos();
+        gestionActivos( false );
+    }
+
+    private ObservableList<Producto> getListaProductos(Cliente cliente) {
+        ArrayList<Producto> productosMap = cliente.getCarritoCliente().getListaProductos();
+        listaProductosCliente.addAll( productosMap );
+        return listaProductosCliente;
+    }
+
+    void refrescarTableViewProductos(Cliente cliente) {
+        tableViewCarrito.getItems().clear();
+        tableViewCarrito.setItems( getListaProductos(cliente) );
+    }
+
+    void gestionEventos() {
+        TextFormatter<String> formatter = new TextFormatter<>( change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("[0-9]*")) {
+                return change;
+            }
+            return null;
+        });
+        // Aplicar el TextFormatter al TextField
+        txtCantidadEliminar.setTextFormatter(formatter);
+
+        txtCantidadEliminar.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                txtCantidadEliminar.setText(VALOR_DEFECTO);
+            }
+        });
+        tableViewCarrito.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                gestionActivos( true ); // Habilitar el botón si hay un elemento seleccionado
+            } else {
+                gestionActivos( false ); // Deshabilitar el botón si no hay ningún elemento seleccionado
+            }
+        });
+    }
+    public void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertype) {
+        Alert alert = new Alert(alertype);
+        alert.setTitle(titulo);
+        alert.setHeaderText(header);
+        alert.setContentText(contenido);
+        alert.showAndWait();
     }
 
 

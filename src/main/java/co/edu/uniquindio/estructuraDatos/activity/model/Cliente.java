@@ -23,6 +23,10 @@ public class Cliente implements ICliente {
         this.carritoCliente = new CarritoCompra();
     }
 
+    public CarritoCompra getCarritoCliente() {
+        return carritoCliente;
+    }
+
     public void setCarritoCliente(CarritoCompra carritoCliente) {
         this.carritoCliente = carritoCliente;
     }
@@ -61,10 +65,7 @@ public class Cliente implements ICliente {
     private boolean verificarCantidadProducto(Producto newProducto){
         return newProducto.verificarCantidad(newProducto.getCantidad());
     }
-    private Producto obtenerProducto(String codigo){
 
-        return null;
-    }
 
     /**
      *
@@ -77,6 +78,10 @@ public class Cliente implements ICliente {
         carritoCliente.agregarACarro(newProducto);
     }
 
+    public Producto obtenerProductoCarrito(String codigo) throws ProductoException {
+        return carritoCliente.obtenerProductoCarrito(codigo);
+    }
+
     /**
      *
      * @param eliminarProducto
@@ -86,7 +91,7 @@ public class Cliente implements ICliente {
     @Override
     public boolean eliminarDeCarrito(Producto eliminarProducto) throws ProductoException {
         boolean eliminado= false;
-        Producto productoObtenido= obtenerProducto(eliminarProducto.getCodigo());
+        Producto productoObtenido= obtenerProductoCarrito(eliminarProducto.getCodigo());
         if (productoObtenido==null){
             throw  new ProductoException("El producto de código: " + eliminarProducto.getCodigo()+ " no ha sido encontrado");
         }else {

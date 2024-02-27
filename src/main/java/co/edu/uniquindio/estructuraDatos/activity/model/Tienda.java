@@ -243,6 +243,18 @@ public class Tienda implements ITienda {
         }
         return agregado;
     }
+    public boolean eliminarProductoCliente(Producto producto, String id) throws ProductoException {
+        boolean eliminado = false;
+        if(verificarProducto( producto.getCodigo() )){
+            Cliente cliente = obtenerCliente( id );
+            cliente.eliminarDeCarrito( producto );
+            agregarProducto( producto );
+            eliminado = true;
+        }else{
+            throw new ProductoException("El producto " + producto.getNombre() + " no ha sido encontrado");
+        }
+        return eliminado;
+    }
 
 
 }

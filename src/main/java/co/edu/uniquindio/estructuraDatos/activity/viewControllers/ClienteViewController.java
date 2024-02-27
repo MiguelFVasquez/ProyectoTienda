@@ -126,6 +126,8 @@ public class ClienteViewController {
     @FXML
     private TextField txtBuscarProducto;
 
+    private CarritoComprasViewController carritoComprasViewController;
+
     private ObservableList<Producto> listaProductos = FXCollections.observableArrayList();
 
     private static final String VALOR_DEFECTO = "1";
@@ -213,16 +215,16 @@ public class ClienteViewController {
         FXMLLoader loader= new FXMLLoader();
         loader.setLocation( App.class.getResource("CarritoView.fxml"));
         AnchorPane anchorPane= loader.load();
-        CarritoComprasViewController controller = loader.getController();
-        controller.setAplicacion(aplicacion);
+        carritoComprasViewController = loader.getController();
+        carritoComprasViewController.setAplicacion(aplicacion);
         Scene scene= new Scene(anchorPane);
         Stage stage = new Stage();
         stage.setScene(scene);
-        controller.init(stage);
-
+        carritoComprasViewController.init(stage);
+        carritoComprasViewController.setClienteViewController( this );
+        refrescarTableCarrito();
         stage.setTitle( "Carrito de compras" );
         stage.show();
-        controller.setClienteViewController( this );
         btnCarritoCompras.setDisable( true );
         stage.setX(stage.getX() + stage.getWidth());
         stage.setY(stage.getY());
@@ -243,9 +245,13 @@ public class ClienteViewController {
 
 
         // Mostrar la nueva ventana y ejecutar las transiciones
-        controller.show();
+        carritoComprasViewController.show();
         slideIn.play();
         fadeTransition.play();
+    }
+
+    private void refrescarTableCarrito() {
+        carritoComprasViewController.refrescarTableViewProductos(clienteController.mfm.obtenerCliente( txtNumeroIdentificacion.getText() ));
     }
 
     @FXML
@@ -259,6 +265,10 @@ public class ClienteViewController {
             clienteController.mfm.serializarProductos();
             refrescarTableViewProductos();
             activarBtnCarrito( false );
+            if(carritoComprasViewController!=null){
+                refrescarTableCarrito();
+
+            }
         }
 
 

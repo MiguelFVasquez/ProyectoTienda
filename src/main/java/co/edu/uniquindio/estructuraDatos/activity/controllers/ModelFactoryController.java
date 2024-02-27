@@ -57,6 +57,9 @@ public class ModelFactoryController {
     public void initAdminController(AdminViewController initAdminViewController){
         this.adminViewController= initAdminViewController;
     }
+    public void initCarritoController(CarritoComprasViewController initcarritoComprasViewController) {
+        this.carritoComprasViewController = initcarritoComprasViewController;
+    }
 
     public HashMap<String, Cliente> getClientes(){
         return tienda.getMapClientes();
@@ -106,6 +109,10 @@ public class ModelFactoryController {
     public boolean agregarProductoCarritoCliente(Producto selectedItem, String id) throws ProductoException {
         return tienda.agregarProductoCliente( selectedItem , id );
     }
+    public boolean eliminarProducto(Producto selectedItem, String id) throws ProductoException {
+        return tienda.eliminarProductoCliente( selectedItem , id);
+    }
+
 
     //--------------------------------------FUNCIONES ADMIN-------------------------------------------------------------
     public boolean eliminarCliente(String numeroIdentificacion) throws ClienteException {
