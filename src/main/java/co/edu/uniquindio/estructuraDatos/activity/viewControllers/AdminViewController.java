@@ -167,12 +167,17 @@ public class AdminViewController {
     void initialize() {
         btnEliminarCliente.setDisable( true );
         adminController.mfm.initAdminController( this );
+
         this.columnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         this.columnIdentificacion.setCellValueFactory(new PropertyValueFactory<>("numeroIdentificacion"));
         this.columnDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
+        refrescarTableViewClientes();
+        gestionEventos();
+    }
+
+    void refrescarTableViewClientes(){
         tableViewClientes.getItems().clear();
         tableViewClientes.setItems( getListaClientes());
-        gestionEventos();
     }
 
     void gestionEventos(){

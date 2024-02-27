@@ -86,8 +86,9 @@
                         </Button>
                         <TableView fx:id="tableViewProductos" layoutX="82.0" layoutY="96.0" prefHeight="297.0" prefWidth="671.0" stylesheets="@css/styles.css">
                           <columns>
-                            <TableColumn fx:id="columnProducto" prefWidth="337.0" text="Producto" />
-                            <TableColumn fx:id="columnPrecio" minWidth="0.0" prefWidth="333.0" text="Precio" />
+                            <TableColumn fx:id="columnProducto" prefWidth="324.0" text="Producto" />
+                            <TableColumn fx:id="columnPrecio" minWidth="0.0" prefWidth="215.0" text="Precio" />
+                              <TableColumn fx:id="columnCantidad" prefWidth="131.0" text="Cantidad disponible" />
                           </columns>
                         </TableView>
                         <Button fx:id="btnAgregarCarrito" layoutX="354.0" layoutY="399.0" mnemonicParsing="false" onAction="#agregarAlCarrito" prefHeight="32.0" prefWidth="135.0" styleClass="buttonGreen" stylesheets="@css/styles.css" text="Agregar al carrito" textFill="WHITE">

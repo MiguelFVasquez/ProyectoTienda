@@ -2,6 +2,7 @@ package co.edu.uniquindio.estructuraDatos.activity.controllers;
 
 import co.edu.uniquindio.estructuraDatos.activity.exceptions.ClienteException;
 import co.edu.uniquindio.estructuraDatos.activity.model.Cliente;
+import co.edu.uniquindio.estructuraDatos.activity.model.Producto;
 import co.edu.uniquindio.estructuraDatos.activity.model.Tienda;
 import co.edu.uniquindio.estructuraDatos.activity.persistence.Persistence;
 import co.edu.uniquindio.estructuraDatos.activity.viewControllers.AdminViewController;
@@ -18,6 +19,7 @@ public class ModelFactoryController {
     private AdminViewController adminViewController;
     private CarritoComprasViewController carritoComprasViewController;
     static Tienda tienda;
+
 
 
 
@@ -61,7 +63,7 @@ public class ModelFactoryController {
 
 
 
-    //--------------------------FUNCIONES DE INICIO SESION----------------------------------------------------------
+    //--------------------------FUNCIONES DE CLIENTE----------------------------------------------------------
 
     public boolean verificarCliente(String id){
         return tienda.verificarCliente( id );
@@ -94,6 +96,10 @@ public class ModelFactoryController {
 
     public boolean actualizarCliente(Cliente cliente) throws ClienteException {
         return tienda.acualizarCliente( cliente );
+    }
+    //----------------------------------------FUNCIONES DE PRODUCTO-----------------------------------------------------
+    public HashMap<String, Producto> getProductos() {
+        return tienda.getMapProductos();
     }
 
     //--------------------------------------FUNCIONES ADMIN-------------------------------------------------------------

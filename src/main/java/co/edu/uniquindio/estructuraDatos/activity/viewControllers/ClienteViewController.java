@@ -2,19 +2,24 @@ package co.edu.uniquindio.estructuraDatos.activity.viewControllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.estructuraDatos.activity.app.App;
 import co.edu.uniquindio.estructuraDatos.activity.controllers.ClienteController;
 import co.edu.uniquindio.estructuraDatos.activity.exceptions.ClienteException;
 import co.edu.uniquindio.estructuraDatos.activity.model.Cliente;
+import co.edu.uniquindio.estructuraDatos.activity.model.Producto;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -92,16 +97,19 @@ public class ClienteViewController {
     private Button btnBuscarProducto;
 
     @FXML
-    private TableColumn<?, ?> columnPrecio;
+    private TableColumn<Double, Producto> columnPrecio;
 
     @FXML
-    private TableColumn<?, ?> columnProducto;
+    private TableColumn<String, Producto> columnProducto;
+
+    @FXML
+    private TableColumn<Integer, Producto> columnCantidad;
 
     @FXML
     public Label nombreCliente;
 
     @FXML
-    private TableView<?> tableViewProductos;
+    private TableView<Producto> tableViewProductos;
 
     @FXML
     public TextField txtDireccion;
@@ -118,6 +126,7 @@ public class ClienteViewController {
     @FXML
     private TextField txtBuscarProducto;
 
+    private ObservableList<Producto> listaProductos = FXCollections.observableArrayList();
 
     @FXML
     void abrirVentanaCarrito(ActionEvent event) throws IOException {
@@ -244,12 +253,29 @@ public class ClienteViewController {
         txtNumeroIdentificacion.setEditable( false );
         txtDireccion.setEditable( false );
     }
+
+
+
+    //-----------------------------------------FUNCIONES UTILITARIAS----------------------------------------------------
     @FXML
     void initialize() {
-        clienteController.mfm.initClienteController(this);
+        clienteController.mfm.initClienteController( this );
         deshabilitarCampos();
         configurarEventos();
+        this.columnProducto.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        this.columnPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+        this.columnCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+        refrescarTableViewProductos();
+    }
+    private ObservableList<Producto> getListaProductos() {
+        HashMap<String, Producto> productosMap = clienteController.mfm.getProductos();
+        listaProductos.addAll( productosMap.values() );
+        return listaProductos;
+    }
 
+    void refrescarTableViewProductos() {
+        tableViewProductos.getItems().clear();
+        tableViewProductos.setItems( getListaProductos() );
     }
 
     private void configurarEventos(){
