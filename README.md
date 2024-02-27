@@ -6,7 +6,7 @@ Trabajando en el proyecto: Nadie
 - Funciones de administrador
 - Funciones de carrito
 - Mostrar productos en cliente 
-- Gestión en Administrador
+- Gestión de productos Admin
 
 ***Serializado***
 - ~~Eliminar el cliente del txt al eliminarlo de la tienda.~~
