@@ -126,8 +126,7 @@ public class CarritoComprasViewController {
     private void eliminarProductoCarrito(Producto selectedItem) {
         try{
             if(carritoController.mfm.eliminarProducto(selectedItem, clienteViewController.txtNumeroIdentificacion.getText())){
-                mostrarMensaje( "Notificación","Producto eliminado","Se ha eliminado el producto del carrito",
-                        Alert.AlertType.INFORMATION );
+                mostrarMensaje( "Notificación","Producto eliminado","Se ha eliminado el producto del carrito", Alert.AlertType.INFORMATION );
             }
         } catch (Exception e) {
             throw new RuntimeException( e );

@@ -186,6 +186,9 @@ public class Tienda implements ITienda {
     private boolean verificarProducto(String codigo){
         return mapProductos.containsKey(codigo);
     }
+    private Producto obtenerProducto(String codigo){
+        return mapProductos.getOrDefault(codigo,null);
+    }
 
     /**
      * Si el producto ya existe lo que se hace es setear la cantidad existente del producto
@@ -194,21 +197,34 @@ public class Tienda implements ITienda {
      * @return
      */
     @Override
-    public boolean agregarProducto(Producto newProducto) {
+    public boolean agregarProducto(Producto newProducto) throws ProductoException{
         boolean creado= false;
         if (verificarProducto(newProducto.getCodigo())){
-            Producto productoAux= mapProductos.get(newProducto.getCodigo());
-            int newCantidad= productoAux.getCantidad()+ newProducto.getCantidad();
-            productoAux.setCantidad(newCantidad);
-            creado=true;
+            throw new ProductoException("El producto con código: " + newProducto.getCodigo() + " ya se encuentra registrado");
         }else {
             mapProductos.put(newProducto.getCodigo(), newProducto);
             inventario.add(newProducto);
             creado=true;
         }
         return creado;
+
     }
 
+    @Override
+    public boolean actualizarProducto(Producto productoActualizar) throws ProductoException{
+        boolean actualizado=false;
+        Producto productoObtenido= obtenerProducto(productoActualizar.getCodigo());
+        if (productoObtenido==null){
+            throw new ProductoException("El producto con el código: " + productoActualizar.getCodigo()+ " no ha sido encontrado");
+        }else {
+            String newName= productoActualizar.getNombre();
+            Integer newCant= productoActualizar.getCantidad() + productoObtenido.getCantidad();
+            actualizado=true;
+            productoObtenido.setNombre(newName);
+            productoObtenido.setCantidad(newCant);
+        }
+        return actualizado;
+    }
     /**
      *
      * El metodo para eliminar, lo que hace es restar la cantidad del producto cuando se hace la venta
@@ -230,7 +246,7 @@ public class Tienda implements ITienda {
         }
         return eliminado;
     }
-
+//----------------------------PRODUCTO-CLIENTE---------------------------------------
     public boolean agregarProductoCliente(Producto producto, String id) throws ProductoException {
         boolean agregado = false;
         if(verificarProducto( producto.getCodigo() )){
@@ -239,7 +255,7 @@ public class Tienda implements ITienda {
             eliminarProducto( producto );
             agregado = true;
         }else{
-            throw new ProductoException("El producto " + producto.getNombre() + " no ha sido encontrado");
+            throw new ProductoException("El producto: " + producto.getNombre() + " no ha sido encontrado");
         }
         return agregado;
     }
@@ -248,10 +264,10 @@ public class Tienda implements ITienda {
         if(verificarProducto( producto.getCodigo() )){
             Cliente cliente = obtenerCliente( id );
             cliente.eliminarDeCarrito( producto );
-            agregarProducto( producto );
+            actualizarProducto( producto );
             eliminado = true;
         }else{
-            throw new ProductoException("El producto " + producto.getNombre() + " no ha sido encontrado");
+            throw new ProductoException("El producto: " + producto.getNombre() + " no ha sido encontrado");
         }
         return eliminado;
     }

@@ -113,7 +113,6 @@ public class ModelFactoryController {
         return tienda.eliminarProductoCliente( selectedItem , id);
     }
 
-
     //--------------------------------------FUNCIONES ADMIN-------------------------------------------------------------
     public boolean eliminarCliente(String numeroIdentificacion) throws ClienteException {
        return tienda.eliminarCliente( obtenerCliente( numeroIdentificacion ) );
