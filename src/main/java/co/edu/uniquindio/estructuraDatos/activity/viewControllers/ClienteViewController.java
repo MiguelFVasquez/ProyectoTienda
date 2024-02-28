@@ -287,7 +287,17 @@ public class ClienteViewController {
 
     @FXML
     void buscarProducto(ActionEvent event) {
+        String nombreProductoBuscar= txtBuscarProducto.getText();
+        Producto productoEncontrado= clienteController.mfm.obtenerProductoNombre(nombreProductoBuscar);
+        if (productoEncontrado!=null){
+            listaProductos.clear();
+            listaProductos.add(productoEncontrado);
+            tableViewProductos.setItems(listaProductos);
+            tableViewProductos.refresh();
 
+        }else {
+            mostrarMensaje("Notificación busqueda", "Resultado de la busqueda", "El producto: " + nombreProductoBuscar +" no ha sido encontrado", Alert.AlertType.INFORMATION);
+        }
     }
 
 

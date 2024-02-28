@@ -115,6 +115,9 @@ public class ModelFactoryController {
     public Producto obtenerProducto(String codigo){
         return tienda.obtenerProducto(codigo);
     }
+    public Producto obtenerProductoNombre(String nombre){
+        return tienda.obtenerProductoNombre(nombre);
+    }
 
     //--------------------------------------FUNCIONES ADMIN-------------------------------------------------------------
     public boolean eliminarCliente(String numeroIdentificacion) throws ClienteException {

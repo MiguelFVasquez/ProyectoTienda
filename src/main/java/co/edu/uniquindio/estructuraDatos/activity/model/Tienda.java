@@ -190,6 +190,13 @@ public class Tienda implements ITienda {
         return mapProductos.getOrDefault(codigo,null);
     }
 
+    public Producto obtenerProductoNombre(String nombre){
+        for (Producto productoAux: mapProductos.values()) {
+            if (productoAux.getNombre().toLowerCase().contains(nombre)) return productoAux;
+        }
+        return null;
+    }
+
     /**
      * Si el producto ya existe lo que se hace es setear la cantidad existente del producto
      *
