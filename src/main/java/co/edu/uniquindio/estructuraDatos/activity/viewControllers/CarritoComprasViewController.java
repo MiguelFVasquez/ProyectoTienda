@@ -12,10 +12,12 @@ import co.edu.uniquindio.estructuraDatos.activity.model.Producto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class CarritoComprasViewController {
     private Stage stage;
@@ -95,31 +97,38 @@ public class CarritoComprasViewController {
     void eliminarProducto(ActionEvent event) {
         Producto selectedItem = tableViewCarrito.getSelectionModel().getSelectedItem();
         int cantidadElim = Integer.parseInt( txtCantidadEliminar.getText() );
-        selectedItem.setCantidad( cantidadElim );
-        Alert alert = new Alert( Alert.AlertType.CONFIRMATION );
-        alert.setTitle( "Confirmación" );
-        alert.setHeaderText( "¿Estás seguro deseas eliminar "+
-                selectedItem.getCantidad() + " de" + selectedItem.getNombre() +  "?" );
-        alert.setContentText( "Presiona ACEPTAR para confirmar o CANCELAR para cancelar." );
+        if(selectedItem.getCantidad()>= cantidadElim){
+            Producto productoAux = new Producto(cantidadElim,selectedItem.getCodigo(),
+                    selectedItem.getNombre(), selectedItem.getPrecio());
+            Alert alert = new Alert( Alert.AlertType.CONFIRMATION );
+            alert.setTitle( "Confirmación" );
+            alert.setHeaderText( "¿Estás seguro deseas eliminar "+
+                    cantidadElim + " de " + selectedItem.getNombre() +  "?" );
+            alert.setContentText( "Presiona ACEPTAR para confirmar o CANCELAR para cancelar." );
 
-        // Mostrar la ventana de confirmación y esperar a que el usuario elija una opción
-        alert.showAndWait().ifPresent( response -> {
-            if ( response == javafx.scene.control.ButtonType.OK ) {
-                System.out.println( "El usuario confirmó." );
-                gestionActivos( false );
-                eliminarProductoCarrito(selectedItem);
-                tableViewCarrito.getSelectionModel().setSelectionMode( null );
-                refrescarTableViewProductos( carritoController.mfm.obtenerCliente(identificacionCliente) );
-                clienteViewController.refrescarTableViewProductos();
-                try {
-                    carritoController.mfm.serializarProductos();
-                } catch (IOException e) {
-                    throw new RuntimeException( e );
+            // Mostrar la ventana de confirmación y esperar a que el usuario elija una opción
+            alert.showAndWait().ifPresent( response -> {
+                if ( response == javafx.scene.control.ButtonType.OK ) {
+                    System.out.println( "El usuario confirmó." );
+                    gestionActivos( false );
+                    eliminarProductoCarrito(productoAux);
+                    tableViewCarrito.getSelectionModel().setSelectionMode( null );
+                    refrescarTableViewProductos( carritoController.mfm.obtenerCliente(identificacionCliente) );
+                    clienteViewController.refrescarTableViewProductos();
+                    try {
+                        carritoController.mfm.serializarProductos();
+                    } catch (IOException e) {
+                        throw new RuntimeException( e );
+                    }
+                } else {
+                    System.out.println( "El usuario canceló." );
                 }
-            } else {
-                System.out.println( "El usuario canceló." );
-            }
-        } );
+            } );
+        }else{
+            mostrarMensaje("Notificación" , "Producto no eliminado" ,
+                    "La cantidad de " + selectedItem.getNombre()+ " es mayor a la agregada al carrito ", Alert.AlertType.INFORMATION);
+        }
+
 
     }
 
@@ -155,6 +164,13 @@ public class CarritoComprasViewController {
         this.columnCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         gestionEventos();
         gestionActivos( false );
+
+        /*stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                clienteViewController.activarBtnCarrito(false);
+            }
+        });*/
     }
 
     private ObservableList<Producto> getListaProductos(Cliente cliente) {
@@ -186,11 +202,15 @@ public class CarritoComprasViewController {
         });
         tableViewCarrito.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-                gestionActivos( true ); // Habilitar el botón si hay un elemento seleccionado
+                gestionActivos( true );// Habilitar el botón si hay un elemento seleccionado
+                txtCantidadEliminar.setText(String.valueOf(newSelection.getCantidad()));
             } else {
-                gestionActivos( false ); // Deshabilitar el botón si no hay ningún elemento seleccionado
+                gestionActivos( false );// Deshabilitar el botón si no hay ningún elemento seleccionado
+                txtCantidadEliminar.setText("1");
             }
         });
+
+
     }
     public void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertype) {
         Alert alert = new Alert(alertype);

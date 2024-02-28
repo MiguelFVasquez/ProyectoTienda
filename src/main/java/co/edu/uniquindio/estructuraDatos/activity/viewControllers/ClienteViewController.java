@@ -181,6 +181,7 @@ public class ClienteViewController {
         if(validarDatos( nombre, direccion )){
             if(actualizarCliente( cliente1 )){
                 gestionActivos( false );
+                nombreCliente.setText(nombre);
                 clienteController.mfm.serializarClientes();
             }
         }
@@ -262,7 +263,6 @@ public class ClienteViewController {
         Producto productoAux = new Producto(cantidad, selectedItem.getCodigo(), selectedItem.getNombre(), selectedItem.getPrecio());
 
         if(agregarProducto(productoAux)){
-            clienteController.mfm.serializarProductos();
             refrescarTableViewProductos();
             activarBtnCarrito( false );
             if(carritoComprasViewController!=null){
