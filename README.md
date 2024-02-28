@@ -12,6 +12,8 @@ Trabajando en el proyecto: Nadie
 - Implementación de un botón de cancelar VENTA de Carrito
 - Implementación de Eliminar TODO un producto con todas sus cantidades
 - Proteger de perder Productos al cerrar la aplicación forzosamente
+- Set format only numbers on textfields necesary
+- Manejar cerrados forzosos de aplicación
 
 ***Serializado***
 - ~~Eliminar el cliente del txt al eliminarlo de la tienda.~~
