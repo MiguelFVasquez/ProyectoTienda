@@ -103,6 +103,7 @@
                               <FontAwesomeIconView fill="WHITE" glyphName="CHECK" />
                            </graphic>
                         </Button>
+                        <Button fx:id="btnEliminarProducto" layoutX="368.0" layoutY="432.0" mnemonicParsing="false" onAction="#eliminarProducto" styleClass="buttonRed" stylesheets="@css/styles.css" text="Eliminar Producto" />
                      </children>
                   </AnchorPane>
             </content>

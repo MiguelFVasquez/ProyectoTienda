@@ -234,22 +234,33 @@ public class Tienda implements ITienda {
     }
     /**
      *
-     * El metodo para eliminar, lo que hace es restar la cantidad del producto cuando se hace la venta
+     * El metodo para vender, lo que hace es restar la cantidad del producto cuando se hace la venta
      *
-     * @param productoEliminar
+     * @param productoVender
      * @return
      * @throws ProductoException
      */
     @Override
-    public boolean eliminarProducto(Producto productoEliminar) throws ProductoException {
+    public boolean ventaProducto(Producto productoVender) throws ProductoException {
         boolean eliminado= false;
-        if (verificarProducto(productoEliminar.getCodigo())){
-            Producto productoAux= mapProductos.get(productoEliminar.getCodigo());
-            int newCantidad= productoAux.getCantidad() - productoEliminar.getCantidad();
+        if (verificarProducto(productoVender.getCodigo())){
+            Producto productoAux= mapProductos.get(productoVender.getCodigo());
+            int newCantidad= productoAux.getCantidad() - productoVender.getCantidad();
             productoAux.setCantidad(newCantidad);
             eliminado=true;
         }else {
-            throw new ProductoException("El producto " + productoEliminar.getNombre() + " no ha sido encontrado");
+            throw new ProductoException("El producto " + productoVender.getNombre() + " no ha sido encontrado");
+        }
+        return eliminado;
+    }
+    @Override
+    public boolean eliminarProducto(Producto productoEliminar) throws ProductoException{
+        boolean eliminado= false;
+        if (obtenerProducto(productoEliminar.getCodigo())== null ){
+            throw new ProductoException("El producto no ha sido encontrado");
+        }else {
+            eliminado=true;
+            mapProductos.remove(productoEliminar.getCodigo());
         }
         return eliminado;
     }
@@ -259,7 +270,7 @@ public class Tienda implements ITienda {
         if(verificarProducto( producto.getCodigo() )){
             Cliente cliente = obtenerCliente( id );
             cliente.agregarACarrito( producto );
-            eliminarProducto( producto );
+            ventaProducto( producto );
             agregado = true;
         }else{
             throw new ProductoException("El producto: " + producto.getNombre() + " no ha sido encontrado");

@@ -20,5 +20,6 @@ public interface ITienda {
     //----------Metodos para los clientes-----------------------
     public boolean agregarProducto(Producto newProducto) throws ProductoException;
     public boolean actualizarProducto(Producto productoActualizar) throws ProductoException;
+    public boolean ventaProducto(Producto productoVender) throws ProductoException;
     public boolean eliminarProducto(Producto productoEliminar) throws ProductoException;
 }

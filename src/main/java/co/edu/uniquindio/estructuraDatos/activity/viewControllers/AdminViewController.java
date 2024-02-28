@@ -3,10 +3,12 @@ package co.edu.uniquindio.estructuraDatos.activity.viewControllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.estructuraDatos.activity.app.App;
 import co.edu.uniquindio.estructuraDatos.activity.controllers.AdminController;
+import co.edu.uniquindio.estructuraDatos.activity.exceptions.ProductoException;
 import co.edu.uniquindio.estructuraDatos.activity.model.Cliente;
 import co.edu.uniquindio.estructuraDatos.activity.model.Producto;
 import javafx.collections.FXCollections;
@@ -67,6 +69,10 @@ public class AdminViewController {
 
     @FXML
     private Button btnEliminarCliente;
+
+    @FXML
+    private Button btnEliminarProducto;
+
     @FXML
     private Label nombreCliente;
 
@@ -99,6 +105,7 @@ public class AdminViewController {
     //-Variables utilitarias
     private ObservableList<Cliente> listaClientes = FXCollections.observableArrayList();
     private ObservableList<Producto> listaProductos= FXCollections.observableArrayList();
+    private Producto productoSeleccionado;
 
     //------------------FUNCIONES UTILITARIAS-----------------------------------------
     public void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertype) {
@@ -108,7 +115,23 @@ public class AdminViewController {
         alert.setContentText(contenido);
         alert.showAndWait();
     }
+    private boolean confirmacionAlert(){
+        // Crear una alerta de tipo CONFIRMATION
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación");
+        alert.setHeaderText("¿Está seguro de que quiere hacer esta acción?");
 
+        // Configurar los botones
+        ButtonType buttonTypeContinuar = new ButtonType("Continuar");
+        ButtonType buttonTypeCancelar = new ButtonType("Cancelar");
+
+        alert.getButtonTypes().setAll(buttonTypeContinuar, buttonTypeCancelar);
+
+        // Mostrar la alerta y esperar a que el usuario haga clic en un botón
+        Optional<ButtonType> resultado = alert.showAndWait();
+
+        return resultado.filter(buttonType -> buttonType == buttonTypeContinuar).isPresent();
+    }
     private boolean esNumero(String string) {
         try {
             Float.parseFloat(string);
@@ -174,8 +197,13 @@ public class AdminViewController {
         });
     }
 
-    //-------------------------------EVENTOS DE BOTONES----------------------------
 
+    //-------------------------------EVENTOS DE BOTONES----------------------------
+    @FXML
+    void cerrarSesion(ActionEvent event) {
+        inicioViewController.show();
+        this.stage.close();
+    }
     @FXML
     void buscarProducto(ActionEvent event) {
         String codigoPrpoductoBuscar= txtBuscarProducto.getText();
@@ -189,11 +217,22 @@ public class AdminViewController {
             mostrarMensaje("Notificación busqueda", "Resultado de la busqueda", "El producto con el código: " + codigoPrpoductoBuscar +" no ha sido encontrado", Alert.AlertType.INFORMATION);
         }
     }
-
     @FXML
-    void cerrarSesion(ActionEvent event) {
-        inicioViewController.show();
-        this.stage.close();
+    void eliminarProducto(ActionEvent event) {
+        if (productoSeleccionado!=null){
+            try {
+                if (confirmacionAlert()){
+                    if (adminController.mfm.eliminarProducto(productoSeleccionado)){
+                        listaProductos.remove(productoSeleccionado);
+                        mostrarMensaje("Eliminación de producto", "Producto eliminado", "El producto ha sido eliminado con exito", Alert.AlertType.INFORMATION);
+                    }
+                }
+            } catch (ProductoException productoException) {
+                mostrarMensaje("Eliminación de producto", "Producto no eliminado", productoException.getMessage(), Alert.AlertType.INFORMATION);
+            }
+        }else {
+            mostrarMensaje("Selección de producto", "Producto no seleccionado", "Por favor seleccione un producto para ser eliminado", Alert.AlertType.WARNING);
+        }
     }
 
     @FXML
@@ -250,7 +289,13 @@ public class AdminViewController {
         this.columnProducto.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         this.columnCantidadProductos.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         this.columnPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+        this.tableViewProductos.getSelectionModel().selectedItemProperty().addListener( (obs , oldSelection , newSelection) -> {
+            if ( newSelection != null ) {
+                btnEliminarProducto.setVisible( true );
+                productoSeleccionado = newSelection;
+            }
 
+        });
         refrescarTableViews();
         gestionEventos();
     }
