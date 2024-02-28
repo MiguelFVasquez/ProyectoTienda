@@ -95,31 +95,38 @@ public class CarritoComprasViewController {
     void eliminarProducto(ActionEvent event) {
         Producto selectedItem = tableViewCarrito.getSelectionModel().getSelectedItem();
         int cantidadElim = Integer.parseInt( txtCantidadEliminar.getText() );
-        selectedItem.setCantidad( cantidadElim );
-        Alert alert = new Alert( Alert.AlertType.CONFIRMATION );
-        alert.setTitle( "Confirmación" );
-        alert.setHeaderText( "¿Estás seguro deseas eliminar "+
-                selectedItem.getCantidad() + " de" + selectedItem.getNombre() +  "?" );
-        alert.setContentText( "Presiona ACEPTAR para confirmar o CANCELAR para cancelar." );
+        if(selectedItem.getCantidad()>= cantidadElim){
+            Producto productoAux = new Producto(cantidadElim,selectedItem.getCodigo(),
+                    selectedItem.getNombre(), selectedItem.getPrecio());
+            Alert alert = new Alert( Alert.AlertType.CONFIRMATION );
+            alert.setTitle( "Confirmación" );
+            alert.setHeaderText( "¿Estás seguro deseas eliminar "+
+                    cantidadElim + " de " + selectedItem.getNombre() +  "?" );
+            alert.setContentText( "Presiona ACEPTAR para confirmar o CANCELAR para cancelar." );
 
-        // Mostrar la ventana de confirmación y esperar a que el usuario elija una opción
-        alert.showAndWait().ifPresent( response -> {
-            if ( response == javafx.scene.control.ButtonType.OK ) {
-                System.out.println( "El usuario confirmó." );
-                gestionActivos( false );
-                eliminarProductoCarrito(selectedItem);
-                tableViewCarrito.getSelectionModel().setSelectionMode( null );
-                refrescarTableViewProductos( carritoController.mfm.obtenerCliente(identificacionCliente) );
-                clienteViewController.refrescarTableViewProductos();
-                try {
-                    carritoController.mfm.serializarProductos();
-                } catch (IOException e) {
-                    throw new RuntimeException( e );
+            // Mostrar la ventana de confirmación y esperar a que el usuario elija una opción
+            alert.showAndWait().ifPresent( response -> {
+                if ( response == javafx.scene.control.ButtonType.OK ) {
+                    System.out.println( "El usuario confirmó." );
+                    gestionActivos( false );
+                    eliminarProductoCarrito(productoAux);
+                    tableViewCarrito.getSelectionModel().setSelectionMode( null );
+                    refrescarTableViewProductos( carritoController.mfm.obtenerCliente(identificacionCliente) );
+                    clienteViewController.refrescarTableViewProductos();
+                    try {
+                        carritoController.mfm.serializarProductos();
+                    } catch (IOException e) {
+                        throw new RuntimeException( e );
+                    }
+                } else {
+                    System.out.println( "El usuario canceló." );
                 }
-            } else {
-                System.out.println( "El usuario canceló." );
-            }
-        } );
+            } );
+        }else{
+            mostrarMensaje("Notificación" , "Producto no eliminado" ,
+                    "La cantidad de " + selectedItem.getNombre()+ " es mayor a la agregada al carrito ", Alert.AlertType.INFORMATION);
+        }
+
 
     }
 

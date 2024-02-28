@@ -33,26 +33,29 @@ public class CarritoCompra {
      * @throws ProductoException
      */
     public void agregarACarro(Producto newProducto) throws ProductoException{
-        if(verificarProducto( newProducto.getCodigo() )){
+        if(verificarProducto(newProducto.getCodigo())){
             for (Producto productoAux : listaProductos) {
-                if (productoAux.verificarCodigo(newProducto.getCodigo()) && productoAux.verificarCantidad(newProducto.getCantidad()) ) {
-                    throw new ProductoException("La cantidad solicitada ("+newProducto.getCantidad()+") no se encuentra disponible");
-                }else {
+                if (productoAux.verificarCodigo(newProducto.getCodigo())) {
                     productoAux.setCantidad(productoAux.getCantidad() + newProducto.getCantidad());
                 }
             }
         }else{
-            if (newProducto.verificarCantidad(newProducto.getCantidad())){
-                throw new ProductoException("La cantidad solicitada ("+newProducto.getCantidad()+") no se encuentra disponible");
-            }else{
-                listaCodigosProductos.add(newProducto.getCodigo());
-                listaProductos.add( newProducto );
-            }
+            listaCodigosProductos.add(newProducto.getCodigo());
+            listaProductos.add( newProducto );
         }
     }
-    public void eliminarDeCarrito(Producto productoEliminar){
-        listaCodigosProductos.remove(productoEliminar.getCodigo());
-        listaProductos.remove(productoEliminar);
+    public void eliminarDeCarrito(Producto productoEliminar) throws ProductoException {
+        Producto producto = obtenerProductoCarrito(productoEliminar.getCodigo());
+        if(producto!=null) {
+            int aux = producto.getCantidad() - productoEliminar.getCantidad();
+            if (aux == 0){
+                listaCodigosProductos.remove(productoEliminar.getCodigo());
+            listaProductos.remove(productoEliminar);
+            }else { producto.setCantidad(aux);
+            }
+        }else{
+            throw new ProductoException("Producto "+productoEliminar.getNombre()+ " no encontrado");
+        }
     }
 
     public HashSet<String> getListaCodigosProductos() {

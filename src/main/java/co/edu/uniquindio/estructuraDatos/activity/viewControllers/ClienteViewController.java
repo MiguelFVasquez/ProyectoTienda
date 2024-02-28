@@ -262,7 +262,6 @@ public class ClienteViewController {
         Producto productoAux = new Producto(cantidad, selectedItem.getCodigo(), selectedItem.getNombre(), selectedItem.getPrecio());
 
         if(agregarProducto(productoAux)){
-            clienteController.mfm.serializarProductos();
             refrescarTableViewProductos();
             activarBtnCarrito( false );
             if(carritoComprasViewController!=null){
