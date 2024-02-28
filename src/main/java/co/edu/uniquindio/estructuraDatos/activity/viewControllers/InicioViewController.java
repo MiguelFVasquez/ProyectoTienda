@@ -303,12 +303,17 @@ public class InicioViewController {
                 }
             }
         });
-
-
-
+        TextFormatter<String> formatter = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("[0-9]*")) {
+                return change;
+            }
+            return null;
+        });
+        // Aplicar el TextFormatter al TextField
+        txtIdentificacionRegistro.setTextFormatter(formatter);
     }
-
-
+    
     public void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertype) {
         Alert alert = new Alert(alertype);
         alert.setTitle(titulo);
