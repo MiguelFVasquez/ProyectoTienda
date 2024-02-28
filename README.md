@@ -1,4 +1,4 @@
-Trabajando en el proyecto: Shuh3n
+Trabajando en el proyecto: Nadie
 ---
 ***Taks***
 - ~~Activar botón "Eliminar Cliente" solamente cuando esté seleccionado un cliente.~~
@@ -17,6 +17,8 @@ Trabajando en el proyecto: Shuh3n
 - Agregar Column subtotal de productos **CarritoView**
 - Interfaz **TabRegistroCompras** en **AdminView**
 - Mejorar motores de busqueda de productos
+- Al eliminar un producto de carrito que ya haya sido eliminado de la Tienda **[Organizar]**
+
 
 ***Serializado***
 - ~~Eliminar el cliente del txt al eliminarlo de la tienda.~~
