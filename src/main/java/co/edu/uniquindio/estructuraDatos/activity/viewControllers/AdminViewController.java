@@ -178,7 +178,16 @@ public class AdminViewController {
 
     @FXML
     void buscarProducto(ActionEvent event) {
-
+        String codigoPrpoductoBuscar= txtBuscarProducto.getText();
+        Producto productoEncontrado= adminController.mfm.obtenerProducto(codigoPrpoductoBuscar);
+        if (productoEncontrado!=null){
+            listaProductos.clear();
+            listaProductos.add(productoEncontrado);
+            tableViewProductos.setItems(listaProductos);
+            tableViewProductos.refresh();
+        }else {
+            mostrarMensaje("Notificación busqueda", "Resultado de la busqueda", "El producto con el código: " + codigoPrpoductoBuscar +" no ha sido encontrado", Alert.AlertType.INFORMATION);
+        }
     }
 
     @FXML

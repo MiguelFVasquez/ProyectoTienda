@@ -186,7 +186,7 @@ public class Tienda implements ITienda {
     private boolean verificarProducto(String codigo){
         return mapProductos.containsKey(codigo);
     }
-    private Producto obtenerProducto(String codigo){
+    public Producto obtenerProducto(String codigo){
         return mapProductos.getOrDefault(codigo,null);
     }
 

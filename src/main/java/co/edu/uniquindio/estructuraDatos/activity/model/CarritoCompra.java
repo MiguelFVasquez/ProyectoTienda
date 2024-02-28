@@ -26,17 +26,28 @@ public class CarritoCompra {
         return listaCodigosProductos.contains(codigo);
     }
 
-    public void agregarACarro(Producto newProducto){
+    /**
+     *
+     * Se tiene que verificar que haya el stock del producto para no hacer sobreventa y quedar con valores negativos en la cantidad del producto
+     * @param newProducto
+     * @throws ProductoException
+     */
+    public void agregarACarro(Producto newProducto) throws ProductoException{
         if(verificarProducto( newProducto.getCodigo() )){
-            for (int i = 0; i < listaProductos.size(); i++) {
-                Producto productoAux = listaProductos.get( i );
-                if(productoAux.getCodigo().equals( newProducto.getCodigo() )){
-                    productoAux.setCantidad( productoAux.getCantidad() + newProducto.getCantidad() );
+            for (Producto productoAux : listaProductos) {
+                if (productoAux.verificarCodigo(newProducto.getCodigo()) && productoAux.verificarCantidad(newProducto.getCantidad()) ) {
+                    throw new ProductoException("La cantidad solicitada ("+newProducto.getCantidad()+") no se encuentra disponible");
+                }else {
+                    productoAux.setCantidad(productoAux.getCantidad() + newProducto.getCantidad());
                 }
             }
         }else{
-            listaCodigosProductos.add(newProducto.getCodigo());
-            listaProductos.add( newProducto );
+            if (newProducto.verificarCantidad(newProducto.getCantidad())){
+                throw new ProductoException("La cantidad solicitada ("+newProducto.getCantidad()+") no se encuentra disponible");
+            }else{
+                listaCodigosProductos.add(newProducto.getCodigo());
+                listaProductos.add( newProducto );
+            }
         }
     }
     public void eliminarDeCarrito(Producto productoEliminar){

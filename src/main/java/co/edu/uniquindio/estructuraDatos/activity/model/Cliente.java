@@ -62,10 +62,6 @@ public class Cliente implements ICliente {
     }
 
     //--------------FUNCIONALIDAD CARRITO----------------------------
-    private boolean verificarCantidadProducto(Producto newProducto){
-        return newProducto.verificarCantidad(newProducto.getCantidad());
-    }
-
 
     /**
      *

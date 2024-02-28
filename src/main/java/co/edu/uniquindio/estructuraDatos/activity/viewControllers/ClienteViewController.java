@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import co.edu.uniquindio.estructuraDatos.activity.app.App;
 import co.edu.uniquindio.estructuraDatos.activity.controllers.ClienteController;
 import co.edu.uniquindio.estructuraDatos.activity.exceptions.ClienteException;
+import co.edu.uniquindio.estructuraDatos.activity.exceptions.ProductoException;
 import co.edu.uniquindio.estructuraDatos.activity.model.Cliente;
 import co.edu.uniquindio.estructuraDatos.activity.model.Producto;
 import javafx.animation.FadeTransition;
@@ -255,33 +256,31 @@ public class ClienteViewController {
     }
 
     @FXML
-    void agregarAlCarrito(ActionEvent event) throws IOException {
+    void agregarAlCarrito(ActionEvent event) throws IOException, ProductoException {
         Producto selectedItem = tableViewProductos.getSelectionModel().getSelectedItem();
         int cantidad = Integer.parseInt( txtCantidad.getText() );
         Producto productoAux = new Producto(cantidad, selectedItem.getCodigo(), selectedItem.getNombre(), selectedItem.getPrecio());
+
         if(agregarProducto(productoAux)){
-            mostrarMensaje( "Notificación", "Producto agregado al carrito" , cantidad + " de " + selectedItem.getNombre() +
-                    ". Puedes ver tu pedido en el botón carrito de compras" , Alert.AlertType.INFORMATION);
             clienteController.mfm.serializarProductos();
             refrescarTableViewProductos();
             activarBtnCarrito( false );
             if(carritoComprasViewController!=null){
                 refrescarTableCarrito();
-
             }
         }
 
-
-
     }
 
-    private boolean agregarProducto(Producto selectedItem) {
+    private boolean agregarProducto(Producto selectedItem)  throws ProductoException {
         String id = txtNumeroIdentificacion.getText();
         try{
             if(clienteController.mfm.agregarProductoCarritoCliente(selectedItem, id))
+                mostrarMensaje( "Notificación", "Producto agregado al carrito" , selectedItem.getCantidad() + " de " + selectedItem.getNombre() +
+                        ". Puedes ver tu pedido en el botón carrito de compras" , Alert.AlertType.INFORMATION);
                 return true;
-        } catch (Exception e) {
-            throw new RuntimeException( e );
+        } catch (ProductoException productoException) {
+            mostrarMensaje("Notificación", "Producto no agregado", productoException.getMessage(), Alert.AlertType.WARNING);
         }
         return false;
     }
