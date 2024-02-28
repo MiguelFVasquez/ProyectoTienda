@@ -2,8 +2,10 @@ package co.edu.uniquindio.estructuraDatos.activity.viewControllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import co.edu.uniquindio.estructuraDatos.activity.app.App;
 import co.edu.uniquindio.estructuraDatos.activity.controllers.ClienteController;
@@ -13,6 +15,8 @@ import co.edu.uniquindio.estructuraDatos.activity.model.Cliente;
 import co.edu.uniquindio.estructuraDatos.activity.model.Producto;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,8 +25,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.Duration;
 
 public class ClienteViewController {
@@ -371,12 +377,15 @@ public class ClienteViewController {
         // Aplicar el TextFormatter al TextField
         txtCantidad.setTextFormatter(formatter);
 
-        txtCantidad.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.isEmpty()) {
-                txtCantidad.setText(VALOR_DEFECTO);
+        txtCantidad.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) { // Si el foco se pierde
+                // Verificar si el TextField está vacío
+                if (txtCantidad.getText().isEmpty()) {
+                    // Establecer el valor predeterminado como "1"
+                    txtCantidad.setText(VALOR_DEFECTO);
+                }
             }
         });
-
     }
 
 

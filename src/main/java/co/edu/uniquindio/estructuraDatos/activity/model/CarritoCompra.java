@@ -50,7 +50,7 @@ public class CarritoCompra {
             int aux = producto.getCantidad() - productoEliminar.getCantidad();
             if (aux == 0){
                 listaCodigosProductos.remove(productoEliminar.getCodigo());
-            listaProductos.remove(productoEliminar);
+                listaProductos.remove(productoEliminar);
             }else { producto.setCantidad(aux);
             }
         }else{

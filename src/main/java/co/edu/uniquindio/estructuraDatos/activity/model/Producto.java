@@ -8,6 +8,8 @@ public class Producto implements Comparable<Producto> {
     private String nombre;
     private Double precio;
 
+    private Boolean existencia;
+
     public Producto() {
     }
 
@@ -16,6 +18,14 @@ public class Producto implements Comparable<Producto> {
         this.codigo = codigo;
         this.nombre = nombre;
         this.precio = precio;
+        actualizarExistencia();
+    }
+    public void actualizarExistencia() {
+        existencia = cantidad > 0;
+    }
+
+    public Boolean getExistencia() {
+        return existencia;
     }
 
     public Integer getCantidad() {

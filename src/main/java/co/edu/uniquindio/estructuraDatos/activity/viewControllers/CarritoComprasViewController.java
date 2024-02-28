@@ -195,9 +195,13 @@ public class CarritoComprasViewController {
         // Aplicar el TextFormatter al TextField
         txtCantidadEliminar.setTextFormatter(formatter);
 
-        txtCantidadEliminar.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.isEmpty()) {
-                txtCantidadEliminar.setText(VALOR_DEFECTO);
+        txtCantidadEliminar.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) { // Si el foco se pierde
+                // Verificar si el TextField está vacío
+                if (txtCantidadEliminar.getText().isEmpty()) {
+                    // Establecer el valor predeterminado como "1"
+                    txtCantidadEliminar.setText(VALOR_DEFECTO);
+                }
             }
         });
         tableViewCarrito.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {

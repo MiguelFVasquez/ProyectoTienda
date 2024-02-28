@@ -242,16 +242,25 @@ public class Tienda implements ITienda {
      */
     @Override
     public boolean ventaProducto(Producto productoVender) throws ProductoException {
-        boolean eliminado= false;
+        boolean vendido= false;
         if (verificarProducto(productoVender.getCodigo())){
             Producto productoAux= mapProductos.get(productoVender.getCodigo());
             int newCantidad= productoAux.getCantidad() - productoVender.getCantidad();
-            productoAux.setCantidad(newCantidad);
-            eliminado=true;
+            if ( newCantidad>0){
+                productoAux.setCantidad(newCantidad);
+                vendido=true;
+            }else{
+                if(newCantidad==0){
+                    productoAux.actualizarExistencia();
+                    vendido= true;
+                }else{
+                    throw new ProductoException( "No contamos con la cantidad de " + productoVender.getNombre()+ " solicitada" );
+                }
+            }
         }else {
             throw new ProductoException("El producto " + productoVender.getNombre() + " no ha sido encontrado");
         }
-        return eliminado;
+        return vendido;
     }
     @Override
     public boolean eliminarProducto(Producto productoEliminar) throws ProductoException{
