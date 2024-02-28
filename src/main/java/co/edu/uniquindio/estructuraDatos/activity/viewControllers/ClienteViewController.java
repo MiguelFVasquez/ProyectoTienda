@@ -330,6 +330,7 @@ public class ClienteViewController {
     void refrescarTableViewProductos() {
         tableViewProductos.getItems().clear();
         tableViewProductos.setItems( getListaProductos() );
+
     }
 
     private void configurarEventos(){
