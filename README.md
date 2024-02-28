@@ -1,4 +1,4 @@
-Trabajando en el proyecto: Nadie
+Trabajando en el proyecto: Kmilo
 ---
 ***Taks***
 - ~~Activar botón "Eliminar Cliente" solamente cuando esté seleccionado un cliente.~~
@@ -12,8 +12,11 @@ Trabajando en el proyecto: Nadie
 - Implementación de un botón de cancelar VENTA de Carrito
 - Implementación de Eliminar TODO un producto con todas sus cantidades
 - Proteger de perder Productos al cerrar la aplicación forzosamente
-- Set format only numbers on textfields necesary
+- ~~Set format only numbers on textfields necesary~~
 - Manejar cerrados forzosos de aplicación
+- Agregar Column subtotal de productos **CarritoView**
+- Interfaz **TabRegistroCompras** en **AdminView**
+- Mejorar motores de busqueda de productos
 
 ***Serializado***
 - ~~Eliminar el cliente del txt al eliminarlo de la tienda.~~
@@ -24,6 +27,7 @@ Trabajando en el proyecto: Nadie
 - Historial de compras de un cliente
 - Historial de compras de Tienda (Con visualización en ADMINVIEW) 
 - Visualización de imagen del producto
+- Agregar botones de suma 1-1 en agregar y eliminar cantidades **CarritoView** y **ClienteView** 
 ---
 
 **No borren las taks, tachenlas para saber que llevamos**
