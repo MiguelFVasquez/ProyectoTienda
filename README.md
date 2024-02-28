@@ -1,4 +1,4 @@
-Trabajando en el proyecto: Kmilo
+Trabajando en el proyecto: Nadie
 ---
 ***Taks***
 - ~~Activar botón "Eliminar Cliente" solamente cuando esté seleccionado un cliente.~~
@@ -10,8 +10,8 @@ Trabajando en el proyecto: Kmilo
 - ~~Funcionamiento de motor de busqueda en productos Cliente~~. 
 - Funcionamiento de Botón de Comprar de carrito y TOTAL a Pagar
 - Implementación de un botón de cancelar VENTA de Carrito
-- Implementación de Eliminar TODO un producto con todas sus cantidades
-- Proteger de perder Productos al cerrar la aplicación forzosamente
+- ~~Implementación de Eliminar TODO un producto en **CarritoView** con todas sus cantidades~~
+- ~~Proteger de perder Productos al cerrar la aplicación forzosamente~~
 - ~~Set format only numbers on textfields necesary~~
 - Manejar cerrados forzosos de aplicación
 - Agregar Column subtotal de productos **CarritoView**
