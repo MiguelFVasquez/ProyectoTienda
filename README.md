@@ -6,7 +6,7 @@ Trabajando en el proyecto: Shuh3n
 - Funciones de administrador 
 - ~~Mostrar productos en cliente~~ 
 - Gestión de productos Admin
-- ~~Funcionamiento de motor de busqueda en productos Cliente **ClienteView**~~~. 
+- ~~Funcionamiento de motor de busqueda en productos Cliente **ClienteView**~~. 
 - Funcionamiento de Botón de Comprar de carrito.**CarritoView**
 - ~~TOTAL a Pagar en **CarritoView**.~~
 - ~~Implementación de un botón de cancelar COMPRA de Carrito~~
@@ -15,7 +15,7 @@ Trabajando en el proyecto: Shuh3n
 - ~~Set format only numbers on textfields necesary~~
 - Manejar cerrados forzosos de aplicación
 - ~~Agregar Column subtotal de productos **CarritoView**~~
-- Interfaz **TabRegistroCompras** en **AdminView**
+- ~~Interfaz **TabRegistroCompras** en **AdminView**~~~ ***[DEMO]***
 - Mejorar motores de busqueda de productos
 - ~~Al eliminar un producto de carrito que ya haya sido eliminado de la Tienda **[Organizar]**~~
 
