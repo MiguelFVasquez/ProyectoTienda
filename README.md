@@ -1,15 +1,15 @@
-# Trabajando en el proyecto: Shuh3n
+# Trabajando en el proyecto: Nadie
 ---
 
 ## ***TASKS***
 ### **TO DO** 
-- Funcionamiento de Botón de Comprar de carrito.**CarritoView**
 - Manejar cerrados forzosos de aplicación
 - Mejorar motores de busqueda de productos.
 - Complementar motores de busqueda con botones de **limpiarFiltros**
+- Motor de busqueda de TabVentas
 
 ### DOING
-- Historial de compras de Tienda (Con visualización en ADMINVIEW) **[Opcional]**
+
   
 ### DONE
 - ~~Activar botón "Eliminar Cliente" solamente cuando esté seleccionado un cliente.~~
@@ -24,11 +24,14 @@
 - ~~Agregar Column subtotal de productos **CarritoView**~~
 - ~~Interfaz **TabRegistroCompras** en **AdminView**~~ ***[DEMO]***
 - ~~Al eliminar un producto de carrito que ya haya sido eliminado de la Tienda **[Organizar]**~~
+- ~~Historial de compras de Tienda (Con visualización en ADMINVIEW) **[Opcional]**~~
+- ~~Funcionamiento de Botón de Comprar de carrito.**CarritoView**~~
 
 
 ## ***Serializado***
 - ~~Eliminar el cliente del txt al eliminarlo de la tienda.~~
-- Serializado productos
+- ~~Serializado productos~~
+- Serializado Ventas
 
 ## ***Opcionales***
 - ComboBox tipo de Documento en Registro Cliente
