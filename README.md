@@ -14,7 +14,7 @@ Trabajando en el proyecto: Shuh3n
 - ~~Proteger de perder Productos al cerrar la aplicación forzosamente~~
 - ~~Set format only numbers on textfields necesary~~
 - Manejar cerrados forzosos de aplicación
-- Agregar Column subtotal de productos **CarritoView**
+- ~~Agregar Column subtotal de productos **CarritoView**~~
 - Interfaz **TabRegistroCompras** en **AdminView**
 - Mejorar motores de busqueda de productos
 - ~~Al eliminar un producto de carrito que ya haya sido eliminado de la Tienda **[Organizar]**~~
