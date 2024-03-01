@@ -77,9 +77,11 @@ public class AdminViewController {
     private Label nombreCliente;
 
     @FXML
-    private Label nombreCliente1;
-    @FXML
     private TextField txtBuscarProducto;
+
+    @FXML
+    private DatePicker datePickerDetalleVenta;
+
     //----------------table view productos------------------------------
     @FXML
     private TableView<Producto> tableViewProductos;
@@ -90,6 +92,7 @@ public class AdminViewController {
     private TableColumn<Producto, String> columnProducto;
     @FXML
     private TableColumn<Producto, Integer> columnCantidadProductos;
+
     //---------------Table vieew clientes------------------------
     @FXML
     private TableView<Cliente> tableViewClientes;
@@ -102,11 +105,22 @@ public class AdminViewController {
     @FXML
     private TableColumn<String, Cliente> columnNombre;
 
+    //------------------------------------------TABLEVIEW VENTAS--------------------------------------------------------
+    @FXML
+    private TableView<?> tableViewDetallesVenta;
+
+    @FXML
+    private TableColumn<?, ?> columnCodigo;
+
+    @FXML
+    private TableColumn<?, ?> columnDetalleVenta;
+
+    @FXML
+    private TableColumn<?, ?> columClienteDetalleVenta;
     //-Variables utilitarias
     private ObservableList<Cliente> listaClientes = FXCollections.observableArrayList();
     private ObservableList<Producto> listaProductos= FXCollections.observableArrayList();
     private Producto productoSeleccionado;
-
     //------------------FUNCIONES UTILITARIAS-----------------------------------------
     public void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertype) {
         Alert alert = new Alert(alertype);
@@ -196,6 +210,28 @@ public class AdminViewController {
             }
         });
     }
+    @FXML
+    void initialize() {
+        btnEliminarCliente.setDisable( true );
+        adminController.mfm.initAdminController( this );
+        //Iniciar los valores de la tableview de clientes
+        this.columnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        this.columnIdentificacion.setCellValueFactory(new PropertyValueFactory<>("numeroIdentificacion"));
+        this.columnDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
+        //Iniciar los valores de la tableview de productos
+        this.columnProducto.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        this.columnCantidadProductos.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+        this.columnPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+        this.tableViewProductos.getSelectionModel().selectedItemProperty().addListener( (obs , oldSelection , newSelection) -> {
+            if ( newSelection != null ) {
+                btnEliminarProducto.setVisible( true );
+                productoSeleccionado = newSelection;
+            }
+
+        });
+        refrescarTableViews();
+        gestionEventos();
+    }
 
 
     //-------------------------------EVENTOS DE BOTONES----------------------------
@@ -234,7 +270,6 @@ public class AdminViewController {
             mostrarMensaje("Selección de producto", "Producto no seleccionado", "Por favor seleccione un producto para ser eliminado", Alert.AlertType.WARNING);
         }
     }
-
     @FXML
     void eliminarCliente(ActionEvent event) {
         Cliente selectedItem = tableViewClientes.getSelectionModel().getSelectedItem();
@@ -262,7 +297,6 @@ public class AdminViewController {
         } );
 
     }
-
     private boolean eliminarClienteSeleccionado(String numeroIdentificacion) {
         try{
             if(adminController.mfm.eliminarCliente(numeroIdentificacion)){
@@ -274,30 +308,8 @@ public class AdminViewController {
         }
         return false;
     }
-
-
-
     @FXML
-    void initialize() {
-        btnEliminarCliente.setDisable( true );
-        adminController.mfm.initAdminController( this );
-        //Iniciar los valores de la tableview de clientes
-        this.columnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        this.columnIdentificacion.setCellValueFactory(new PropertyValueFactory<>("numeroIdentificacion"));
-        this.columnDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
-        //Iniciar los valores de la tableview de productos
-        this.columnProducto.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        this.columnCantidadProductos.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
-        this.columnPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
-        this.tableViewProductos.getSelectionModel().selectedItemProperty().addListener( (obs , oldSelection , newSelection) -> {
-            if ( newSelection != null ) {
-                btnEliminarProducto.setVisible( true );
-                productoSeleccionado = newSelection;
-            }
-
-        });
-        refrescarTableViews();
-        gestionEventos();
+    void limpiarFiltros(ActionEvent event) {
+        datePickerDetalleVenta.setValue( null );
     }
-
 }

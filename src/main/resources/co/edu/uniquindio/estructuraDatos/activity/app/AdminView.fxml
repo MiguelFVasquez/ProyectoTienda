@@ -2,6 +2,7 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
@@ -66,7 +67,7 @@
                               <TableColumn fx:id="columnDireccion" prefWidth="155.0" text="Dirección" />
                           </columns>
                         </TableView>
-                        <Label fx:id="nombreCliente1" alignment="CENTER" contentDisplay="CENTER" layoutX="292.0" layoutY="90.0" text="Información de clientes">
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="292.0" layoutY="90.0" text="Información de clientes">
                            <font>
                               <Font name="System Italic" size="18.0" />
                            </font>
@@ -78,7 +79,23 @@
                   </AnchorPane>
             </content>
                <graphic>
-                  <FontAwesomeIconView glyphName="HOME" />
+                  <FontAwesomeIconView glyphName="HOME">
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0" startX="0.4218009478672986" startY="0.3791469194312796">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color green="0.34117648005485535" blue="0.29019609093666077" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill></FontAwesomeIconView>
                </graphic>
           </Tab>
           <Tab text="Inventario">
@@ -108,9 +125,67 @@
                   </AnchorPane>
             </content>
                <graphic>
-                  <FontAwesomeIconView fill="#00574a" glyphName="STAR" />
+                  <FontAwesomeIconView glyphName="STAR">
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0" startX="0.4218009478672986" startY="0.3791469194312796">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color green="0.34117648005485535" blue="0.29019609093666077" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.03921568766236305" blue="0.1725490242242813" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill></FontAwesomeIconView>
                </graphic>
           </Tab>
+            <Tab text="Ventas">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="rectangle" stylesheets="@css/styles.css">
+                     <children>
+                        <TableView fx:id="tableViewDetallesVenta" layoutX="82.0" layoutY="107.0" prefHeight="297.0" prefWidth="671.0" stylesheets="@css/styles.css">
+                           <columns>
+                              <TableColumn fx:id="columClienteDetalleVenta" prefWidth="231.0" text="Cliente" />
+                              <TableColumn fx:id="columnCodigo" minWidth="0.0" prefWidth="192.0" text="Código" />
+                              <TableColumn fx:id="columnDetalleVenta" prefWidth="247.0" text="Detalles" />
+                           </columns>
+                        </TableView>
+                        <Text fill="WHITE" layoutX="82.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Text>
+                        <Button fx:id="btnBuscarVenta" layoutX="662.0" layoutY="58.0" mnemonicParsing="false" onAction="#limpiarFiltros" style="-fx-background-color: #b26500;" stylesheets="@css/styles.css" text="Limpiar filtros" textFill="WHITE" />
+                        <DatePicker fx:id="datePickerDetalleVenta" layoutX="144.0" layoutY="60.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
+                     </children>
+                  </AnchorPane>
+               </content>
+               <graphic>
+                  <FontAwesomeIconView glyphName="MONEY">
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0" startX="0.4218009478672986" startY="0.3791469194312796">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color green="0.34117648005485535" blue="0.29019609093666077" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.03921568766236305" blue="0.1725490242242813" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                  </FontAwesomeIconView>
+               </graphic>
+            </Tab>
         </tabs>
       </TabPane>
    </children>
