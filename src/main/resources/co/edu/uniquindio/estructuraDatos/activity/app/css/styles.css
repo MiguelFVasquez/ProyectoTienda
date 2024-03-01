@@ -146,6 +146,47 @@
     -fx-background-opacity: 60%;
 }
 
+.factura-table-view {
+    -fx-font-size: 14px;
+}
+
+.factura-table-view .column-header-background {
+    -fx-background-color: #4CAF50; /* Color de fondo del encabezado de la columna */
+    -fx-text-fill: white; /* Color del texto del encabezado de la columna */
+}
+
+.factura-table-view .column-header-background .label {
+    -fx-padding: 5px; /* Espaciado dentro del encabezado de la columna */
+}
+
+.factura-table-view .table-row-cell {
+    -fx-background-color: #F5F5F5; /* Color de fondo de las filas */
+}
+
+.factura-table-view .table-row-cell:odd {
+    -fx-background-color: #EEEEEE; /* Color de fondo de las filas impares */
+}
+
+.factura-table-view .table-cell {
+    -fx-padding: 5px; /* Espaciado dentro de las celdas */
+}
+
+.factura-table-view .column-header .filler {
+    -fx-padding: 0.166667em; /* Espaciado entre las columnas */
+}
+
+.factura-table-view .column-header .sort-arrow {
+    -fx-padding: 0.416667em; /* Espaciado del indicador de orden */
+}
+
+.detalleVenta-background{
+    -fx-background-image: url('../images/DetalleVentaBackground.jpeg');
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-opacity: 60%;
+}
+
+
 
 
 

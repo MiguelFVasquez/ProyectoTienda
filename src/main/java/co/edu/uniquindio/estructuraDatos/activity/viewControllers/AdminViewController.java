@@ -13,13 +13,19 @@ import co.edu.uniquindio.estructuraDatos.activity.exceptions.ProductoException;
 import co.edu.uniquindio.estructuraDatos.activity.model.Cliente;
 import co.edu.uniquindio.estructuraDatos.activity.model.Producto;
 import co.edu.uniquindio.estructuraDatos.activity.model.Venta;
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class AdminViewController {
 
@@ -74,6 +80,8 @@ public class AdminViewController {
 
     @FXML
     private Button btnEliminarProducto;
+    @FXML
+    private Button btnVerDetalleVenta;
 
     @FXML
     private Label nombreCliente;
@@ -83,6 +91,9 @@ public class AdminViewController {
 
     @FXML
     private DatePicker datePickerDetalleVenta;
+
+    private DetalleVentaViewController detalleVentaViewController;
+
 
     //----------------table view productos------------------------------
     @FXML
@@ -109,7 +120,7 @@ public class AdminViewController {
 
     //------------------------------------------TABLEVIEW VENTAS--------------------------------------------------------
     @FXML
-    private TableView<Venta> tableViewDetallesVenta;
+    private TableView<Venta> tableViewVentas;
 
     @FXML
     private TableColumn<String, Venta> columnCodigoVenta;
@@ -208,8 +219,8 @@ public class AdminViewController {
         tableViewProductos.getItems().clear();
         tableViewProductos.setItems(getListaProductos());
 
-        tableViewDetallesVenta.getItems().clear();
-        tableViewDetallesVenta.setItems( getListaVentas());
+        tableViewVentas.getItems().clear();
+        tableViewVentas.setItems( getListaVentas());
     }
 
 
@@ -246,6 +257,19 @@ public class AdminViewController {
         this.columnCodigoVenta.setCellValueFactory(new PropertyValueFactory<>("codigo"));
         refrescarTableViews();
         gestionEventos();
+
+        tableViewVentas.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                gestionBotonesTabDetalleVenta( false );// Habilitar el botón si hay un elemento seleccionado
+            } else {
+                gestionBotonesTabDetalleVenta( true );// Deshabilitar el botón si no hay ningún elemento seleccionado
+            }
+        });
+
+    }
+
+    public void gestionBotonesTabDetalleVenta(boolean b) {
+        btnVerDetalleVenta.setDisable( b );
     }
 
 
@@ -327,4 +351,47 @@ public class AdminViewController {
     void limpiarFiltros(ActionEvent event) {
         datePickerDetalleVenta.setValue( null );
     }
+
+    //-----------------------------------------TAB VENTAS---------------------------------------------------------------
+    @FXML
+    void verDetalleVenta(ActionEvent event) throws IOException {
+        Venta venta = tableViewVentas.getSelectionModel().getSelectedItem();
+        refrescarTableViews();
+        FXMLLoader loader= new FXMLLoader();
+        loader.setLocation( App.class.getResource("DetalleVentaView.fxml"));
+        AnchorPane anchorPane= loader.load();
+        detalleVentaViewController = loader.getController();
+        detalleVentaViewController.setAplicacion(aplicacion);
+        Scene scene= new Scene(anchorPane);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        detalleVentaViewController.init(stage);
+        detalleVentaViewController.setAdminViewController( this );
+        refrescarTableDetalleVenta(venta);
+        stage.setTitle( "Detalle Venta " );
+        stage.show();
+
+
+        // Crear una transición de deslizamiento para la nueva ventana
+        TranslateTransition slideIn = new TranslateTransition( Duration.seconds(0.5), stage.getScene().getRoot());
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), anchorPane);
+        slideIn.setFromY(this.stage.getHeight());
+        slideIn.setToY(0);
+
+        // Establecemos la opacidad inicial y final para la transición
+        fadeTransition.setFromValue(0.0);
+        fadeTransition.setToValue(1.0);
+
+        // Iniciamos la transición
+
+
+        // Mostrar la nueva ventana y ejecutar las transiciones
+        detalleVentaViewController.show();
+        slideIn.play();
+        fadeTransition.play();
+    }
+    private void refrescarTableDetalleVenta(Venta venta) {
+        detalleVentaViewController.refrescarTableView(venta);
+    }
+
 }

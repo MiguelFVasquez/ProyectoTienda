@@ -36,12 +36,6 @@ public class CarritoComprasViewController {
         this.aplicacion = aplicacion;
 
     }
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-    public Stage getStage(){
-        return this.stage ;
-    }
 
     public void init(Stage stage2) {
         this.stage = stage2;
@@ -278,8 +272,6 @@ public class CarritoComprasViewController {
                 txtCantidadEliminar.setText("1");
             }
         });
-
-
     }
     public void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertype) {
         Alert alert = new Alert(alertype);

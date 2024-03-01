@@ -148,7 +148,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="rectangle" stylesheets="@css/styles.css">
                      <children>
-                        <TableView fx:id="tableViewDetallesVenta" layoutX="82.0" layoutY="107.0" prefHeight="297.0" prefWidth="671.0" stylesheets="@css/styles.css">
+                        <TableView fx:id="tableViewVentas" layoutX="82.0" layoutY="107.0" prefHeight="297.0" prefWidth="671.0">
                            <columns>
                               <TableColumn fx:id="columClienteDetalleVenta" prefWidth="231.0" text="Cliente" />
                               <TableColumn fx:id="columnCodigoVenta" minWidth="0.0" prefWidth="192.0" text="Código" />
@@ -160,8 +160,9 @@
                               <Font size="19.0" />
                            </font>
                         </Text>
-                        <Button fx:id="btnBuscarVenta" layoutX="662.0" layoutY="58.0" mnemonicParsing="false" onAction="#limpiarFiltros" style="-fx-background-color: #b26500;" stylesheets="@css/styles.css" text="Limpiar filtros" textFill="WHITE" />
+                        <Button fx:id="btnBuscarVenta" layoutX="629.0" layoutY="55.0" mnemonicParsing="false" onAction="#limpiarFiltros" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: #b26500;" stylesheets="@css/styles.css" text="Limpiar filtros" textFill="WHITE" />
                         <DatePicker fx:id="datePickerDetalleVenta" layoutX="144.0" layoutY="60.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
+                        <Button fx:id="btnVerDetalleVenta" layoutX="350.0" layoutY="420.0" mnemonicParsing="false" onAction="#verDetalleVenta" prefHeight="30.0" prefWidth="136.0" styleClass="buttonGreen" stylesheets="@css/styles.css" text="Ver detalles de venta" textFill="WHITE" />
                      </children>
                   </AnchorPane>
                </content>
