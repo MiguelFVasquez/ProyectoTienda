@@ -3,15 +3,26 @@ package co.edu.uniquindio.estructuraDatos.activity.model;
 import java.util.concurrent.ThreadPoolExecutor;
 
 public class DetalleVenta {
+
+    private String nombre;
     private Integer cantidad;
     private Double subTotal;
 
     public DetalleVenta() {
     }
 
-    public DetalleVenta(Integer cantidad, Double subTotal) {
+    public DetalleVenta(String nombre, Integer cantidad, Double subTotal) {
+        this.nombre = nombre;
         this.cantidad = cantidad;
         this.subTotal = subTotal;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public Integer getCantidad() {

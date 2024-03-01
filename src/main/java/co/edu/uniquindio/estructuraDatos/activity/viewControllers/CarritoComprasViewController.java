@@ -95,8 +95,26 @@ public class CarritoComprasViewController {
 
 
     @FXML
-    void comprarProductos(ActionEvent event) {
+    void comprarProductos(ActionEvent event) throws ClienteException, IOException {
+        if(comprarProductosCarrito(identificacionCliente)){
+            listaProductosCliente.clear();
+            clienteViewController.setCarritoComprasViewController( null );
+            carritoController.mfm.serializarProductos();
+            this.stage.close();
+        }
+    }
 
+    private boolean comprarProductosCarrito(String identificacionCliente) throws ClienteException {
+       try{
+            if(carritoController.mfm.comprarProductosCarrito( identificacionCliente )){
+                mostrarMensaje( "Notificación compra", "Compra realizada" ,
+                        "Compra realizada existosamente" , Alert.AlertType.INFORMATION);
+                return true;
+            }
+       } catch (Exception e) {
+           throw new ClienteException( e.getMessage() );
+       }
+       return false;
     }
 
     @FXML
@@ -121,11 +139,6 @@ public class CarritoComprasViewController {
                     tableViewCarrito.getSelectionModel().setSelectionMode( null );
                     refrescarTableViewProductos( carritoController.mfm.obtenerCliente(identificacionCliente) );
                     clienteViewController.refrescarTableViewProductos();
-                    try {
-                        carritoController.mfm.serializarProductos();
-                    } catch (IOException e) {
-                        throw new RuntimeException( e );
-                    }
                 } else {
                     System.out.println( "El usuario canceló." );
                 }

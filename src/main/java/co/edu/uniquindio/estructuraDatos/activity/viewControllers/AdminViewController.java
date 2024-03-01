@@ -3,6 +3,7 @@ package co.edu.uniquindio.estructuraDatos.activity.viewControllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -11,6 +12,7 @@ import co.edu.uniquindio.estructuraDatos.activity.controllers.AdminController;
 import co.edu.uniquindio.estructuraDatos.activity.exceptions.ProductoException;
 import co.edu.uniquindio.estructuraDatos.activity.model.Cliente;
 import co.edu.uniquindio.estructuraDatos.activity.model.Producto;
+import co.edu.uniquindio.estructuraDatos.activity.model.Venta;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -107,19 +109,20 @@ public class AdminViewController {
 
     //------------------------------------------TABLEVIEW VENTAS--------------------------------------------------------
     @FXML
-    private TableView<?> tableViewDetallesVenta;
+    private TableView<Venta> tableViewDetallesVenta;
 
     @FXML
-    private TableColumn<?, ?> columnCodigo;
+    private TableColumn<String, Venta> columnCodigoVenta;
 
     @FXML
-    private TableColumn<?, ?> columnDetalleVenta;
+    private TableColumn<Double, Venta> columnTotalVenta;
 
     @FXML
-    private TableColumn<?, ?> columClienteDetalleVenta;
+    private TableColumn<String, Venta> columClienteDetalleVenta;
     //-Variables utilitarias
     private ObservableList<Cliente> listaClientes = FXCollections.observableArrayList();
     private ObservableList<Producto> listaProductos= FXCollections.observableArrayList();
+    private ObservableList<Venta> listaVentas= FXCollections.observableArrayList();
     private Producto productoSeleccionado;
     //------------------FUNCIONES UTILITARIAS-----------------------------------------
     public void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertype) {
@@ -193,13 +196,23 @@ public class AdminViewController {
         listaProductos.addAll(productosMap.values());
         return listaProductos;
     }
+    private ObservableList<Venta> getListaVentas() {
+        List<Venta> listaAux = adminController.mfm.getListaVentas();
+        listaVentas.addAll( listaAux );
+        return listaVentas;
+    }
     void refrescarTableViews(){
         tableViewClientes.getItems().clear();
         tableViewClientes.setItems( getListaClientes());
 
         tableViewProductos.getItems().clear();
         tableViewProductos.setItems(getListaProductos());
+
+        tableViewDetallesVenta.getItems().clear();
+        tableViewDetallesVenta.setItems( getListaVentas());
     }
+
+
 
     void gestionEventos(){
         tableViewClientes.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -227,8 +240,10 @@ public class AdminViewController {
                 btnEliminarProducto.setVisible( true );
                 productoSeleccionado = newSelection;
             }
-
         });
+        this.columClienteDetalleVenta.setCellValueFactory(new PropertyValueFactory<>("identificacionCliente"));
+        this.columnTotalVenta.setCellValueFactory(new PropertyValueFactory<>("total"));
+        this.columnCodigoVenta.setCellValueFactory(new PropertyValueFactory<>("codigo"));
         refrescarTableViews();
         gestionEventos();
     }

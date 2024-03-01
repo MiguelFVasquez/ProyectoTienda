@@ -94,4 +94,8 @@ public class CarritoCompra {
     }
 
 
+    public void comprarProductos() {
+        listaProductos.clear();
+        listaCodigosProductos.clear();
+    }
 }

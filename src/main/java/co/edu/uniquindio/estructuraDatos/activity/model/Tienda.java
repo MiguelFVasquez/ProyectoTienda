@@ -3,6 +3,9 @@ import co.edu.uniquindio.estructuraDatos.activity.exceptions.ClienteException;
 import co.edu.uniquindio.estructuraDatos.activity.exceptions.ProductoException;
 import co.edu.uniquindio.estructuraDatos.activity.exceptions.VentaException;
 import co.edu.uniquindio.estructuraDatos.activity.model.interfaces.ITienda;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Tienda implements ITienda {
@@ -319,4 +322,28 @@ public class Tienda implements ITienda {
         }
         return eliminados;
     }
+
+    public boolean comprarProductosCarrito(Cliente cliente) throws ClienteException {
+        boolean comprados = false;
+            if(verificarCliente( cliente.getNumeroIdentificacion() )){
+                LocalDate fechaActual = LocalDate.now();
+                // Formatear la fecha como una cadena
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                String fechaActualComoString = fechaActual.format(formatter);
+                Venta venta = new Venta("VEN-" + System.currentTimeMillis(), fechaActual.toString());
+                for (Producto producto: cliente.obtenerProductosCarrito()) {
+                    if(producto!=null){
+                        venta.agregarProducto( producto );
+                    }
+                }
+                venta.setClienteVenta( cliente );
+                listaVentas.add( venta );
+                cliente.comprarProductos();
+                comprados = true;
+            }else{
+                throw new ClienteException("El Cliente: " + cliente.getNumeroIdentificacion() + " no ha sido encontrado");
+            }
+        return comprados;
+    }
+
 }

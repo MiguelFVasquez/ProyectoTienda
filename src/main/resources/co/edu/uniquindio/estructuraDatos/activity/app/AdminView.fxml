@@ -151,8 +151,8 @@
                         <TableView fx:id="tableViewDetallesVenta" layoutX="82.0" layoutY="107.0" prefHeight="297.0" prefWidth="671.0" stylesheets="@css/styles.css">
                            <columns>
                               <TableColumn fx:id="columClienteDetalleVenta" prefWidth="231.0" text="Cliente" />
-                              <TableColumn fx:id="columnCodigo" minWidth="0.0" prefWidth="192.0" text="Código" />
-                              <TableColumn fx:id="columnDetalleVenta" prefWidth="247.0" text="Detalles" />
+                              <TableColumn fx:id="columnCodigoVenta" minWidth="0.0" prefWidth="192.0" text="Código" />
+                              <TableColumn fx:id="columnTotalVenta" prefWidth="247.0" text="Total" />
                            </columns>
                         </TableView>
                         <Text fill="WHITE" layoutX="82.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha">

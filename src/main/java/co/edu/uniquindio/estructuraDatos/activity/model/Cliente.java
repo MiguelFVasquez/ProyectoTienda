@@ -117,4 +117,7 @@ public class Cliente implements ICliente {
     }
 
 
+    public void comprarProductos() {
+        carritoCliente.comprarProductos();
+    }
 }

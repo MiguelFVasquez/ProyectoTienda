@@ -5,6 +5,7 @@ import co.edu.uniquindio.estructuraDatos.activity.exceptions.ProductoException;
 import co.edu.uniquindio.estructuraDatos.activity.model.Cliente;
 import co.edu.uniquindio.estructuraDatos.activity.model.Producto;
 import co.edu.uniquindio.estructuraDatos.activity.model.Tienda;
+import co.edu.uniquindio.estructuraDatos.activity.model.Venta;
 import co.edu.uniquindio.estructuraDatos.activity.persistence.Persistence;
 import co.edu.uniquindio.estructuraDatos.activity.viewControllers.AdminViewController;
 import co.edu.uniquindio.estructuraDatos.activity.viewControllers.CarritoComprasViewController;
@@ -14,6 +15,7 @@ import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 public class ModelFactoryController {
     private InicioViewController inicioViewController;
@@ -127,12 +129,17 @@ public class ModelFactoryController {
     public boolean eliminarCliente(String numeroIdentificacion) throws ClienteException {
        return tienda.eliminarCliente( obtenerCliente( numeroIdentificacion ) );
     }
+    public List<Venta> getListaVentas() {
+        return tienda.getListaVentas();
+    }
 
     //--------------------------------------FUNCIONES CARRITO-----------------------------------------------------------
     public boolean eliminarProductosCarrito(String identificacionCliente) throws ProductoException, ClienteException {
         return tienda.eliminarProductosCliente(identificacionCliente);
     }
-
+    public boolean comprarProductosCarrito(String identificacionCliente) throws ClienteException {
+        return tienda.comprarProductosCarrito(obtenerCliente( identificacionCliente ));
+    }
 
 
     //-------------------------------------------FUNCIONES DE SERIALIZADO-----------------------------------------------
