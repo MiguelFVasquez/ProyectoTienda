@@ -7,10 +7,12 @@ public class Producto implements Comparable<Producto> {
     private String codigo;
     private String nombre;
     private Double precio;
+    private Double subTotal;
 
     private Boolean existencia;
 
     public Producto() {
+        this.precio = (double) 0;
     }
 
     public Producto(Integer cantidad, String codigo, String nombre, Double precio) {
@@ -18,8 +20,20 @@ public class Producto implements Comparable<Producto> {
         this.codigo = codigo;
         this.nombre = nombre;
         this.precio = precio;
-        actualizarExistencia();
     }
+
+    public void calcularSubtotal() {
+        subTotal = precio*cantidad;
+    }
+
+    public Double getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(Double subTotal) {
+        this.subTotal = subTotal;
+    }
+
     public void actualizarExistencia() {
         existencia = cantidad > 0;
     }

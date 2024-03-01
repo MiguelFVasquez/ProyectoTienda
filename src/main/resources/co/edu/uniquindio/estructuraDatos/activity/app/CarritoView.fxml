@@ -10,29 +10,31 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="684.0" prefWidth="540.0" styleClass="carrito-background" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuraDatos.activity.viewControllers.CarritoComprasViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="747.0" prefWidth="631.0" styleClass="carrito-background" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuraDatos.activity.viewControllers.CarritoComprasViewController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="601.0" layoutX="53.0" layoutY="44.0" stroke="BLACK" strokeType="INSIDE" style="-fx-arc-height: 20; -fx-arc-width: 20;" width="430.0" />
-      <TableView fx:id="tableViewCarrito" layoutX="72.0" layoutY="145.0" prefHeight="389.0" prefWidth="396.0" stylesheets="@css/styles.css">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="664.0" layoutX="85.0" layoutY="42.0" stroke="BLACK" strokeType="INSIDE" style="-fx-arc-height: 20; -fx-arc-width: 20;" width="467.0" />
+      <TableView fx:id="tableViewCarrito" layoutX="120.0" layoutY="163.0" prefHeight="389.0" prefWidth="396.0" stylesheets="@css/styles.css">
         <columns>
           <TableColumn fx:id="columnProducto" prefWidth="125.0" text="Producto" />
-          <TableColumn fx:id="columnPrecio" prefWidth="187.0" text="Precio" />
-            <TableColumn fx:id="columnCantidad" prefWidth="83.0" text="Cantidad" />
+          <TableColumn fx:id="columnPrecio" prefWidth="99.0" text="Precio" />
+            <TableColumn fx:id="columnCantidad" prefWidth="93.0" text="Cantidad" />
+            <TableColumn fx:id="columnSubtotal" prefWidth="78.0" text="SubTotal" />
         </columns>
       </TableView>
-      <FontAwesomeIconView fill="#008337" glyphName="MONEY" layoutX="72.0" layoutY="104.0" size="60" />
-      <Label layoutX="72.0" layoutY="113.0" text="Carrito de compras">
+      <FontAwesomeIconView fill="#008337" glyphName="MONEY" layoutX="120.0" layoutY="122.0" size="60" />
+      <Label layoutX="120.0" layoutY="131.0" text="Carrito de compras">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="txtPrecioTotal" alignment="CENTER_RIGHT" disable="true" editable="false" layoutX="335.0" layoutY="534.0" prefHeight="28.0" prefWidth="133.0" promptText="Total" style="-fx-border-color: grey;" stylesheets="@css/styles.css" />
-      <Button fx:id="btnEliminarProducto" layoutX="72.0" layoutY="604.0" mnemonicParsing="false" onAction="#eliminarProducto" prefHeight="28.0" prefWidth="119.0" styleClass="buttonRed" stylesheets="@css/styles.css" text="Eliminar producto" textFill="WHITE" />
-      <Button fx:id="btnComprar" layoutX="349.0" layoutY="604.0" mnemonicParsing="false" onAction="#comprarProductos" prefHeight="28.0" prefWidth="119.0" styleClass="button-Green-WhiteBack" stylesheets="@css/styles.css" text="Comprar" textFill="WHITE" />
-      <Button fx:id="btnCerrarVentana" layoutX="349.0" layoutY="69.0" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="28.0" prefWidth="119.0" style="-fx-background-color: red; -fx-border-color: red;" stylesheets="@css/styles.css" text="Cerrar ventana" textFill="WHITE">
+      <TextField fx:id="txtPrecioTotal" alignment="CENTER_RIGHT" layoutX="383.0" layoutY="552.0" prefHeight="28.0" prefWidth="133.0" promptText="Total" style="-fx-border-color: grey;" stylesheets="@css/styles.css" />
+      <Button fx:id="btnEliminarProducto" layoutX="121.0" layoutY="615.0" mnemonicParsing="false" onAction="#eliminarProducto" prefHeight="28.0" prefWidth="119.0" styleClass="buttonRed" stylesheets="@css/styles.css" text="Eliminar producto" textFill="WHITE" />
+      <Button fx:id="btnComprar" layoutX="398.0" layoutY="615.0" mnemonicParsing="false" onAction="#comprarProductos" prefHeight="28.0" prefWidth="119.0" styleClass="button-Green-WhiteBack" stylesheets="@css/styles.css" text="Comprar" textFill="WHITE" />
+      <Button fx:id="btnCerrarVentana" layoutX="397.0" layoutY="87.0" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="28.0" prefWidth="119.0" style="-fx-background-color: red; -fx-border-color: red;" stylesheets="@css/styles.css" text="Cerrar ventana" textFill="WHITE">
          <graphic>
             <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" />
          </graphic></Button>
-      <TextField fx:id="txtCantidadEliminar" alignment="CENTER_RIGHT" editable="false" layoutX="72.0" layoutY="562.0" prefHeight="28.0" prefWidth="44.0" promptText="Total" style="-fx-border-color: grey;" stylesheets="@css/styles.css" />
+      <TextField fx:id="txtCantidadEliminar" alignment="CENTER_RIGHT" editable="false" layoutX="121.0" layoutY="580.0" prefHeight="28.0" prefWidth="44.0" promptText="Total" style="-fx-border-color: grey;" stylesheets="@css/styles.css" text="Cant" />
+      <Button fx:id="btnCancelarCompra" layoutX="120.0" layoutY="692.0" mnemonicParsing="false" onAction="#cancelarCompraTotal" prefHeight="28.0" prefWidth="396.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-background-color: red;" stylesheets="@css/styles.css" text="Cancelar compra" textFill="WHITE" />
    </children>
 </AnchorPane>

@@ -278,6 +278,7 @@ public class Tienda implements ITienda {
         boolean agregado = false;
         if(verificarProducto( producto.getCodigo() )){
             Cliente cliente = obtenerCliente( id );
+            producto.calcularSubtotal();
             cliente.agregarACarrito( producto );
             ventaProducto( producto );
             agregado = true;

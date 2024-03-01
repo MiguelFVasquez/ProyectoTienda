@@ -37,9 +37,11 @@ public class CarritoCompra {
             for (Producto productoAux : listaProductos) {
                 if (productoAux.verificarCodigo(newProducto.getCodigo())) {
                     productoAux.setCantidad(productoAux.getCantidad() + newProducto.getCantidad());
+                    productoAux.calcularSubtotal();
                 }
             }
         }else{
+            newProducto.calcularSubtotal();
             listaCodigosProductos.add(newProducto.getCodigo());
             listaProductos.add( newProducto );
         }

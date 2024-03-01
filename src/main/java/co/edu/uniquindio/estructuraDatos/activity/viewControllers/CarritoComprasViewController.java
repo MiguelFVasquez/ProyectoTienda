@@ -68,12 +68,16 @@ public class CarritoComprasViewController {
 
     @FXML
     private Button btnCerrarVentana;
+    @FXML
+    private Button btnCancelarCompra;
 
     @FXML
-    private TableColumn<?, ?> columnPrecio;
+    private TableColumn<String, Producto> columnPrecio;
 
     @FXML
-    private TableColumn<?, ?> columnProducto;
+    private TableColumn<String, Producto> columnProducto;
+    @FXML
+    private TableColumn<String, Producto> columnSubtotal;
 
     @FXML
     private TableColumn<String, Producto> columnCantidad;
@@ -153,6 +157,11 @@ public class CarritoComprasViewController {
         this.stage.close();
     }
 
+    @FXML
+    void cancelarCompraTotal(ActionEvent event) {
+
+    }
+
 
     //------------------------------FUNCIONES UTILITARIAS---------------------------------------------------------------
     @FXML
@@ -162,6 +171,7 @@ public class CarritoComprasViewController {
         this.columnProducto.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         this.columnPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
         this.columnCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+        this.columnSubtotal.setCellValueFactory(new PropertyValueFactory<>("subTotal"));
         gestionEventos();
         gestionActivos( false );
 

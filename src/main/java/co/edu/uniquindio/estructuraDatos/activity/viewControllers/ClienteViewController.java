@@ -271,7 +271,10 @@ public class ClienteViewController {
 
         if(agregarProducto(productoAux)){
             refrescarTableViewProductos();
-            activarBtnCarrito( false );
+            if(carritoComprasViewController==null){
+                activarBtnCarrito( false );
+
+            }
             if(carritoComprasViewController!=null){
                 refrescarTableCarrito();
             }
