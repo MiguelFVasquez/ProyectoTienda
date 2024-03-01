@@ -17,7 +17,7 @@ Trabajando en el proyecto: Shuh3n
 - Agregar Column subtotal de productos **CarritoView**
 - Interfaz **TabRegistroCompras** en **AdminView**
 - Mejorar motores de busqueda de productos
-- Al eliminar un producto de carrito que ya haya sido eliminado de la Tienda **[Organizar]**
+- ~~Al eliminar un producto de carrito que ya haya sido eliminado de la Tienda **[Organizar]**~~
 
 
 ***Serializado***
