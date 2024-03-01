@@ -251,7 +251,7 @@ public class Tienda implements ITienda {
                 vendido=true;
             }else{
                 if(newCantidad==0){
-                    productoAux.actualizarExistencia();
+                    productoAux.setCantidad( newCantidad );
                     vendido= true;
                 }else{
                     throw new ProductoException( "No contamos con la cantidad de " + productoVender.getNombre()+ " solicitada" );
@@ -295,6 +295,7 @@ public class Tienda implements ITienda {
             eliminado = true;
         }else{
             throw new ProductoException("El producto: " + producto.getNombre() + " no ha sido encontrado");
+
         }
         return eliminado;
     }

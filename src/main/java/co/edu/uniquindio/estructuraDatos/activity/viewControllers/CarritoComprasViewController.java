@@ -174,8 +174,8 @@ public class CarritoComprasViewController {
     }
 
     private ObservableList<Producto> getListaProductos(Cliente cliente) {
-        ArrayList<Producto> productosMap = cliente.getCarritoCliente().getListaProductos();
-        listaProductosCliente.addAll( productosMap );
+        ArrayList<Producto> productos = cliente.getCarritoCliente().getListaProductos();
+        listaProductosCliente.addAll( productos );
         return listaProductosCliente;
     }
 
@@ -204,6 +204,7 @@ public class CarritoComprasViewController {
                 }
             }
         });
+
         tableViewCarrito.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 gestionActivos( true );// Habilitar el botón si hay un elemento seleccionado

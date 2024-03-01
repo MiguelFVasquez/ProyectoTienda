@@ -34,6 +34,7 @@ public class Producto implements Comparable<Producto> {
 
     public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
+        actualizarExistencia();
     }
 
     public String getCodigo() {

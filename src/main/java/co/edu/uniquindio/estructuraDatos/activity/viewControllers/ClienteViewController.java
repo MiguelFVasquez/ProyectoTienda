@@ -2,6 +2,7 @@ package co.edu.uniquindio.estructuraDatos.activity.viewControllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -328,8 +329,30 @@ public class ClienteViewController {
         refrescarTableViewProductos();
     }
     private ObservableList<Producto> getListaProductos() {
-        HashMap<String, Producto> productosMap = clienteController.mfm.getListaProductos();
-        listaProductos.addAll( productosMap.values() );
+        HashMap<String, Producto> productos = clienteController.mfm.getListaProductos();
+        ArrayList<String> productosEliminar = new ArrayList<>();
+        /*productos.forEach((clave, producto) -> {
+
+            // Verificar si el producto no tiene existencia
+            if (!producto.getExistencia()) {
+
+                // Mostrar mensaje "Hola entra" para indicar que se eliminará el producto
+                System.out.println("Hola entra");
+
+                // Eliminar el producto del HashMap usando su código
+                productosEliminar.add( producto.getCodigo() );
+            }
+        });
+        for (String aux: productosEliminar) {
+            productos.remove( aux );
+        }*/
+        listaProductos.addAll( productos.values() );
+        for (int i = 0; i < listaProductos.size(); i++) {
+            if(!listaProductos.get( i ).getExistencia()){
+                listaProductos.remove( i );
+            }
+        }
+
         return listaProductos;
     }
 
