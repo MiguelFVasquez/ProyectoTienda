@@ -2,12 +2,11 @@
 ---
 
 ## ***TASKS***
-### **TO DO**
-- Funciones de administrador 
-- Gestión de productos Admin
+### **TO DO** 
 - Funcionamiento de Botón de Comprar de carrito.**CarritoView**
 - Manejar cerrados forzosos de aplicación
-- Mejorar motores de busqueda de productos
+- Mejorar motores de busqueda de productos.
+- Complementar motores de busqueda con botones de **limpiarFiltros**
 
 ### DOING
 - Historial de compras de Tienda (Con visualización en ADMINVIEW) **[Opcional]**
