@@ -281,8 +281,8 @@ public class ClienteViewController {
             if(carritoComprasViewController!=null){
                 refrescarTableCarrito();
             }
-            txtCantidad.setText( VALOR_DEFECTO);
         }
+        txtCantidad.setText( VALOR_DEFECTO);
 
     }
 

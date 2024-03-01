@@ -276,12 +276,14 @@ public class Tienda implements ITienda {
 //----------------------------PRODUCTO-CLIENTE---------------------------------------
     public boolean agregarProductoCliente(Producto producto, String id) throws ProductoException {
         boolean agregado = false;
-        if(verificarProducto( producto.getCodigo() )){
-            Cliente cliente = obtenerCliente( id );
+        if(verificarProducto( producto.getCodigo() )) {
+            Cliente cliente = obtenerCliente(id);
             producto.calcularSubtotal();
-            cliente.agregarACarrito( producto );
-            ventaProducto( producto );
-            agregado = true;
+            if (ventaProducto(producto)){
+                cliente.agregarACarrito(producto);
+                agregado = true;
+            }
+
         }else{
             throw new ProductoException("El producto: " + producto.getNombre() + " no ha sido encontrado");
         }
