@@ -59,6 +59,10 @@ public class CarritoCompra {
             throw new ProductoException("Producto "+productoEliminar.getNombre()+ " no encontrado");
         }
     }
+    public void cancelarVenta() {
+        listaProductos.clear();
+        listaCodigosProductos.clear();
+    }
 
     public HashSet<String> getListaCodigosProductos() {
         return listaCodigosProductos;
@@ -88,4 +92,6 @@ public class CarritoCompra {
         }
         return null;
     }
+
+
 }

@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 
 import co.edu.uniquindio.estructuraDatos.activity.app.App;
 import co.edu.uniquindio.estructuraDatos.activity.controllers.ClienteController;
+import co.edu.uniquindio.estructuraDatos.activity.exceptions.ClienteException;
+import co.edu.uniquindio.estructuraDatos.activity.exceptions.ProductoException;
 import co.edu.uniquindio.estructuraDatos.activity.model.Cliente;
 import co.edu.uniquindio.estructuraDatos.activity.model.Producto;
 import javafx.collections.FXCollections;
@@ -159,7 +161,40 @@ public class CarritoComprasViewController {
 
     @FXML
     void cancelarCompraTotal(ActionEvent event) {
+            Alert alert = new Alert( Alert.AlertType.CONFIRMATION );
+            alert.setTitle( "Confirmación" );
+            alert.setHeaderText( "¿Estás seguro deseas cancelar la compra?");
+            alert.setContentText( "Presiona ACEPTAR para confirmar o CANCELAR para cancelar." );
 
+            // Mostrar la ventana de confirmación y esperar a que el usuario elija una opción
+            alert.showAndWait().ifPresent( response -> {
+                if ( response == javafx.scene.control.ButtonType.OK ) {
+                    System.out.println( "El usuario confirmó." );
+                    try {
+                        eliminarProductosCarrito();
+                    } catch (ClienteException e) {
+                        throw new RuntimeException( e );
+                    }
+                    clienteViewController.refrescarTableViewProductos();
+                    refrescarTableViewProductos( carritoController.mfm.obtenerCliente(identificacionCliente) );
+                    clienteViewController.setCarritoComprasViewController( null );
+                    stage.close();
+                } else {
+                    System.out.println( "El usuario canceló." );
+                }
+            } );
+    }
+
+    private void eliminarProductosCarrito() throws ClienteException {
+        try{
+            if(carritoController.mfm.eliminarProductosCarrito(identificacionCliente)){
+                mostrarMensaje( "Notificación", "Compra cancelada",
+                        "La compra ha sido cancelada correctamente", Alert.AlertType.INFORMATION );
+            }
+        } catch (Exception e) {
+            throw new ClienteException(e.getMessage() );
+
+        }
     }
 
 
@@ -186,12 +221,18 @@ public class CarritoComprasViewController {
     private ObservableList<Producto> getListaProductos(Cliente cliente) {
         ArrayList<Producto> productos = cliente.getCarritoCliente().getListaProductos();
         listaProductosCliente.addAll( productos );
+        double aux = 0;
+        for (Producto prod: productos) {
+            aux+= prod.getSubTotal();
+        }
+        txtPrecioTotal.setText( String.valueOf( aux ) );
         return listaProductosCliente;
     }
 
     void refrescarTableViewProductos(Cliente cliente) {
         tableViewCarrito.getItems().clear();
         tableViewCarrito.setItems( getListaProductos(cliente) );
+
     }
 
     void gestionEventos() {

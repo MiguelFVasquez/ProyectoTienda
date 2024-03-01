@@ -140,6 +140,10 @@ public class ClienteViewController {
 
     private static final String VALOR_DEFECTO = "1";
 
+    public void setCarritoComprasViewController(CarritoComprasViewController carritoComprasViewController) {
+        this.carritoComprasViewController = carritoComprasViewController;
+    }
+
     @FXML
     void cambiarInfo(ActionEvent event) {
         gestionActivos( true );
@@ -273,11 +277,11 @@ public class ClienteViewController {
             refrescarTableViewProductos();
             if(carritoComprasViewController==null){
                 activarBtnCarrito( false );
-
             }
             if(carritoComprasViewController!=null){
                 refrescarTableCarrito();
             }
+            txtCantidad.setText( VALOR_DEFECTO);
         }
 
     }

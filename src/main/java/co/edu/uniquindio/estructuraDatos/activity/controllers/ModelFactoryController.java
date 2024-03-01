@@ -10,6 +10,7 @@ import co.edu.uniquindio.estructuraDatos.activity.viewControllers.AdminViewContr
 import co.edu.uniquindio.estructuraDatos.activity.viewControllers.CarritoComprasViewController;
 import co.edu.uniquindio.estructuraDatos.activity.viewControllers.ClienteViewController;
 import co.edu.uniquindio.estructuraDatos.activity.viewControllers.InicioViewController;
+import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -127,7 +128,10 @@ public class ModelFactoryController {
        return tienda.eliminarCliente( obtenerCliente( numeroIdentificacion ) );
     }
 
-
+    //--------------------------------------FUNCIONES CARRITO-----------------------------------------------------------
+    public boolean eliminarProductosCarrito(String identificacionCliente) throws ProductoException, ClienteException {
+        return tienda.eliminarProductosCliente(identificacionCliente);
+    }
 
 
 

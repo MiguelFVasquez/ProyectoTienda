@@ -3,6 +3,7 @@ package co.edu.uniquindio.estructuraDatos.activity.model;
 import co.edu.uniquindio.estructuraDatos.activity.exceptions.ProductoException;
 import co.edu.uniquindio.estructuraDatos.activity.model.interfaces.ICliente;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -77,6 +78,9 @@ public class Cliente implements ICliente {
     public Producto obtenerProductoCarrito(String codigo) throws ProductoException {
         return carritoCliente.obtenerProductoCarrito(codigo);
     }
+    public ArrayList<Producto> obtenerProductosCarrito(){
+        return carritoCliente.getListaProductos();
+    }
 
     /**
      *
@@ -95,6 +99,9 @@ public class Cliente implements ICliente {
         }
         return eliminado;
     }
+    public void cancelarVenta() {
+        carritoCliente.cancelarVenta();
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -108,5 +115,6 @@ public class Cliente implements ICliente {
     public int hashCode() {
         return Objects.hash(numeroIdentificacion);
     }
+
 
 }

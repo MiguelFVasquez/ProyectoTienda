@@ -302,4 +302,19 @@ public class Tienda implements ITienda {
     }
 
 
+    public boolean eliminarProductosCliente(String identificacionCliente) throws ProductoException, ClienteException {
+        boolean eliminados = false;
+        if(verificarCliente( identificacionCliente )){
+            Cliente cliente = obtenerCliente( identificacionCliente );
+            for(Producto producto: cliente.obtenerProductosCarrito()){
+                actualizarProducto( producto );
+            }
+            cliente.cancelarVenta();
+            eliminados =  true;
+
+        }else{
+            throw new ClienteException("El Cliente: " + identificacionCliente + " no ha sido encontrado");
+        }
+        return eliminados;
+    }
 }
