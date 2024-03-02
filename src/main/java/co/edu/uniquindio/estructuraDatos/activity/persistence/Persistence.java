@@ -109,35 +109,6 @@ public class Persistence {
         ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_VENTAS, contenido, false);
     }
 
-    /*public static void guardarVentas(List<Venta> ventas) throws IOException {
-        String contenido = "";
-        for(Venta ventaList : ventas) {
-            contenido += "Código: " + ventaList.getCodigo() + ", ";
-            contenido += "Fecha: " + ventaList.getFecha() + ", ";
-
-            // Verificar si la lista de detalles no es nula
-            List<DetalleVenta> detalles = ventaList.getListaDetalles();
-            if (detalles != null) {
-                contenido += "Detalles: [";
-                for (DetalleVenta detalle : detalles) {
-                    contenido += "{";
-                    contenido += "Nombre: " + detalle.getNombre() + ", ";
-                    contenido += "Cantidad: " + detalle.getCantidad() + ", ";
-                    contenido += "Subtotal: " + detalle.getSubTotal() + ", ";
-                    contenido += "}";
-                }
-                contenido += "], ";
-            } else {
-                contenido += "Detalles: [], ";
-            }
-
-            contenido += "Cliente: " + ventaList.getClienteVenta() + ", ";
-            contenido += "Identificación Cliente: " + ventaList.getIdentificacionCliente() + ", ";
-            contenido += "Total: " + ventaList.getTotal() + "\n";
-        }
-        ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_VENTAS, contenido, false);
-    }*/
-
 
     public static void guardarClientes(HashMap<String,Cliente> listaClientes) throws IOException {
         String contenido = "";
