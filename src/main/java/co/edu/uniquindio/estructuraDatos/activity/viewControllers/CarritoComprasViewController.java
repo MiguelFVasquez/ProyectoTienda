@@ -131,6 +131,7 @@ public class CarritoComprasViewController {
                     System.out.println( "El usuario confirmó." );
                     gestionActivos( false );
                     eliminarProductoCarrito(productoAux);
+                    actualizarSubtotal();
                     tableViewCarrito.getSelectionModel().setSelectionMode( null );
                     refrescarTableViewProductos( carritoController.mfm.obtenerCliente(identificacionCliente) );
                     clienteViewController.refrescarTableViewProductos();
@@ -144,6 +145,16 @@ public class CarritoComprasViewController {
         }
 
 
+    }
+
+    void actualizarSubtotal() {
+        // Recorrer todas las filas de la TableView y actualizar el subtotal en cada una
+        for (int i = 0; i < tableViewCarrito.getItems().size(); i++) {
+            Producto producto = tableViewCarrito.getItems().get(i);
+            double subtotalProducto = producto.getPrecio() * producto.getCantidad();
+            // Actualizar el valor de la columna de subtotal en la fila correspondiente
+            tableViewCarrito.getItems().get(i).setSubTotal(subtotalProducto);
+        }
     }
 
     private void eliminarProductoCarrito(Producto selectedItem) {
