@@ -94,6 +94,7 @@ public class CarritoComprasViewController {
             listaProductosCliente.clear();
             clienteViewController.setCarritoComprasViewController( null );
             carritoController.mfm.serializarProductos();
+            carritoController.mfm.serializarVentas();
             this.stage.close();
         }
     }

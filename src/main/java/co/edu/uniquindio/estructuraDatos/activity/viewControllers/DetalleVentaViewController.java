@@ -51,13 +51,13 @@ public class DetalleVentaViewController {
     private Button btnCerrarVentana;
 
     @FXML
-    private TableColumn<?, ?> columnCantidad;
+    private TableColumn<Integer, DetalleVenta> columnCantidad;
 
     @FXML
-    private TableColumn<?, ?> columnNombreProducto;
+    private TableColumn<String, DetalleVenta> columnNombreProducto;
 
     @FXML
-    private TableColumn<?, ?> columnSubtotal;
+    private TableColumn<Double, DetalleVenta> columnSubtotal;
 
     @FXML
     private TableView<DetalleVenta> tableViewDetalles;

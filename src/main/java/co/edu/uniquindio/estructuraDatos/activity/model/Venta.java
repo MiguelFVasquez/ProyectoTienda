@@ -73,8 +73,8 @@ public class Venta implements Comparable<Venta>  {
         return listaDetalles;
     }
 
-    public void setListaDetalles(List<DetalleVenta> lisaDetalles) {
-        this.listaDetalles = lisaDetalles;
+    public void setListaDetalles(List<DetalleVenta> listaDetalles) {
+        this.listaDetalles = listaDetalles;
     }
 
     public Cliente getClienteVenta() {

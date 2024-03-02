@@ -151,6 +151,9 @@ public class ModelFactoryController {
 
     }
 
+    public void serializarVentas() throws IOException {
+        Persistence.guardarVentas( tienda.getListaVentas() );
+    }
 
 
 

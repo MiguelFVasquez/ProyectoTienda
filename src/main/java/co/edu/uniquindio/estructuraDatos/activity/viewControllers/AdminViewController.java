@@ -106,7 +106,7 @@ public class AdminViewController {
     @FXML
     private TableColumn<Producto, Integer> columnCantidadProductos;
 
-    //---------------Table vieew clientes------------------------
+    //---------------Table view clientes------------------------
     @FXML
     private TableView<Cliente> tableViewClientes;
     @FXML
@@ -129,7 +129,7 @@ public class AdminViewController {
     private TableColumn<Double, Venta> columnTotalVenta;
 
     @FXML
-    private TableColumn<String, Venta> columClienteDetalleVenta;
+    private TableColumn<Cliente, Venta> columClienteDetalleVenta;
     //-Variables utilitarias
     private ObservableList<Cliente> listaClientes = FXCollections.observableArrayList();
     private ObservableList<Producto> listaProductos= FXCollections.observableArrayList();

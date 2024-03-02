@@ -1,9 +1,6 @@
 package co.edu.uniquindio.estructuraDatos.activity.persistence;
 
-import co.edu.uniquindio.estructuraDatos.activity.model.CarritoCompra;
-import co.edu.uniquindio.estructuraDatos.activity.model.Cliente;
-import co.edu.uniquindio.estructuraDatos.activity.model.Producto;
-import co.edu.uniquindio.estructuraDatos.activity.model.Tienda;
+import co.edu.uniquindio.estructuraDatos.activity.model.*;
 import co.edu.uniquindio.estructuraDatos.activity.utils.ArchivoUtil;
 
 import java.io.FileNotFoundException;
@@ -16,17 +13,22 @@ public class Persistence {
 
     public static final String RUTA_ARCHIVO_CLIENTES = "src/main/resources/co/edu/uniquindio/estructuraDatos/activity/app/persistence/archives/archivosClientes.txt";
     public static final String RUTA_ARCHIVO_PRODUCTOS = "src/main/resources/co/edu/uniquindio/estructuraDatos/activity/app/persistence/archives/archivosProductos.txt";
+    public static final String RUTA_ARCHIVO_VENTAS = "src/main/resources/co/edu/uniquindio/estructuraDatos/activity/app/persistence/archives/archivosVentas.txt";
 
 
     public static void cargarDatosArchivos(Tienda tienda) throws FileNotFoundException, IOException {
         //Cargar archivo de usuarios
         HashMap<String,Cliente> clientesCargados = cargarClientes();
         HashMap<String, Producto> productosCargados = cargarProductos();
+        List<Venta> ventasCargadas = cargarVentas();
         if ( !clientesCargados.isEmpty() ) {
             tienda.getMapClientes().putAll( clientesCargados );
         }
         if(!productosCargados.isEmpty()){
             tienda.getMapProductos().putAll( productosCargados );
+        }
+        if(!ventasCargadas.isEmpty()){
+            tienda.getListaVentas().addAll(ventasCargadas);
         }
     }
 
@@ -64,6 +66,78 @@ public class Persistence {
         return clientes;
     }
 
+    public static List<Venta> cargarVentas() throws FileNotFoundException, IOException {
+        List<Venta> ventas = new ArrayList<>();
+        ArrayList<String> contenido = ArchivoUtil.leerArchivo(RUTA_ARCHIVO_VENTAS);
+
+        for (String linea : contenido) {
+            String[] partes = linea.split("@@");
+            if (partes.length >= 2) {
+                Venta venta = new Venta();
+                venta.setCodigo(partes[0]);
+                venta.setFecha(partes[1]);
+
+                // Si hay detalles
+                if (partes.length >= 3) {
+                    String[] detalles = partes[2].split("@@");
+                    for (String detalle : detalles) {
+                        String[] detallePartes = detalle.split("@@");
+                        if (detallePartes.length == 3) {
+                            DetalleVenta detalleVenta = new DetalleVenta(detallePartes[0], Integer.parseInt(detallePartes[1]), Double.parseDouble(detallePartes[2]));
+                            venta.getListaDetalles().add(detalleVenta);
+                        }
+                    }
+                }
+                ventas.add(venta);
+            }
+        }
+        return ventas;
+    }
+
+    public static void guardarVentas(List<Venta> ventas) throws IOException {
+        String contenido = "";
+        for(Venta ventaList : ventas){
+            ventaList.getClienteVenta();
+            contenido += ventaList.getCodigo() + "@@"
+                    + ventaList.getFecha() + "@@ "
+                    + ventaList.getListaDetalles() + "@@"
+                    + ventaList.getClienteVenta() + "@@"
+                    + ventaList.getIdentificacionCliente() + "@@"
+                    + ventaList.getTotal() + "\n";
+        }
+        ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_VENTAS, contenido, false);
+    }
+
+    /*public static void guardarVentas(List<Venta> ventas) throws IOException {
+        String contenido = "";
+        for(Venta ventaList : ventas) {
+            contenido += "Código: " + ventaList.getCodigo() + ", ";
+            contenido += "Fecha: " + ventaList.getFecha() + ", ";
+
+            // Verificar si la lista de detalles no es nula
+            List<DetalleVenta> detalles = ventaList.getListaDetalles();
+            if (detalles != null) {
+                contenido += "Detalles: [";
+                for (DetalleVenta detalle : detalles) {
+                    contenido += "{";
+                    contenido += "Nombre: " + detalle.getNombre() + ", ";
+                    contenido += "Cantidad: " + detalle.getCantidad() + ", ";
+                    contenido += "Subtotal: " + detalle.getSubTotal() + ", ";
+                    contenido += "}";
+                }
+                contenido += "], ";
+            } else {
+                contenido += "Detalles: [], ";
+            }
+
+            contenido += "Cliente: " + ventaList.getClienteVenta() + ", ";
+            contenido += "Identificación Cliente: " + ventaList.getIdentificacionCliente() + ", ";
+            contenido += "Total: " + ventaList.getTotal() + "\n";
+        }
+        ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_VENTAS, contenido, false);
+    }*/
+
+
     public static void guardarClientes(HashMap<String,Cliente> listaClientes) throws IOException {
         String contenido = "";
         for (HashMap.Entry<String, Cliente> entry : listaClientes.entrySet()){
@@ -85,6 +159,8 @@ public class Persistence {
         }
         ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_PRODUCTOS, contenido, false);
     }
+
+
 
 }
 

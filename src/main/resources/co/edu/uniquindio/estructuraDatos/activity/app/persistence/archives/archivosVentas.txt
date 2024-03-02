@@ -1,0 +1,1 @@
+VEN-1709346259941@@2024-03-01@@ [co.edu.uniquindio.estructuraDatos.activity.model.DetalleVenta@5aa3cd0d]@@co.edu.uniquindio.estructuraDatos.activity.model.Cliente@63e@@10@@1200.0
