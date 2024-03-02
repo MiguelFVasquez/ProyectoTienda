@@ -7,7 +7,7 @@
 - Mejorar motores de busqueda de productos.
 - Complementar motores de busqueda con botones de **limpiarFiltros**
 - Motor de busqueda de TabVentas
-- Corregir pequeño error con la taleView de carrito de compras, que cuando se elimina un producto no se actualiza el subtotal
+- Corregir pequeño error con la tableView de carrito de compras, que cuando se elimina un producto no se actualiza el subtotal
 
 ### DOING
 - Corrigiendo error con la tableView de el **TabVentas** en el viewController **DetalleVenta** que no carga la serializacion de ventas
