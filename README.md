@@ -1,4 +1,4 @@
-# Trabajando en el proyecto: Kmiloca
+# Trabajando en el proyecto: Nadie
 ---
 
 ## ***TASKS***
@@ -7,9 +7,10 @@
 - Mejorar motores de busqueda de productos.
 - Complementar motores de busqueda con botones de **limpiarFiltros**
 - Motor de busqueda de TabVentas
+- Corregir pequeño error con la tableView de carrito de compras, que cuando se elimina un producto no se actualiza el subtotal
 
 ### DOING
-
+- Corrigiendo error con la tableView de el **TabVentas** en el viewController **DetalleVenta** que no carga la serializacion de ventas
   
 ### DONE
 - ~~Activar botón "Eliminar Cliente" solamente cuando esté seleccionado un cliente.~~
@@ -31,7 +32,7 @@
 ## ***Serializado***
 - ~~Eliminar el cliente del txt al eliminarlo de la tienda.~~
 - ~~Serializado productos~~
-- Serializado Ventas
+- ~~Serializado Ventas~~
 
 ## ***Opcionales***
 - ComboBox tipo de Documento en Registro Cliente
