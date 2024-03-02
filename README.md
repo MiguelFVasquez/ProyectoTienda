@@ -7,7 +7,6 @@
 - Mejorar motores de busqueda de productos.
 - Complementar motores de busqueda con botones de **limpiarFiltros**
 - Motor de busqueda de TabVentas
-- Corregir pequeño error con la tableView de carrito de compras, que cuando se elimina un producto no se actualiza el subtotal
 
 ### DOING
 - Corrigiendo error con la tableView de el **TabVentas** en el viewController **DetalleVenta** que no carga la serializacion de ventas
@@ -27,6 +26,7 @@
 - ~~Al eliminar un producto de carrito que ya haya sido eliminado de la Tienda **[Organizar]**~~
 - ~~Historial de compras de Tienda (Con visualización en ADMINVIEW) **[Opcional]**~~
 - ~~Funcionamiento de Botón de Comprar de carrito.**CarritoView**~~
+- ~~Corregir pequeño error con la tableView de carrito de compras, que cuando se elimina un producto no se actualiza el subtotal~~
 
 
 ## ***Serializado***
