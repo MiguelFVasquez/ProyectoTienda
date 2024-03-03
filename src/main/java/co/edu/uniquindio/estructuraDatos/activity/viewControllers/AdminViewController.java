@@ -83,7 +83,10 @@ public class AdminViewController {
     private Button btnEliminarProducto;
     @FXML
     private Button btnVerDetalleVenta;
-
+    @FXML
+    private Button btnBuscarVenta;
+    @FXML
+    private Button btnLimpiarFiltrosVenta;
     @FXML
     private Label nombreCliente;
 
@@ -359,6 +362,8 @@ public class AdminViewController {
     @FXML
     void limpiarFiltros(ActionEvent event) {
         datePickerDetalleVenta.setValue( null );
+        tableViewVentas.getItems().clear();
+        tableViewVentas.setItems(getListaVentas());
     }
 
     //-----------------------------------------TAB VENTAS---------------------------------------------------------------
@@ -403,4 +408,13 @@ public class AdminViewController {
         detalleVentaViewController.refrescarTableView(venta);
     }
 
+    @FXML
+    void buscarVenta(ActionEvent event) {
+        String fehchaVenta= datePickerDetalleVenta.getValue().toString();
+        listaVentas.clear();
+        listaVentas.addAll(adminController.mfm.getListaVentasFecha(fehchaVenta));
+        tableViewVentas.refresh();
+    }
+
 }
+

@@ -9,9 +9,7 @@ public class Venta implements Comparable<Venta>  {
     private String fecha;
     private List<DetalleVenta> listaDetalles;
     private Cliente clienteVenta;
-
     private String identificacionCliente;
-
     private Double total;
 
     public Venta() {
@@ -84,6 +82,9 @@ public class Venta implements Comparable<Venta>  {
     public void setClienteVenta(Cliente clienteVenta) {
         this.clienteVenta = clienteVenta;
         this.identificacionCliente = clienteVenta.getNumeroIdentificacion();
+    }
+    public boolean verificarFecha(String fecha){
+        return this.getFecha().equals(fecha);
     }
 
     @Override

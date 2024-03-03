@@ -161,9 +161,14 @@
                               <Font size="19.0" />
                            </font>
                         </Text>
-                        <Button fx:id="btnBuscarVenta" layoutX="629.0" layoutY="55.0" mnemonicParsing="false" onAction="#limpiarFiltros" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: #b26500;" stylesheets="@css/styles.css" text="Limpiar filtros" textFill="WHITE" />
+                        <Button fx:id="btnLimpiarFiltrosVenta" layoutX="629.0" layoutY="55.0" mnemonicParsing="false" onAction="#limpiarFiltros" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: #b26500;" stylesheets="@css/styles.css" text="Limpiar filtros" textFill="WHITE" />
                         <DatePicker fx:id="datePickerDetalleVenta" layoutX="144.0" layoutY="60.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
                         <Button fx:id="btnVerDetalleVenta" layoutX="350.0" layoutY="420.0" mnemonicParsing="false" onAction="#verDetalleVenta" prefHeight="30.0" prefWidth="136.0" styleClass="buttonGreen" stylesheets="@css/styles.css" text="Ver detalles de venta" textFill="WHITE" />
+                        <Button fx:id="btnBuscarVenta" layoutX="356.0" layoutY="57.0" mnemonicParsing="false" onAction="#buscarVenta" prefHeight="30.0" prefWidth="39.0" styleClass="buttonGreen" stylesheets="@css/styles.css" textFill="#00ff77">
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="CHECK" />
+                           </graphic>
+                        </Button>
                      </children>
                   </AnchorPane>
                </content>

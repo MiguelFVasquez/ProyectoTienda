@@ -132,6 +132,9 @@ public class ModelFactoryController {
     public List<Venta> getListaVentas() {
         return tienda.getListaVentas();
     }
+    public List<Venta> getListaVentasFecha(String fecha){
+        return tienda.obtenerVentaFecha(fecha);
+    }
 
     //--------------------------------------FUNCIONES CARRITO-----------------------------------------------------------
     public boolean eliminarProductosCarrito(String identificacionCliente) throws ProductoException, ClienteException {

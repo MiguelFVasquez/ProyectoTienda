@@ -159,6 +159,14 @@ public class Tienda implements ITienda {
                 .findFirst();
         return clienteOptional.orElse(null);
     }
+
+    public List<Venta> obtenerVentaFecha(String fecha){
+        List<Venta> fechaVentas= this.listaVentas.stream()
+                .filter(v ->v.verificarFecha(fecha))
+                .toList();
+        return fechaVentas;
+    }
+
     @Override
     public boolean crearVenta(Venta newVenta) throws VentaException {
         boolean creado= false;
