@@ -79,6 +79,10 @@ public class Producto implements Comparable<Producto> {
     public boolean verificarCodigo(String codigo){
         return this.codigo.equals(codigo);
     }
+
+    public boolean verificarNombre(String nombre){
+        return this.getNombre().toLowerCase().contains(nombre) && !nombre.equals(" ");
+    }
     public boolean verificarCantidad(Integer cantidad) {
         return cantidad<=this.cantidad;
     }

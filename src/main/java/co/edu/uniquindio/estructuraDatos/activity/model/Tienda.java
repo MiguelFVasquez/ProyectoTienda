@@ -194,8 +194,9 @@ public class Tienda implements ITienda {
     }
 
     public Producto obtenerProductoNombre(String nombre){
+        String nombreLowerCase= nombre.toLowerCase();
         for (Producto productoAux: mapProductos.values()) {
-            if (productoAux.getNombre().toLowerCase().contains(nombre)) return productoAux;
+            if (productoAux.getNombre().toLowerCase().contains(nombreLowerCase) && !nombre.equals(" ")) return productoAux;
         }
         return null;
     }
