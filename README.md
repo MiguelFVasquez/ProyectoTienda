@@ -1,16 +1,16 @@
-# Trabajando en el proyecto: Florez
+# Trabajando en el proyecto: Nadie
 ---
 
 ## ***TASKS***
 ### **TO DO** 
 - Manejar cerrados forzosos de aplicación
-- Complementar motores de busqueda con botones de **limpiarFiltros**
-- Motor de busqueda de TabVentas
+
 
 ### DOING
 - Corrigiendo error con la tableView de el **TabVentas** en el viewController **DetalleVenta** que no carga la serializacion de ventas
   
 ### DONE
+- ~~Motor de busqueda de TabVentas~~
 - ~~Mejorar motores de busqueda de productos.~~
 - ~~Complementar motores de busqueda con botones de **limpiarFiltros**~~
 - ~~Activar botón "Eliminar Cliente" solamente cuando esté seleccionado un cliente.~~
