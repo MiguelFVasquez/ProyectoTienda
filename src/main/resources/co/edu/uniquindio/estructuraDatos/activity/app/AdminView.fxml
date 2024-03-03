@@ -121,6 +121,7 @@
                            </graphic>
                         </Button>
                         <Button fx:id="btnEliminarProducto" layoutX="368.0" layoutY="432.0" mnemonicParsing="false" onAction="#eliminarProducto" styleClass="buttonRed" stylesheets="@css/styles.css" text="Eliminar Producto" />
+                        <Button fx:id="btnLimpiarInventario" layoutX="629.0" layoutY="58.0" mnemonicParsing="false" onAction="#limpiarFiltrosDeInventario" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: #b26500;" text="Limpiar filtros" textAlignment="CENTER" textFill="WHITE" />
                      </children>
                   </AnchorPane>
             </content>

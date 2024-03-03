@@ -79,7 +79,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="rectangle" stylesheets="@css/styles.css">
                      <children>
-                        <Button fx:id="btnCarritoCompras" layoutX="607.0" layoutY="46.0" mnemonicParsing="false" onAction="#abrirVentanaCarrito" prefHeight="35.0" prefWidth="146.0" style="-fx-background-color: transparent; -fx-border-color: #b26500;" text="Carrito de compras" textFill="WHITE">
+                        <Button fx:id="btnCarritoCompras" layoutX="217.0" layoutY="401.0" mnemonicParsing="false" onAction="#abrirVentanaCarrito" prefHeight="35.0" prefWidth="146.0" style="-fx-background-color: transparent; -fx-border-color: #b26500;" text="Carrito de compras" textFill="WHITE">
                            <graphic>
                               <FontAwesomeIconView fill="WHITE" glyphName="CAR" />
                            </graphic>
@@ -91,13 +91,13 @@
                               <TableColumn fx:id="columnCantidad" prefWidth="131.0" text="Cantidad disponible" />
                           </columns>
                         </TableView>
-                        <Button fx:id="btnAgregarCarrito" layoutX="354.0" layoutY="399.0" mnemonicParsing="false" onAction="#agregarAlCarrito" prefHeight="32.0" prefWidth="135.0" styleClass="buttonGreen" stylesheets="@css/styles.css" text="Agregar al carrito" textFill="WHITE">
+                        <Button fx:id="btnAgregarCarrito" layoutX="383.0" layoutY="402.0" mnemonicParsing="false" onAction="#agregarAlCarrito" prefHeight="32.0" prefWidth="135.0" styleClass="buttonGreen" stylesheets="@css/styles.css" text="Agregar al carrito" textFill="WHITE">
                            <graphic>
                               <FontAwesomeIconView fill="WHITE" glyphName="CHECK" />
                            </graphic>
                         </Button>
-                        <TextField fx:id="txtCantidad" layoutX="501.0" layoutY="401.0" prefHeight="28.0" prefWidth="34.0" style="-fx-border-color: white;" styleClass="text-field2" stylesheets="@css/styles.css" />
-                        <Text fill="WHITE" layoutX="540.0" layoutY="420.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantidad" />
+                        <TextField fx:id="txtCantidad" layoutX="530.0" layoutY="404.0" prefHeight="28.0" prefWidth="34.0" style="-fx-border-color: white;" styleClass="text-field2" stylesheets="@css/styles.css" />
+                        <Text fill="WHITE" layoutX="569.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantidad" />
                         <TextField fx:id="txtBuscarProducto" layoutX="168.0" layoutY="52.0" prefHeight="28.0" prefWidth="210.0" style="-fx-border-color: white;" styleClass="text-field2" stylesheets="@css/styles.css" />
                         <Text fill="WHITE" layoutX="82.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Producto">
                            <font>
@@ -109,6 +109,7 @@
                               <FontAwesomeIconView fill="WHITE" glyphName="CHECK" />
                            </graphic>
                         </Button>
+                        <Button fx:id="btnLimpiarFiltros" layoutX="629.0" layoutY="51.0" mnemonicParsing="false" onAction="#limpiarFiltros" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: #b26500;" text="Limpiar filtros" textAlignment="CENTER" textFill="WHITE" />
                      </children>
                   </AnchorPane>
             </content>

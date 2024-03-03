@@ -71,7 +71,8 @@ public class AdminViewController {
 
     @FXML
     private Button btnBuscarProducto;
-
+    @FXML
+    private Button btnLimpiarInventario;
     @FXML
     private Button btnCerrarSesion;
 
@@ -292,6 +293,14 @@ public class AdminViewController {
             mostrarMensaje("Notificación busqueda", "Resultado de la busqueda", "El producto con el código: " + codigoPrpoductoBuscar +" no ha sido encontrado", Alert.AlertType.INFORMATION);
         }
     }
+
+    @FXML
+    void limpiarFiltrosDeInventario(ActionEvent event) {
+        txtBuscarProducto.clear();
+        tableViewProductos.getItems().clear();
+        tableViewProductos.setItems(getListaProductos());
+    }
+
     @FXML
     void eliminarProducto(ActionEvent event) {
         if (productoSeleccionado!=null){

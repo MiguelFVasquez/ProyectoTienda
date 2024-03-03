@@ -105,6 +105,9 @@ public class ClienteViewController {
     private Button btnBuscarProducto;
 
     @FXML
+    private Button btnLimpiarFiltros;
+
+    @FXML
     private TableColumn<Double, Producto> columnPrecio;
 
     @FXML
@@ -313,9 +316,11 @@ public class ClienteViewController {
             mostrarMensaje("Notificación busqueda", "Resultado de la busqueda", "El producto: " + nombreProductoBuscar +" no ha sido encontrado", Alert.AlertType.INFORMATION);
         }
     }
-
-
-
+    @FXML
+    void limpiarFiltros(ActionEvent event) {
+        txtBuscarProducto.clear();
+        refrescarTableViewProductos();
+    }
     //-----------------------------------------FUNCIONES UTILITARIAS----------------------------------------------------
 
     void habilitarCamposProducto(boolean flag){
