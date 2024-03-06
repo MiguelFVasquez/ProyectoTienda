@@ -85,6 +85,9 @@ public class DetalleVentaViewController {
         this.columnSubtotal.setCellValueFactory(new PropertyValueFactory<>("subTotal"));
         tableViewDetalles.setSelectionModel(null);
 
+               /* String cssFile = String.valueOf( getClass().getResource( "css/styles.css" ) );
+        tableViewDetalles.getStyleClass().add( "factura-table-view" );
+        tableViewDetalles.setStyle( cssFile );*/
     }
     private ObservableList<DetalleVenta> getListaDetalles(Venta venta) {
         List<DetalleVenta> ventaList = venta.getListaDetalles();

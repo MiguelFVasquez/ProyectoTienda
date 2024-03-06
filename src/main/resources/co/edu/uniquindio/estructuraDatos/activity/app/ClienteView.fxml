@@ -10,6 +10,9 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -25,7 +28,28 @@
                      <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="439.0" layoutX="39.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: 20; -fx-arc-width: 20;" width="755.0" />
                         <Separator layoutX="39.0" layoutY="62.0" prefHeight="18.0" prefWidth="755.0" />
-                        <FontAwesomeIconView glyphName="USER" layoutX="86.0" layoutY="295.0" size="250" />
+                        <FontAwesomeIconView glyphName="USER" layoutX="86.0" layoutY="295.0" size="250">
+                           <fill>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="0.006711409395973154">
+                                       <color>
+                                          <Color green="0.34117648005485535" blue="0.29019609093666077" />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="0.03921568766236305" blue="0.1725490242242813" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </LinearGradient>
+                           </fill></FontAwesomeIconView>
                         <Label layoutX="270.0" layoutY="24.0" prefHeight="45.0" prefWidth="306.0" text="Bienvenido de vuelta ">
                            <font>
                               <Font name="System Bold" size="30.0" />
@@ -72,23 +96,44 @@
                   </AnchorPane>
             </content>
                <graphic>
-                  <FontAwesomeIconView glyphName="HOME" />
+                  <FontAwesomeIconView glyphName="HOME">
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color />
+                                 </color>
+                              </Stop>
+                              <Stop offset="0.006711409395973154">
+                                 <color>
+                                    <Color green="0.34117648005485535" blue="0.29019609093666077" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.03921568766236305" blue="0.1725490242242813" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill></FontAwesomeIconView>
                </graphic>
           </Tab>
           <Tab text="Productos">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="rectangle" stylesheets="@css/styles.css">
+              <AnchorPane fx:id="anchorPaneProductos" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="rectangle" stylesheets="@css/styles.css">
                      <children>
                         <Button fx:id="btnCarritoCompras" layoutX="217.0" layoutY="401.0" mnemonicParsing="false" onAction="#abrirVentanaCarrito" prefHeight="35.0" prefWidth="146.0" style="-fx-background-color: transparent; -fx-border-color: #b26500;" text="Carrito de compras" textFill="WHITE">
                            <graphic>
                               <FontAwesomeIconView fill="WHITE" glyphName="CAR" />
                            </graphic>
                         </Button>
-                        <TableView fx:id="tableViewProductos" layoutX="82.0" layoutY="96.0" prefHeight="297.0" prefWidth="671.0" stylesheets="@css/styles.css">
+                        <TableView fx:id="tableViewProductos" layoutX="72.0" layoutY="96.0" prefHeight="297.0" prefWidth="671.0" styleClass="table-view2" stylesheets="@css/styles.css">
                           <columns>
-                            <TableColumn fx:id="columnProducto" prefWidth="324.0" text="Producto" />
-                            <TableColumn fx:id="columnPrecio" minWidth="0.0" prefWidth="215.0" text="Precio" />
-                              <TableColumn fx:id="columnCantidad" prefWidth="131.0" text="Cantidad disponible" />
+                            <TableColumn fx:id="columnProducto" editable="false" prefWidth="237.0" text="Producto" />
+                            <TableColumn fx:id="columnPrecio" editable="false" minWidth="0.0" prefWidth="249.0" text="Precio" />
+                              <TableColumn fx:id="columnCantidad" editable="false" prefWidth="184.0" text="Cantidad disponible" />
                           </columns>
                         </TableView>
                         <Button fx:id="btnAgregarCarrito" layoutX="383.0" layoutY="402.0" mnemonicParsing="false" onAction="#agregarAlCarrito" prefHeight="32.0" prefWidth="135.0" styleClass="buttonGreen" stylesheets="@css/styles.css" text="Agregar al carrito" textFill="WHITE">
@@ -104,17 +149,33 @@
                               <Font size="19.0" />
                            </font>
                         </Text>
-                        <Button fx:id="btnBuscarProducto" layoutX="387.0" layoutY="53.0" mnemonicParsing="false" onAction="#buscarProducto" styleClass="buttonGreen" stylesheets="@css/styles.css" textFill="#00ff77">
-                           <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="CHECK" />
-                           </graphic>
-                        </Button>
                         <Button fx:id="btnLimpiarFiltros" layoutX="629.0" layoutY="51.0" mnemonicParsing="false" onAction="#limpiarFiltros" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: #b26500;" text="Limpiar filtros" textAlignment="CENTER" textFill="WHITE" />
                      </children>
                   </AnchorPane>
             </content>
                <graphic>
-                  <FontAwesomeIconView fill="#00574a" glyphName="STAR" />
+                  <FontAwesomeIconView glyphName="STAR">
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color />
+                                 </color>
+                              </Stop>
+                              <Stop offset="0.006711409395973154">
+                                 <color>
+                                    <Color green="0.34117648005485535" blue="0.29019609093666077" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.03921568766236305" blue="0.1725490242242813" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill></FontAwesomeIconView>
                </graphic>
           </Tab>
         </tabs>
