@@ -13,7 +13,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="669.0" prefWidth="631.0" styleClass="detalleVenta-background" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuraDatos.activity.viewControllers.DetalleVentaViewController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="584.0" layoutX="85.0" layoutY="42.0" stroke="BLACK" strokeType="INSIDE" style="-fx-arc-height: 20; -fx-arc-width: 20;" width="467.0" />
-      <TableView fx:id="tableViewDetalles" layoutX="120.0" layoutY="163.0" prefHeight="389.0" prefWidth="396.0" stylesheets="@css/styles.css">
+      <TableView fx:id="tableViewDetalles" focusTraversable="false" layoutX="120.0" layoutY="163.0" prefHeight="389.0" prefWidth="396.0" stylesheets="@css/styles.css">
          <columns>
             <TableColumn fx:id="columnNombreProducto" prefWidth="179.0" text="Nombre Producto" />
             <TableColumn fx:id="columnCantidad" prefWidth="91.0" text="Cantidad" />

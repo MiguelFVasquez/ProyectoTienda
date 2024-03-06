@@ -18,12 +18,15 @@ import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -70,7 +73,17 @@ public class AdminViewController {
     private URL location;
 
     @FXML
-    private Button btnBuscarProducto;
+    private AnchorPane anchorHome;
+
+    @FXML
+    private AnchorPane anchorInventario;
+
+    @FXML
+    private AnchorPane anchorVentas;
+
+    @FXML
+    private Rectangle rectanguloBlanco;
+
     @FXML
     private Button btnLimpiarInventario;
     @FXML
@@ -217,6 +230,9 @@ public class AdminViewController {
         return listaVentas;
     }
     void refrescarTableViews(){
+        listaClientes.clear();
+        listaProductos.clear();
+        listaVentas.clear();
         tableViewClientes.getItems().clear();
         tableViewClientes.setItems( getListaClientes());
 
@@ -237,10 +253,80 @@ public class AdminViewController {
                 btnEliminarCliente.setDisable(true); // Deshabilitar el botón si no hay ningún elemento seleccionado
             }
         });
+        tableViewVentas.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                btnVerDetalleVenta.setDisable( false );// Habilitar el botón si hay un elemento seleccionado
+            } else {
+                btnVerDetalleVenta.setDisable( true );// Deshabilitar el botón si no hay ningún elemento seleccionado
+
+            }
+        });
+        tableViewProductos.getSelectionModel().selectedItemProperty().addListener( (obs , oldSelection , newSelection) -> {
+            if ( newSelection != null ) {
+                btnEliminarProducto.setDisable( false );
+                productoSeleccionado = newSelection;
+            }else{
+                btnEliminarProducto.setDisable( true );
+
+            }
+        });
+        anchorHome.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                tableViewClientes.getSelectionModel().clearSelection();
+            }
+        });
+        anchorInventario.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                tableViewProductos.getSelectionModel().clearSelection();
+            }
+        });
+        anchorVentas.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                tableViewVentas.getSelectionModel().clearSelection();
+            }
+        });
+        rectanguloBlanco.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                tableViewClientes.getSelectionModel().clearSelection();
+            }
+        });
+        txtBuscarProducto.textProperty().addListener((observable, oldValue, newValue) -> {
+            filtrarProductos(newValue);
+            if(!newValue.isEmpty()){
+                btnLimpiarInventario.setDisable( false );
+
+            }else{
+                btnLimpiarInventario.setDisable( true );
+            }
+        });
+    }
+
+    private void filtrarProductos(String textoBusqueda) {
+        if (textoBusqueda == null || textoBusqueda.isEmpty()) {
+            refrescarTableViews(); // Mostrar todos los productos si no hay texto de búsqueda
+
+        } else {
+            ObservableList<Producto> productosFiltrados = FXCollections.observableArrayList();
+            for (Producto producto : listaProductos) {
+                if (producto.getNombre().toLowerCase().contains(textoBusqueda.toLowerCase())) {
+                    productosFiltrados.add(producto);
+                }
+            }
+            tableViewProductos.setItems(productosFiltrados); // Mostrar productos que coincidan con el texto de búsqueda
+        }
     }
     @FXML
     void initialize() {
+        btnLimpiarInventario.setDisable( true );
         btnEliminarCliente.setDisable( true );
+        btnVerDetalleVenta.setDisable( true );
+        btnEliminarProducto.setDisable( true );
+        btnLimpiarFiltrosVenta.setDisable( true );
+
         adminController.mfm.initAdminController( this );
         //Iniciar los valores de la tableview de clientes
         this.columnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
@@ -250,31 +336,18 @@ public class AdminViewController {
         this.columnProducto.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         this.columnCantidadProductos.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         this.columnPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
-        this.tableViewProductos.getSelectionModel().selectedItemProperty().addListener( (obs , oldSelection , newSelection) -> {
-            if ( newSelection != null ) {
-                btnEliminarProducto.setVisible( true );
-                productoSeleccionado = newSelection;
-            }
-        });
+
+
         this.columClienteDetalleVenta.setCellValueFactory(new PropertyValueFactory<>("identificacionCliente"));
         this.columnTotalVenta.setCellValueFactory(new PropertyValueFactory<>("total"));
         this.columnCodigoVenta.setCellValueFactory(new PropertyValueFactory<>("codigo"));
         refrescarTableViews();
         gestionEventos();
 
-        tableViewVentas.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                gestionBotonesTabDetalleVenta( false );// Habilitar el botón si hay un elemento seleccionado
-            } else {
-                gestionBotonesTabDetalleVenta( true );// Deshabilitar el botón si no hay ningún elemento seleccionado
-            }
-        });
+
 
     }
 
-    public void gestionBotonesTabDetalleVenta(boolean b) {
-        btnVerDetalleVenta.setDisable( b );
-    }
 
 
     //-------------------------------EVENTOS DE BOTONES----------------------------
@@ -282,19 +355,6 @@ public class AdminViewController {
     void cerrarSesion(ActionEvent event) {
         inicioViewController.show();
         this.stage.close();
-    }
-    @FXML
-    void buscarProducto(ActionEvent event) {
-        String codigoPrpoductoBuscar= txtBuscarProducto.getText();
-        Producto productoEncontrado= adminController.mfm.obtenerProducto(codigoPrpoductoBuscar);
-        if (productoEncontrado!=null){
-            listaProductos.clear();
-            listaProductos.add(productoEncontrado);
-            tableViewProductos.setItems(listaProductos);
-            tableViewProductos.refresh();
-        }else {
-            mostrarMensaje("Notificación busqueda", "Resultado de la busqueda", "El producto con el código: " + codigoPrpoductoBuscar +" no ha sido encontrado", Alert.AlertType.INFORMATION);
-        }
     }
 
     @FXML
@@ -382,7 +442,7 @@ public class AdminViewController {
         detalleVentaViewController.init(stage);
         detalleVentaViewController.setAdminViewController( this );
         refrescarTableDetalleVenta(venta);
-        stage.setTitle( "Detalle Venta " );
+        stage.setTitle( "Detalle Venta" );
         stage.show();
 
 

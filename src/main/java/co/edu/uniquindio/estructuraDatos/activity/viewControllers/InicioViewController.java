@@ -110,6 +110,7 @@ public class InicioViewController {
             if ( !id.isEmpty() ) {
                 if ( esNumero( id ) ) {
                     if ( verificarCliente( id ) ) {
+                        tabRegistro.setDisable( true );
                         FXMLLoader loader = new FXMLLoader();
                         loader.setLocation( App.class.getResource( "ClienteView.fxml" ) );
                         AnchorPane anchorPane = loader.load();

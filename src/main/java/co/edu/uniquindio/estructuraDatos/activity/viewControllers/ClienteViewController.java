@@ -2,10 +2,7 @@ package co.edu.uniquindio.estructuraDatos.activity.viewControllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import co.edu.uniquindio.estructuraDatos.activity.app.App;
@@ -21,12 +18,14 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -102,9 +101,6 @@ public class ClienteViewController {
     private Button btnGuardarInfo;
 
     @FXML
-    private Button btnBuscarProducto;
-
-    @FXML
     private Button btnLimpiarFiltros;
 
     @FXML
@@ -115,6 +111,9 @@ public class ClienteViewController {
 
     @FXML
     private TableColumn<Integer, Producto> columnCantidad;
+
+    @FXML
+    private AnchorPane anchorPaneProductos;
 
     @FXML
     public Label nombreCliente;
@@ -302,18 +301,17 @@ public class ClienteViewController {
         return false;
     }
 
-    @FXML
-    void buscarProducto(ActionEvent event) {
-        String nombreProductoBuscar= txtBuscarProducto.getText();
-        Producto productoEncontrado= clienteController.mfm.obtenerProductoNombre(nombreProductoBuscar);
-        if (productoEncontrado!=null){
-            listaProductos.clear();
-            listaProductos.add(productoEncontrado);
-            tableViewProductos.setItems(listaProductos);
-            tableViewProductos.refresh();
-
-        }else {
-            mostrarMensaje("Notificación busqueda", "Resultado de la busqueda", "El producto: " + nombreProductoBuscar +" no ha sido encontrado", Alert.AlertType.INFORMATION);
+    private void filtrarProductos(String textoBusqueda) {
+        if (textoBusqueda == null || textoBusqueda.isEmpty()) {
+            refrescarTableViewProductos(); // Mostrar todos los productos si no hay texto de búsqueda
+        } else {
+            ObservableList<Producto> productosFiltrados = FXCollections.observableArrayList();
+            for (Producto producto : listaProductos) {
+                if (producto.getNombre().toLowerCase().contains(textoBusqueda.toLowerCase())) {
+                    productosFiltrados.add(producto);
+                }
+            }
+            tableViewProductos.setItems(productosFiltrados); // Mostrar productos que coincidan con el texto de búsqueda
         }
     }
     @FXML
@@ -330,8 +328,11 @@ public class ClienteViewController {
     @FXML
     void initialize() {
         txtCantidad.setText(VALOR_DEFECTO);
+        btnLimpiarFiltros.setDisable( true );
         habilitarCamposProducto( true );
+
         clienteController.mfm.initClienteController( this );
+
         activarBtnCarrito( true );
         deshabilitarCampos();
         configurarEventos();
@@ -343,21 +344,6 @@ public class ClienteViewController {
     private ObservableList<Producto> getListaProductos() {
         HashMap<String, Producto> productos = clienteController.mfm.getListaProductos();
         ArrayList<String> productosEliminar = new ArrayList<>();
-        /*productos.forEach((clave, producto) -> {
-
-            // Verificar si el producto no tiene existencia
-            if (!producto.getExistencia()) {
-
-                // Mostrar mensaje "Hola entra" para indicar que se eliminará el producto
-                System.out.println("Hola entra");
-
-                // Eliminar el producto del HashMap usando su código
-                productosEliminar.add( producto.getCodigo() );
-            }
-        });
-        for (String aux: productosEliminar) {
-            productos.remove( aux );
-        }*/
         listaProductos.addAll( productos.values() );
         for (int i = 0; i < listaProductos.size(); i++) {
             if(!listaProductos.get( i ).getExistencia()){
@@ -365,10 +351,12 @@ public class ClienteViewController {
             }
         }
 
+
         return listaProductos;
     }
 
     void refrescarTableViewProductos() {
+        listaProductos.clear();
         tableViewProductos.getItems().clear();
         tableViewProductos.setItems( getListaProductos() );
 
@@ -421,9 +409,22 @@ public class ClienteViewController {
                 }
             }
         });
+        txtBuscarProducto.textProperty().addListener((observable, oldValue, newValue) -> {
+            filtrarProductos(newValue);
+            if(!newValue.isEmpty()){
+                btnLimpiarFiltros.setDisable( false );
+
+            }else{
+                btnLimpiarFiltros.setDisable( true );
+            }
+        });
+        anchorPaneProductos.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                tableViewProductos.getSelectionModel().clearSelection();
+            }
+        });
     }
-
-
 
     public void setInfoCliente(Cliente cliente) {
         clienteController.mfm.mostrarInfoCliente( cliente );
