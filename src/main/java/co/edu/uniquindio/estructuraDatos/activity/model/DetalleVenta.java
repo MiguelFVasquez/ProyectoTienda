@@ -1,8 +1,9 @@
 package co.edu.uniquindio.estructuraDatos.activity.model;
 
+import java.io.Serializable;
 import java.util.concurrent.ThreadPoolExecutor;
 
-public class DetalleVenta {
+public class DetalleVenta implements Serializable {
 
     private String nombre;
     private Integer cantidad;

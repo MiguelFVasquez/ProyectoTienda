@@ -1,14 +1,15 @@
 package co.edu.uniquindio.estructuraDatos.activity.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Venta implements Comparable<Venta>  {
+public class Venta implements Comparable<Venta>, Serializable {
     private String codigo;
     private String fecha;
     private List<DetalleVenta> listaDetalles;
-    private Cliente clienteVenta;
+
     private String identificacionCliente;
     private Double total;
 
@@ -20,7 +21,6 @@ public class Venta implements Comparable<Venta>  {
         this.fecha = fecha;
         this.total = 0.0;
         this.listaDetalles = new ArrayList<>();
-        this.clienteVenta = new Cliente();
     }
 
     private void calcularTotal(Producto producto) {
@@ -75,12 +75,9 @@ public class Venta implements Comparable<Venta>  {
         this.listaDetalles = listaDetalles;
     }
 
-    public Cliente getClienteVenta() {
-        return clienteVenta;
-    }
+
 
     public void setClienteVenta(Cliente clienteVenta) {
-        this.clienteVenta = clienteVenta;
         this.identificacionCliente = clienteVenta.getNumeroIdentificacion();
     }
     public boolean verificarFecha(String fecha){

@@ -3,8 +3,8 @@ package co.edu.uniquindio.estructuraDatos.activity.persistence;
 import co.edu.uniquindio.estructuraDatos.activity.model.*;
 import co.edu.uniquindio.estructuraDatos.activity.utils.ArchivoUtil;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.beans.VetoableChangeListener;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -67,46 +67,24 @@ public class Persistence {
         return clientes;
     }
 
-    public static List<Venta> cargarVentas() throws FileNotFoundException, IOException {
-        List<Venta> ventas = new ArrayList<>();
-        ArrayList<String> contenido = ArchivoUtil.leerArchivo(RUTA_ARCHIVO_VENTAS);
-
-        for (String linea : contenido) {
-            String[] partes = linea.split("@@");
-            if (partes.length >= 2) {
-                Venta venta = new Venta();
-                venta.setCodigo(partes[0]);
-                venta.setFecha(partes[1]);
-
-                // Si hay detalles
-                if (partes.length >= 3) {
-                    String[] detalles = partes[2].split("@@");
-                    for (String detalle : detalles) {
-                        String[] detallePartes = detalle.split("@@");
-                        if (detallePartes.length == 3) {
-                            DetalleVenta detalleVenta = new DetalleVenta(detallePartes[0], Integer.parseInt(detallePartes[1]), Double.parseDouble(detallePartes[2]));
-                            venta.getListaDetalles().add(detalleVenta);
-                        }
-                    }
-                }
-                ventas.add(venta);
-            }
+    public static void guardarVentas(List<Venta> listaVentas) {
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(RUTA_ARCHIVO_VENTAS))) {
+            outputStream.writeObject(listaVentas);
+        } catch (IOException e) {
+            System.err.println("Error al serializar la lista de ventas: " + e.getMessage());
         }
-        return ventas;
     }
 
-    public static void guardarVentas(List<Venta> ventas) throws IOException {
-        String contenido = "";
-        for(Venta ventaList : ventas){
-            ventaList.getClienteVenta();
-            contenido += ventaList.getCodigo() + "@@"
-                    + ventaList.getFecha() + "@@ "
-                    + ventaList.getListaDetalles() + "@@"
-                    + ventaList.getClienteVenta() + "@@"
-                    + ventaList.getIdentificacionCliente() + "@@"
-                    + ventaList.getTotal() + "\n";
+
+    public static List<Venta> cargarVentas() {
+        List<Venta> listaVentas = new ArrayList<>();
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(RUTA_ARCHIVO_VENTAS))) {
+            listaVentas = (List<Venta>) inputStream.readObject();
+            System.out.println("Lista de ventas deserializada correctamente desde el archivo: " + RUTA_ARCHIVO_VENTAS);
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Error al deserializar la lista de ventas desde el archivo: " + e.getMessage());
         }
-        ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_VENTAS, contenido, false);
+        return listaVentas;
     }
 
 
