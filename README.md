@@ -4,12 +4,14 @@
 ## ***TASKS***
 ### **TO DO**
 - Manejar cerrados forzosos de aplicación
+- Eliminar Producto [Admin]
+ 
 
 ### DOING
-- Mejorar motores de busqueda, cuando el cliente esté escribiendo se vea, sin necesidad de presionar el botón [ActionListener][Opcional]
 
   
 ### DONE
+- ~~Mejorar motores de busqueda, cuando el cliente esté escribiendo se vea, sin necesidad de presionar el botón [ActionListener][Opcional]~~
 - ~~Corrigiendo error con la tableView de el **TabVentas** en el viewController **DetalleVenta** que no carga la serializacion de ventas~~
 - ~~Motor de busqueda de TabVentas~~
 - ~~Mejorar motores de busqueda de productos.~~
