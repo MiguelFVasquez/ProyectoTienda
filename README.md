@@ -1,15 +1,15 @@
-# Trabajando en el proyecto: Shuh3n
+# Trabajando en el proyecto: Nadie
 ---
 
 ## ***TASKS***
-### **TO DO** 
+### **TO DO**
+- Mejorar motores de busqueda, cuando el cliente esté escribiendo se vea, sin necesidad de presionar el botón [ActionListener][Opcional]
 - Manejar cerrados forzosos de aplicación
 
-
 ### DOING
-- Corrigiendo error con la tableView de el **TabVentas** en el viewController **DetalleVenta** que no carga la serializacion de ventas
   
 ### DONE
+- ~~Corrigiendo error con la tableView de el **TabVentas** en el viewController **DetalleVenta** que no carga la serializacion de ventas~~
 - ~~Motor de busqueda de TabVentas~~
 - ~~Mejorar motores de busqueda de productos.~~
 - ~~Complementar motores de busqueda con botones de **limpiarFiltros**~~
