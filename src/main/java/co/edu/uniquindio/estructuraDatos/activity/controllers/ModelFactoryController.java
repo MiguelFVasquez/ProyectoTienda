@@ -121,8 +121,11 @@ public class ModelFactoryController {
     public Producto obtenerProductoNombre(String nombre){
         return tienda.obtenerProductoNombre(nombre);
     }
-    public boolean eliminarProducto(Producto productoSeleccionado) throws ProductoException {
-        return tienda.eliminarProducto(productoSeleccionado);
+    public boolean eliminarProducto(Producto productoSeleccionado) throws ProductoException, IOException {
+        boolean flag = tienda.eliminarProducto(productoSeleccionado);
+        if(flag)
+            serializarProductos();
+        return flag;
     }
 
     //--------------------------------------FUNCIONES ADMIN-------------------------------------------------------------

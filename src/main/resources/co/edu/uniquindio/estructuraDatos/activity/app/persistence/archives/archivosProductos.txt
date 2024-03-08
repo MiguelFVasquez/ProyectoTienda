@@ -1,4 +1,14 @@
-250@@77025@@Tres Coordilleras@@4500.0
+123@@90321@@Libra de frijoles@@3000.0
+500@@90001@@Pepsi 2.5L@@5000.0
 120@@21354@@Gomitas gusanitos ácidos@@2000.0
-249@@60606@@Jugo hit x120ml@@1200.0
+312@@09909@@Panal de huevos x24 unidades@@19000.0
+250@@93012@@Aguardiente amarillo 720ml@@48000.0
+239@@60606@@Jugo hit x120ml@@1200.0
+1000@@31212@@Trident x1 unidad@@200.0
+699@@03121@@Speed Max x269ml@@2400.0
+240@@77025@@Tres Coordilleras@@4500.0
 248@@25530@@Sprite x400ml@@2200.0
+370@@30011@@Ron viejo de caldas x330ml@@25000.0
+300@@10312@@Coca Cola 3L@@9000.0
+343@@89991@@Aguardiente tetra 220ml@@2000.0
+50@@93111@@Leche de soja x1000ml@@11000.0

@@ -372,10 +372,13 @@ public class AdminViewController {
                     if (adminController.mfm.eliminarProducto(productoSeleccionado)){
                         listaProductos.remove(productoSeleccionado);
                         mostrarMensaje("Eliminación de producto", "Producto eliminado", "El producto ha sido eliminado con exito", Alert.AlertType.INFORMATION);
+                        limpiarFiltrosDeInventario(event);
                     }
                 }
             } catch (ProductoException productoException) {
                 mostrarMensaje("Eliminación de producto", "Producto no eliminado", productoException.getMessage(), Alert.AlertType.INFORMATION);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }else {
             mostrarMensaje("Selección de producto", "Producto no seleccionado", "Por favor seleccione un producto para ser eliminado", Alert.AlertType.WARNING);
