@@ -207,6 +207,16 @@
     -fx-background-color:  linear-gradient(to right, #1dbbdd44, #93f9b944);
 }
 
+.tabs{
+    -fx-background-color: transparent;
+
+}
+.tabs : selected{
+    -fx-border-color: transparent;
+}
+.tabs : focused{
+    -fx-border-color: transparent;
+}
 
 
 

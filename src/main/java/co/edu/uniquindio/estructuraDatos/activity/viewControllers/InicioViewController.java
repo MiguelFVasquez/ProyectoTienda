@@ -313,6 +313,7 @@ public class InicioViewController {
         });
         // Aplicar el TextFormatter al TextField
         txtIdentificacionRegistro.setTextFormatter(formatter);
+
     }
     
     public void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertype) {
