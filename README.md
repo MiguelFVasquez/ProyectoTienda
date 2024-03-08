@@ -5,7 +5,11 @@
 ### **TO DO**
 - Manejar cerrados forzosos de aplicación
 - Eliminar Producto [Admin]
- 
+- Column de fecha en **TabVentas** 
+- Funcionamiento de botón eliminar filtros de **TabVentas**
+- View de **check** para confirmar procesos
+- LinkedList de Venta y organizar por fecha 
+- Mover ventana ClienteView cuando aparece ventana carrito
 
 ### DOING
 
