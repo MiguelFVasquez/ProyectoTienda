@@ -1,4 +1,4 @@
-# Trabajando en el proyecto: Shuh3n
+# Trabajando en el proyecto: Nadie
 
 ---
 
@@ -7,7 +7,7 @@
 - Manejar cerrados forzosos de aplicación
 
 ### DOING
-- View de **check** para confirmar procesos
+- ~~View de **check** para confirmar procesos~~
 - LinkedList de Venta y organizar por fecha ((Falta filtrar))
 
 ### DONE
