@@ -11,15 +11,23 @@ import co.edu.uniquindio.estructuraDatos.activity.exceptions.ClienteException;
 import co.edu.uniquindio.estructuraDatos.activity.exceptions.ProductoException;
 import co.edu.uniquindio.estructuraDatos.activity.model.Cliente;
 import co.edu.uniquindio.estructuraDatos.activity.model.Producto;
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 public class CarritoComprasViewController {
     private Stage stage;
@@ -96,14 +104,50 @@ public class CarritoComprasViewController {
             carritoController.mfm.serializarProductos();
             carritoController.mfm.serializarVentas();
             this.stage.close();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation( App.class.getResource( "CheckView.fxml" ) );
+            AnchorPane anchorPane = loader.load();
+            CheckViewController controller = loader.getController();
+            Scene scene = new Scene( anchorPane );
+            Stage stage = new Stage();
+            stage.setScene( scene );
+            stage.initStyle( StageStyle.UNDECORATED );
+            controller.init( stage );
+            FadeTransition fadeIn = new FadeTransition( Duration.seconds(2), stage.getScene().getRoot());
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+
+            // Crear una transición de fade out
+            FadeTransition fadeOut = new FadeTransition(Duration.seconds(2), stage.getScene().getRoot());
+            fadeOut.setFromValue(1);
+            fadeOut.setToValue(0);
+
+            // Configurar un timeline para coordinar el fade in y el fade out
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.seconds(0), event2 -> {
+                        // Mostrar la ventana y comenzar el fade in
+                        controller.show();
+                        fadeIn.play();
+                    }),
+                    new KeyFrame(Duration.seconds(2), event2 -> {
+                        // Comenzar el fade out después de que termine el fade in
+                        fadeIn.stop();
+                        fadeOut.play();
+                    }),
+                    new KeyFrame(Duration.seconds(4), event2 -> {
+                        // Cerrar la ventana después de que termine el fade out
+                        stage.close();
+                    })
+            );
+
+            // Iniciar el timeline
+            timeline.play();
         }
     }
 
     private boolean comprarProductosCarrito(String identificacionCliente) throws ClienteException {
        try{
             if(carritoController.mfm.comprarProductosCarrito( identificacionCliente )){
-                mostrarMensaje( "Notificación compra", "Compra realizada" ,
-                        "Compra realizada existosamente" , Alert.AlertType.INFORMATION);
                 return true;
             }
        } catch (Exception e) {
