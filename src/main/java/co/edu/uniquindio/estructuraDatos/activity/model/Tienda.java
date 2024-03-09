@@ -52,7 +52,7 @@ public class Tienda implements ITienda {
         this.mapProductos = mapProductos;
     }
 
-    public List<Venta> getListaVentas() {
+    public LinkedList<Venta> getListaVentas() {
         return listaVentas;
     }
 
@@ -175,7 +175,7 @@ public class Tienda implements ITienda {
         }else {
             creado= true;
             listaVentas.add(newVenta);
-            Collections.sort(listaVentas);
+            //Collections.sort(listaVentas);
         }
         return creado;
     }
@@ -335,7 +335,7 @@ public class Tienda implements ITienda {
         return eliminados;
     }
 
-    public boolean comprarProductosCarrito(Cliente cliente) throws ClienteException {
+    public boolean comprarProductosCarrito(Cliente cliente) throws ClienteException, VentaException {
         boolean comprados = false;
             if(verificarCliente( cliente.getNumeroIdentificacion() )){
                 LocalDate fechaActual = LocalDate.now();
@@ -349,7 +349,7 @@ public class Tienda implements ITienda {
                     }
                 }
                 venta.setClienteVenta( cliente );
-                listaVentas.add( venta );
+                crearVenta(venta);
                 cliente.comprarProductos();
                 comprados = true;
             }else{

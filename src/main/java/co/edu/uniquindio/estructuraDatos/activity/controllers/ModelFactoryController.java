@@ -2,6 +2,7 @@ package co.edu.uniquindio.estructuraDatos.activity.controllers;
 
 import co.edu.uniquindio.estructuraDatos.activity.exceptions.ClienteException;
 import co.edu.uniquindio.estructuraDatos.activity.exceptions.ProductoException;
+import co.edu.uniquindio.estructuraDatos.activity.exceptions.VentaException;
 import co.edu.uniquindio.estructuraDatos.activity.model.Cliente;
 import co.edu.uniquindio.estructuraDatos.activity.model.Producto;
 import co.edu.uniquindio.estructuraDatos.activity.model.Tienda;
@@ -16,6 +17,8 @@ import javafx.collections.ObservableList;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class ModelFactoryController {
     private InicioViewController inicioViewController;
@@ -84,6 +87,8 @@ public class ModelFactoryController {
     public static void cargarDatosDesdeArchivos(Tienda tienda) {
         try {
             Persistence.cargarDatosArchivos(tienda);
+            tienda.getInventario().addAll(Persistence.cargarProductos().values());
+
             System.out.println("Serializado de usuarios");
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -108,7 +113,9 @@ public class ModelFactoryController {
     public HashMap<String, Producto> getListaProductos() {
         return tienda.getMapProductos();
     }
-
+    public Set<Producto> getInventario(){
+        return tienda.getInventario();
+    }
     public boolean agregarProductoCarritoCliente(Producto selectedItem, String id) throws ProductoException {
         return tienda.agregarProductoCliente( selectedItem , id );
     }
@@ -143,7 +150,7 @@ public class ModelFactoryController {
     public boolean eliminarProductosCarrito(String identificacionCliente) throws ProductoException, ClienteException {
         return tienda.eliminarProductosCliente(identificacionCliente);
     }
-    public boolean comprarProductosCarrito(String identificacionCliente) throws ClienteException {
+    public boolean comprarProductosCarrito(String identificacionCliente) throws ClienteException, VentaException {
         return tienda.comprarProductosCarrito(obtenerCliente( identificacionCliente ));
     }
 

@@ -2,10 +2,7 @@ package co.edu.uniquindio.estructuraDatos.activity.viewControllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import co.edu.uniquindio.estructuraDatos.activity.app.App;
 import co.edu.uniquindio.estructuraDatos.activity.controllers.AdminController;
@@ -221,8 +218,8 @@ public class AdminViewController {
         return listaClientes;
     }
     private ObservableList<Producto> getListaProductos(){
-        HashMap<String,Producto> productosMap=adminController.mfm.getListaProductos();
-        listaProductos.addAll(productosMap.values());
+        Set<Producto> inventario=adminController.mfm.getInventario();
+        listaProductos.addAll(inventario);
         return listaProductos;
     }
     private ObservableList<Venta> getListaVentas() {
@@ -352,6 +349,7 @@ public class AdminViewController {
         this.columnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         this.columnIdentificacion.setCellValueFactory(new PropertyValueFactory<>("numeroIdentificacion"));
         this.columnDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
+
         //Iniciar los valores de la tableview de productos
         this.columnProducto.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         this.columnCantidadProductos.setCellValueFactory(new PropertyValueFactory<>("cantidad"));

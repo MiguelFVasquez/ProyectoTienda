@@ -33,7 +33,7 @@ public class Persistence {
         }
     }
 
-    private static HashMap<String, Producto> cargarProductos() throws IOException {
+    public static HashMap<String, Producto> cargarProductos() throws IOException {
         HashMap<String,Producto> productos = new HashMap<>();
         ArrayList<String> contenido = ArchivoUtil.leerArchivo(RUTA_ARCHIVO_PRODUCTOS);
         String linea = "";
