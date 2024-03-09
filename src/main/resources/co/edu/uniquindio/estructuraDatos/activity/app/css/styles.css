@@ -23,7 +23,6 @@
     -fx-font-size: 14px;
     -fx-font-family: Arial, sans-serif;
     -fx-text-fill: white;
-
 }
 
 .text-field2:focused {
@@ -209,14 +208,14 @@
 
 .tabs{
     -fx-background-color: transparent;
+    -fx-border-radius: 10px;
 
-}
-.tabs : selected{
-    -fx-border-color: transparent;
 }
 .tabs : focused{
     -fx-border-color: transparent;
 }
+
+
 
 
 

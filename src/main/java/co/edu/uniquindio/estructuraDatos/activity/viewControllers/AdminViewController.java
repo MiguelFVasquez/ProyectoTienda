@@ -96,8 +96,7 @@ public class AdminViewController {
     private Button btnEliminarProducto;
     @FXML
     private Button btnVerDetalleVenta;
-    @FXML
-    private Button btnBuscarVenta;
+
     @FXML
     private Button btnLimpiarFiltrosVenta;
     @FXML
@@ -144,6 +143,8 @@ public class AdminViewController {
 
     @FXML
     private TableColumn<Double, Venta> columnTotalVenta;
+    @FXML
+    private TableColumn<String, Venta> columnFechaVenta;
 
     @FXML
     private TableColumn<Cliente, Venta> columClienteDetalleVenta;
@@ -303,6 +304,25 @@ public class AdminViewController {
                 btnLimpiarInventario.setDisable( true );
             }
         });
+
+        datePickerDetalleVenta.valueProperty().addListener((observable, oldValue, newValue) -> {
+            // Código que se ejecutará cuando el usuario seleccione una nueva fecha
+            if(newValue!=null){
+                btnLimpiarFiltrosVenta.setDisable( false );
+                String fechaVenta= datePickerDetalleVenta.getValue().toString();
+                listaVentas.clear();
+                listaVentas.addAll(adminController.mfm.getListaVentasFecha(fechaVenta));
+                tableViewVentas.refresh();
+                if(listaVentas.isEmpty()){
+                    mostrarMensaje( "Notificación",
+                            "Ventas no encontradas", "No se encontraron ventas en " +
+                                    fechaVenta, Alert.AlertType.INFORMATION);
+                    limpiarFiltros( new ActionEvent() );
+                }
+            }else{
+                limpiarFiltros( new ActionEvent() );
+            }
+        });
     }
 
     private void filtrarProductos(String textoBusqueda) {
@@ -341,6 +361,7 @@ public class AdminViewController {
         this.columClienteDetalleVenta.setCellValueFactory(new PropertyValueFactory<>("identificacionCliente"));
         this.columnTotalVenta.setCellValueFactory(new PropertyValueFactory<>("total"));
         this.columnCodigoVenta.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+        this.columnFechaVenta.setCellValueFactory(new PropertyValueFactory<>("fecha"));
         refrescarTableViews();
         gestionEventos();
 
@@ -425,6 +446,7 @@ public class AdminViewController {
     @FXML
     void limpiarFiltros(ActionEvent event) {
         datePickerDetalleVenta.setValue( null );
+        btnLimpiarFiltrosVenta.setDisable( true );
         tableViewVentas.getItems().clear();
         tableViewVentas.setItems(getListaVentas());
     }
@@ -471,13 +493,6 @@ public class AdminViewController {
         detalleVentaViewController.refrescarTableView(venta);
     }
 
-    @FXML
-    void buscarVenta(ActionEvent event) {
-        String fehchaVenta= datePickerDetalleVenta.getValue().toString();
-        listaVentas.clear();
-        listaVentas.addAll(adminController.mfm.getListaVentasFecha(fehchaVenta));
-        tableViewVentas.refresh();
-    }
 
 }
 

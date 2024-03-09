@@ -18,11 +18,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="834.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuraDatos.activity.viewControllers.AdminViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="834.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuraDatos.activity.viewControllers.AdminViewController">
    <children>
       <TabPane prefHeight="539.0" prefWidth="834.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Home">
+          <Tab styleClass="tabs" text="Home">
             <content>
               <AnchorPane fx:id="anchorHome" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="rectangle" stylesheets="@css/styles.css">
                      <children>
@@ -98,7 +98,7 @@
                      </fill></FontAwesomeIconView>
                </graphic>
           </Tab>
-          <Tab text="Inventario">
+          <Tab styleClass="tabs" text="Inventario">
             <content>
               <AnchorPane fx:id="anchorInventario" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="rectangle" stylesheets="@css/styles.css">
                      <children>
@@ -140,15 +140,16 @@
                      </fill></FontAwesomeIconView>
                </graphic>
           </Tab>
-            <Tab text="Ventas">
+            <Tab styleClass="tabs" text="Ventas">
                <content>
                   <AnchorPane fx:id="anchorVentas" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="rectangle" stylesheets="@css/styles.css">
                      <children>
                         <TableView fx:id="tableViewVentas" layoutX="82.0" layoutY="107.0" prefHeight="297.0" prefWidth="671.0" styleClass="table-view2">
                            <columns>
-                              <TableColumn fx:id="columClienteDetalleVenta" prefWidth="231.0" text="Cliente" />
-                              <TableColumn fx:id="columnCodigoVenta" minWidth="0.0" prefWidth="192.0" text="Código" />
-                              <TableColumn fx:id="columnTotalVenta" prefWidth="247.0" text="Total" />
+                              <TableColumn fx:id="columClienteDetalleVenta" prefWidth="160.0" text="Cliente" />
+                              <TableColumn fx:id="columnCodigoVenta" minWidth="0.0" prefWidth="198.0" text="Código" />
+                              <TableColumn fx:id="columnTotalVenta" prefWidth="167.0" text="Total" />
+                              <TableColumn fx:id="columnFechaVenta" prefWidth="145.0" text="Fecha de venta" />
                            </columns>
                         </TableView>
                         <Text fill="WHITE" layoutX="82.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha">
@@ -157,13 +158,8 @@
                            </font>
                         </Text>
                         <Button fx:id="btnLimpiarFiltrosVenta" layoutX="629.0" layoutY="55.0" mnemonicParsing="false" onAction="#limpiarFiltros" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: #b26500;" stylesheets="@css/styles.css" text="Limpiar filtros" textFill="WHITE" />
-                        <DatePicker fx:id="datePickerDetalleVenta" layoutX="144.0" layoutY="60.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
+                        <DatePicker fx:id="datePickerDetalleVenta" layoutX="144.0" layoutY="60.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: white; -fx-text-fill: white; -fx-border-radius: 10;" />
                         <Button fx:id="btnVerDetalleVenta" layoutX="350.0" layoutY="420.0" mnemonicParsing="false" onAction="#verDetalleVenta" prefHeight="30.0" prefWidth="136.0" styleClass="buttonGreen" stylesheets="@css/styles.css" text="Ver detalles de venta" textFill="WHITE" />
-                        <Button layoutX="356.0" layoutY="57.0" mnemonicParsing="false" onAction="#buscarVenta" prefHeight="30.0" prefWidth="39.0" styleClass="buttonGreen" stylesheets="@css/styles.css" textFill="#00ff77">
-                           <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="CHECK" />
-                           </graphic>
-                        </Button>
                      </children>
                   </AnchorPane>
                </content>
