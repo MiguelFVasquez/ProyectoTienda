@@ -118,6 +118,12 @@
                                     </FontAwesomeIconView>
                                  </graphic>
                               </Label>
+                              <Label alignment="CENTER" layoutX="206.0" layoutY="295.0" prefHeight="23.0" prefWidth="137.0" text="¿Ya tienes una cuenta?">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="presionaAqui1" layoutX="320.0" layoutY="293.0" mnemonicParsing="false" onAction="#activarTabInicio" prefHeight="27.0" prefWidth="98.0" styleClass="button-links" stylesheets="@css/styles.css" text="Presiona aquí" textFill="#3c00ff" />
                            </children></AnchorPane>
                      </children>
                   </AnchorPane>

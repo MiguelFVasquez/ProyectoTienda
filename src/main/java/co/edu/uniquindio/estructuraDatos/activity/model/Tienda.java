@@ -13,7 +13,7 @@ public class Tienda implements ITienda {
     private String nombre;
     private HashMap<String,Cliente> mapClientes;
     private HashMap<String,Producto> mapProductos;
-    private List<Venta> listaVentas;
+    private LinkedList<Venta> listaVentas;
     private Set<Producto> inventario;
 
 
@@ -56,7 +56,7 @@ public class Tienda implements ITienda {
         return listaVentas;
     }
 
-    public void setListaVentas(List<Venta> listaVentas) {
+    public void setListaVentas(LinkedList<Venta> listaVentas) {
         this.listaVentas = listaVentas;
     }
 
@@ -255,23 +255,26 @@ public class Tienda implements ITienda {
     @Override
     public boolean ventaProducto(Producto productoVender) throws ProductoException {
         boolean vendido= false;
-        if (verificarProducto(productoVender.getCodigo())){
-            Producto productoAux= mapProductos.get(productoVender.getCodigo());
-            int newCantidad= productoAux.getCantidad() - productoVender.getCantidad();
-            if ( newCantidad>0){
-                productoAux.setCantidad(newCantidad);
-                vendido=true;
-            }else{
-                if(newCantidad==0){
+
+        if ( verificarProducto( productoVender.getCodigo() ) ) {
+            Producto productoAux = mapProductos.get( productoVender.getCodigo() );
+            int newCantidad = productoAux.getCantidad() - productoVender.getCantidad();
+            if ( newCantidad > 0 ) {
+                productoAux.setCantidad( newCantidad );
+                vendido = true;
+            } else {
+                if ( newCantidad == 0 ) {
                     productoAux.setCantidad( newCantidad );
-                    vendido= true;
-                }else{
-                    throw new ProductoException( "No contamos con la cantidad de " + productoVender.getNombre()+ " solicitada" );
+                    vendido = true;
+                } else {
+                    throw new ProductoException( "No contamos con la cantidad de " + productoVender.getNombre() + " solicitada" );
                 }
             }
-        }else {
-            throw new ProductoException("El producto " + productoVender.getNombre() + " no ha sido encontrado");
+        } else {
+            throw new ProductoException( "El producto " + productoVender.getNombre() + " no ha sido encontrado" );
         }
+
+
         return vendido;
     }
     @Override

@@ -116,9 +116,13 @@ public class CarritoComprasViewController {
     void eliminarProducto(ActionEvent event) {
         Producto selectedItem = tableViewCarrito.getSelectionModel().getSelectedItem();
         int cantidadElim = Integer.parseInt( txtCantidadEliminar.getText() );
+        if(cantidadElim==0){
+            cantidadElim = 1;
+        }
         if(selectedItem.getCantidad()>= cantidadElim){
             Producto productoAux = new Producto(cantidadElim,selectedItem.getCodigo(),
                     selectedItem.getNombre(), selectedItem.getPrecio());
+
             Alert alert = new Alert( Alert.AlertType.CONFIRMATION );
             alert.setTitle( "Confirmación" );
             alert.setHeaderText( "¿Estás seguro deseas eliminar "+
@@ -134,6 +138,11 @@ public class CarritoComprasViewController {
                     actualizarSubtotal();
                     tableViewCarrito.getSelectionModel().setSelectionMode( null );
                     refrescarTableViewProductos( carritoController.mfm.obtenerCliente(identificacionCliente) );
+                    if(listaProductosCliente.isEmpty()){
+                        clienteViewController.refrescarTableViewProductos();
+                        clienteViewController.setCarritoComprasViewController( null );
+                        stage.close();
+                    }
                     clienteViewController.refrescarTableViewProductos();
                 } else {
                     System.out.println( "El usuario canceló." );
@@ -195,9 +204,9 @@ public class CarritoComprasViewController {
                         throw new RuntimeException( e );
                     }
                     clienteViewController.refrescarTableViewProductos();
-                    refrescarTableViewProductos( carritoController.mfm.obtenerCliente(identificacionCliente) );
                     clienteViewController.setCarritoComprasViewController( null );
                     stage.close();
+
                 } else {
                     System.out.println( "El usuario canceló." );
                 }
@@ -283,7 +292,9 @@ public class CarritoComprasViewController {
                 gestionActivos( false );// Deshabilitar el botón si no hay ningún elemento seleccionado
                 txtCantidadEliminar.setText("1");
             }
+
         });
+
     }
     public void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertype) {
         Alert alert = new Alert(alertype);

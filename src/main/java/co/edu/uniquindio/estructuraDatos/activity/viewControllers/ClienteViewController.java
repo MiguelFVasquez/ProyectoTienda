@@ -172,14 +172,6 @@ public class ClienteViewController {
         } );
     }
 
-    void gestionActivos(boolean flag){
-        txtNombreCliente.setEditable( flag );
-        txtDireccion.setEditable( flag );
-        btnCancelarCambios.setVisible( flag );
-        btnGuardarInfo.setVisible( flag );
-        btnCambiarInfo.setDisable( flag );
-    }
-
     @FXML
     void cerrarSesion(ActionEvent event) {
         inicioViewController.show();
@@ -251,7 +243,6 @@ public class ClienteViewController {
         slideIn.setToX(0);
 
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), anchorPane);
-
         // Establecemos la opacidad inicial y final para la transición
         fadeTransition.setFromValue(0.0);
         fadeTransition.setToValue(1.0);
@@ -265,9 +256,6 @@ public class ClienteViewController {
         fadeTransition.play();
     }
 
-    private void refrescarTableCarrito() {
-        carritoComprasViewController.refrescarTableViewProductos(clienteController.mfm.obtenerCliente( txtNumeroIdentificacion.getText() ));
-    }
 
     @FXML
     void agregarAlCarrito(ActionEvent event) throws IOException, ProductoException {
@@ -275,12 +263,16 @@ public class ClienteViewController {
         int cantidad = Integer.parseInt( txtCantidad.getText() );
         Producto productoAux = new Producto(cantidad, selectedItem.getCodigo(), selectedItem.getNombre(), selectedItem.getPrecio());
 
-        if(agregarProducto(productoAux)){
+        if(cantidad==0){
+            productoAux.setCantidad( 1 );
+        }
+
+        if ( agregarProducto( productoAux ) ) {
             refrescarTableViewProductos();
-            if(carritoComprasViewController==null){
+            if ( carritoComprasViewController == null ) {
                 activarBtnCarrito( false );
             }
-            if(carritoComprasViewController!=null){
+            if ( carritoComprasViewController != null ) {
                 refrescarTableCarrito();
             }
         }
@@ -324,6 +316,9 @@ public class ClienteViewController {
     void habilitarCamposProducto(boolean flag){
         btnAgregarCarrito.setDisable(flag);
         txtCantidad.setDisable( flag );
+    }
+    private void refrescarTableCarrito() {
+        carritoComprasViewController.refrescarTableViewProductos(clienteController.mfm.obtenerCliente( txtNumeroIdentificacion.getText() ));
     }
     @FXML
     void initialize() {
@@ -424,6 +419,8 @@ public class ClienteViewController {
                 tableViewProductos.getSelectionModel().clearSelection();
             }
         });
+
+
     }
 
     public void setInfoCliente(Cliente cliente) {
@@ -431,7 +428,6 @@ public class ClienteViewController {
         deshabilitarCampos();
     }
 
-    //--------------------------------------FUNCIONES UTILITARIAS-------------------------------------------------------
     public void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertype) {
         Alert alert = new Alert(alertype);
         alert.setTitle(titulo);
@@ -476,5 +472,13 @@ public class ClienteViewController {
             return false;
         }
         return true;
+    }
+
+    void gestionActivos(boolean flag){
+        txtNombreCliente.setEditable( flag );
+        txtDireccion.setEditable( flag );
+        btnCancelarCambios.setVisible( flag );
+        btnGuardarInfo.setVisible( flag );
+        btnCambiarInfo.setDisable( flag );
     }
 }

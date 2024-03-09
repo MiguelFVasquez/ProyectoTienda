@@ -53,6 +53,9 @@ public class InicioViewController {
     private Button btnRegistrarse;
 
     @FXML
+    private Button presionaAqui1;
+
+    @FXML
     private Button presionaAqui;
 
     @FXML
@@ -163,11 +166,17 @@ public class InicioViewController {
     @FXML
     void activarTabRegistro(ActionEvent event) {
         tabRegistro.setDisable( false ); // Habilita el tab de registro al presionar el botón de registro
+        tabInicio.setDisable( true );
         tabPane.getSelectionModel().select( tabRegistro ); // Cambia a la pestaña de registro automáticamente
 
     }
+    @FXML
+    void activarTabInicio(ActionEvent event) {
+        tabInicio.setDisable( false ); // Habilita el tab de inicio
+        tabRegistro.setDisable( true );
+        tabPane.getSelectionModel().select( tabInicio ); // Cambia a la pestaña de inicio automáticamente
 
-
+    }
 
     //---------------------------------------TAB DE REGISTRO------------------------------------------------------------
     @FXML
@@ -179,9 +188,8 @@ public class InicioViewController {
         if ( validarDatos( nombre , id , direccion ) ) {
             if ( registrarCliente( nombre , id , direccion )){
                 inicioController.mfm.serializarClientes();
-                tabPane.getSelectionModel().select( tabInicio );
+                activarTabInicio( event );
                 limpiarCampos();
-                tabRegistro.setDisable( true );
             }else{
                 txtIdentificacionRegistro.clear();
             }
