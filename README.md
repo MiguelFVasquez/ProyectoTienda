@@ -5,14 +5,13 @@
 ## ***TASKS***
 ### **TO DO**
 - Manejar cerrados forzosos de aplicación
-- View de **check** para confirmar procesos
 
 ### DOING
-- Mover ventana ClienteView cuando aparece ventana carrito
-- LinkedList de Venta y organizar por fecha
-- Navegación por botones en **InicioView**
+- View de **check** para confirmar procesos
+- LinkedList de Venta y organizar por fecha ((Falta filtrar))
 
 ### DONE
+- ~~Navegación por botones en **InicioView**~~
 - ~~Funcionamiento de botón eliminar filtros de **TabVentas**~~
 - ~~Column de fecha en **TabVentas**~~ 
 - ~~Eliminar Producto [Admin]~~
