@@ -5,16 +5,16 @@
 ## ***TASKS***
 ### **TO DO**
 - Manejar cerrados forzosos de aplicación
-- Funcionamiento de botón eliminar filtros de **TabVentas**
 - View de **check** para confirmar procesos
-- LinkedList de Venta y organizar por fecha
-- Mover ventana ClienteView cuando aparece ventana carrito
 
 ### DOING
-- Column de fecha en **TabVentas** 
+- Mover ventana ClienteView cuando aparece ventana carrito
+- LinkedList de Venta y organizar por fecha
+- Navegación por botones en **InicioView**
 
-  
 ### DONE
+- ~~Funcionamiento de botón eliminar filtros de **TabVentas**~~
+- ~~Column de fecha en **TabVentas**~~ 
 - ~~Eliminar Producto [Admin]~~
 - ~~Mejorar motores de busqueda, cuando el cliente esté escribiendo se vea, sin necesidad de presionar el botón [ActionListener][Opcional]~~
 - ~~Corrigiendo error con la tableView de el **TabVentas** en el viewController **DetalleVenta** que no carga la serializacion de ventas~~
