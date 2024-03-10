@@ -1,10 +1,8 @@
-# Trabajando en el proyecto: Chujen
-
+# FINALIZADO
 ---
 
 ## ***TASKS***
 ### **TO DO**
-- Manejar cerrados forzosos de aplicación
 
 ### DOING
 
