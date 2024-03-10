@@ -7,6 +7,7 @@ import java.beans.VetoableChangeListener;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -77,9 +78,9 @@ public class Persistence {
 
 
     public static List<Venta> cargarVentas() {
-        List<Venta> listaVentas = new ArrayList<>();
+        List<Venta> listaVentas = new LinkedList<>();
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(RUTA_ARCHIVO_VENTAS))) {
-            listaVentas = (List<Venta>) inputStream.readObject();
+            listaVentas = (LinkedList<Venta>) inputStream.readObject();
             System.out.println("Lista de ventas deserializada correctamente desde el archivo: " + RUTA_ARCHIVO_VENTAS);
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("Error al deserializar la lista de ventas desde el archivo: " + e.getMessage());

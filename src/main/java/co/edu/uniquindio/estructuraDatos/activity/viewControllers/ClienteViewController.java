@@ -269,6 +269,7 @@ public class ClienteViewController {
 
         if ( agregarProducto( productoAux ) ) {
             refrescarTableViewProductos();
+            limpiarFiltros( event );
             if ( carritoComprasViewController == null ) {
                 activarBtnCarrito( false );
             }

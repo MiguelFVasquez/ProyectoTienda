@@ -113,7 +113,7 @@ public class CarritoComprasViewController {
             stage.setScene( scene );
             stage.initStyle( StageStyle.UNDECORATED );
             controller.init( stage );
-            FadeTransition fadeIn = new FadeTransition( Duration.seconds(2), stage.getScene().getRoot());
+            FadeTransition fadeIn = new FadeTransition( Duration.seconds(1), stage.getScene().getRoot());
             fadeIn.setFromValue(0);
             fadeIn.setToValue(1);
 
@@ -129,12 +129,12 @@ public class CarritoComprasViewController {
                         controller.show();
                         fadeIn.play();
                     }),
-                    new KeyFrame(Duration.seconds(2), event2 -> {
+                    new KeyFrame(Duration.seconds(1), event2 -> {
                         // Comenzar el fade out después de que termine el fade in
                         fadeIn.stop();
                         fadeOut.play();
                     }),
-                    new KeyFrame(Duration.seconds(4), event2 -> {
+                    new KeyFrame(Duration.seconds(3), event2 -> {
                         // Cerrar la ventana después de que termine el fade out
                         stage.close();
                     })

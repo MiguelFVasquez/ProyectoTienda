@@ -15,6 +15,7 @@ import co.edu.uniquindio.estructuraDatos.activity.viewControllers.InicioViewCont
 import javafx.collections.ObservableList;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -142,7 +143,7 @@ public class ModelFactoryController {
     public List<Venta> getListaVentas() {
         return tienda.getListaVentas();
     }
-    public List<Venta> getListaVentasFecha(String fecha){
+    public List<Venta> getListaVentasFecha(LocalDate fecha){
         return tienda.obtenerVentaFecha(fecha);
     }
 
