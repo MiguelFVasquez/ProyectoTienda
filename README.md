@@ -7,10 +7,11 @@
 - Manejar cerrados forzosos de aplicación
 
 ### DOING
-- ~~View de **check** para confirmar procesos~~
-- LinkedList de Venta y organizar por fecha ((Falta filtrar))
+
 
 ### DONE
+- ~~View de **check** para confirmar procesos~~
+- ~~LinkedList de Venta y organizar por fecha ((Falta filtrar))~~
 - ~~Navegación por botones en **InicioView**~~
 - ~~Funcionamiento de botón eliminar filtros de **TabVentas**~~
 - ~~Column de fecha en **TabVentas**~~ 
