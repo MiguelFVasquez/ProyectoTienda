@@ -1,22 +1,24 @@
 package co.edu.uniquindio.estructuraDatos.activity.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Venta implements Comparable<Venta>, Serializable {
     private String codigo;
-    private String fecha;
+    private LocalDate fecha;
     private List<DetalleVenta> listaDetalles;
 
     private String identificacionCliente;
     private Double total;
 
+    private static final long serialVersionUID = 1L;
     public Venta() {
     }
 
-    public Venta(String codigo, String fecha) {
+    public Venta(String codigo, LocalDate fecha) {
         this.codigo = codigo;
         this.fecha = fecha;
         this.total = 0.0;
@@ -59,11 +61,11 @@ public class Venta implements Comparable<Venta>, Serializable {
         this.codigo = codigo;
     }
 
-    public String getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -80,7 +82,7 @@ public class Venta implements Comparable<Venta>, Serializable {
     public void setClienteVenta(Cliente clienteVenta) {
         this.identificacionCliente = clienteVenta.getNumeroIdentificacion();
     }
-    public boolean verificarFecha(String fecha){
+    public boolean verificarFecha(LocalDate fecha){
         return this.getFecha().equals(fecha);
     }
 

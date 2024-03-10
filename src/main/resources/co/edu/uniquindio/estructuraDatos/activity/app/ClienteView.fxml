@@ -18,17 +18,17 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="834.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuraDatos.activity.viewControllers.ClienteViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="908.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuraDatos.activity.viewControllers.ClienteViewController">
    <children>
-      <TabPane prefHeight="539.0" prefWidth="834.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="580.0" prefWidth="908.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Home">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="rectangle" stylesheets="@css/styles.css">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="567.0" prefWidth="915.0" styleClass="rectangle" stylesheets="@css/styles.css">
                      <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="439.0" layoutX="39.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: 20; -fx-arc-width: 20;" width="755.0" />
-                        <Separator layoutX="39.0" layoutY="62.0" prefHeight="18.0" prefWidth="755.0" />
-                        <FontAwesomeIconView glyphName="USER" layoutX="86.0" layoutY="295.0" size="250">
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="470.0" layoutX="59.0" layoutY="34.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: 20; -fx-arc-width: 20;" width="792.0" />
+                        <Separator layoutX="59.0" layoutY="98.0" prefHeight="18.0" prefWidth="793.0" />
+                        <FontAwesomeIconView glyphName="USER" layoutX="124.0" layoutY="331.0" size="250">
                            <fill>
                               <LinearGradient endX="1.0" endY="1.0">
                                  <stops>
@@ -50,48 +50,48 @@
                                  </stops>
                               </LinearGradient>
                            </fill></FontAwesomeIconView>
-                        <Label layoutX="270.0" layoutY="24.0" prefHeight="45.0" prefWidth="306.0" text="Bienvenido de vuelta ">
+                        <Label layoutX="276.0" layoutY="54.0" prefHeight="51.0" prefWidth="357.0" text="Bienvenido de vuelta ">
                            <font>
-                              <Font name="System Bold" size="30.0" />
+                              <Font name="System Bold" size="35.0" />
                            </font>
                         </Label>
-                        <Label fx:id="nombreCliente" alignment="CENTER" contentDisplay="CENTER" layoutX="138.0" layoutY="331.0" text="USUARIO">
+                        <Label fx:id="nombreCliente" alignment="CENTER" contentDisplay="CENTER" layoutX="176.0" layoutY="367.0" text="USUARIO">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnCerrarSesion" layoutX="681.0" layoutY="34.0" mnemonicParsing="false" onAction="#cerrarSesion" styleClass="buttonRed" stylesheets="@css/styles.css" text="Cerrar sesión" textFill="WHITE">
+                        <Button fx:id="btnCerrarSesion" layoutX="702.0" layoutY="60.0" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="38.0" prefWidth="129.0" styleClass="buttonRed" stylesheets="@css/styles.css" text="Cerrar sesión" textFill="WHITE">
                            <graphic>
                               <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" styleClass="buttonRed" />
                            </graphic>
                         </Button>
-                        <Label layoutX="288.0" layoutY="182.0" text="Nombre">
+                        <Label layoutX="326.0" layoutY="230.0" text="Nombre">
                            <font>
-                              <Font size="18.0" />
+                              <Font size="19.0" />
                            </font>
                         </Label>
-                        <Label layoutX="288.0" layoutY="219.0" text="Número de identificación">
+                        <Label layoutX="326.0" layoutY="267.0" text="Número de identificación">
                            <font>
-                              <Font size="18.0" />
+                              <Font size="19.0" />
                            </font>
                         </Label>
-                        <Label layoutX="288.0" layoutY="255.0" text="Dirección">
+                        <Label layoutX="326.0" layoutY="303.0" text="Dirección">
                            <font>
-                              <Font size="18.0" />
+                              <Font size="19.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtNombreCliente" layoutX="511.0" layoutY="183.0" prefHeight="25.0" prefWidth="255.0" style="-fx-border-color: #0a002c;" stylesheets="@css/styles.css" />
-                        <TextField fx:id="txtNumeroIdentificacion" layoutX="511.0" layoutY="219.0" prefHeight="25.0" prefWidth="255.0" style="-fx-border-color: #0a002c;" stylesheets="@css/styles.css" />
-                        <TextField fx:id="txtDireccion" layoutX="511.0" layoutY="255.0" prefHeight="25.0" prefWidth="255.0" style="-fx-border-color: #0a002c;" stylesheets="@css/styles.css" />
-                        <Button fx:id="btnCambiarInfo" layoutX="108.0" layoutY="368.0" mnemonicParsing="false" onAction="#cambiarInfo" prefHeight="32.0" prefWidth="135.0" style="-fx-background-color: #b26500;" stylesheets="@css/styles.css" text="Cambiar información" textFill="WHITE" />
+                        <TextField fx:id="txtNombreCliente" layoutX="549.0" layoutY="231.0" prefHeight="25.0" prefWidth="255.0" style="-fx-border-color: #0a002c;" stylesheets="@css/styles.css" />
+                        <TextField fx:id="txtNumeroIdentificacion" layoutX="549.0" layoutY="267.0" prefHeight="25.0" prefWidth="255.0" style="-fx-border-color: #0a002c;" stylesheets="@css/styles.css" />
+                        <TextField fx:id="txtDireccion" layoutX="549.0" layoutY="303.0" prefHeight="25.0" prefWidth="255.0" style="-fx-border-color: #0a002c;" stylesheets="@css/styles.css" />
+                        <Button fx:id="btnCambiarInfo" layoutX="146.0" layoutY="404.0" mnemonicParsing="false" onAction="#cambiarInfo" prefHeight="32.0" prefWidth="135.0" style="-fx-background-color: #b26500;" stylesheets="@css/styles.css" text="Cambiar información" textFill="WHITE" />
                         <Button fx:id="btnGuardarInfo" layoutX="510.0" layoutY="299.0" mnemonicParsing="false" onAction="#guardarInfoCambiada" prefHeight="32.0" prefWidth="256.0" styleClass="button-Green-WhiteBack" stylesheets="@css/styles.css" text="Guardar cambios" textFill="WHITE" visible="false" />
                         <Button fx:id="btnCancelarCambios" cancelButton="true" layoutX="287.0" layoutY="299.0" mnemonicParsing="false" onAction="#cancelarCambioInfo" prefHeight="32.0" prefWidth="115.0" styleClass="buttonRed" stylesheets="@css/styles.css" text="Cancelar cambios" textFill="WHITE" visible="false" />
-                        <Label layoutX="285.0" layoutY="137.0" prefHeight="30.0" prefWidth="209.0" text="Información de usuario">
+                        <Label layoutX="326.0" layoutY="159.0" prefHeight="40.0" prefWidth="307.0" text="Información de usuario">
                            <font>
-                              <Font name="System Italic" size="20.0" />
+                              <Font name="System Italic" size="28.0" />
                            </font>
                         </Label>
-                        <Line endX="100.0" layoutX="387.0" layoutY="165.0" startX="-100.0" />
+                        <Line endX="100.0" layoutX="424.0" layoutY="198.0" startX="-100.0" />
                      </children>
                   </AnchorPane>
             </content>
@@ -124,32 +124,35 @@
             <content>
               <AnchorPane fx:id="anchorPaneProductos" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="rectangle" stylesheets="@css/styles.css">
                      <children>
-                        <Button fx:id="btnCarritoCompras" layoutX="217.0" layoutY="401.0" mnemonicParsing="false" onAction="#abrirVentanaCarrito" prefHeight="35.0" prefWidth="146.0" style="-fx-background-color: transparent; -fx-border-color: #b26500;" text="Carrito de compras" textFill="WHITE">
+                        <Button fx:id="btnCarritoCompras" layoutX="217.0" layoutY="465.0" mnemonicParsing="false" onAction="#abrirVentanaCarrito" prefHeight="45.0" prefWidth="191.0" style="-fx-background-color: transparent; -fx-border-color: #b26500;" text="Carrito de compras" textFill="WHITE">
                            <graphic>
                               <FontAwesomeIconView fill="WHITE" glyphName="CAR" />
                            </graphic>
                         </Button>
-                        <TableView fx:id="tableViewProductos" layoutX="72.0" layoutY="96.0" prefHeight="297.0" prefWidth="671.0" styleClass="table-view2" stylesheets="@css/styles.css">
+                        <TableView fx:id="tableViewProductos" layoutX="114.0" layoutY="128.0" prefHeight="322.0" prefWidth="693.0" styleClass="table-view2" stylesheets="@css/styles.css">
                           <columns>
                             <TableColumn fx:id="columnProducto" editable="false" prefWidth="237.0" text="Producto" />
                             <TableColumn fx:id="columnPrecio" editable="false" minWidth="0.0" prefWidth="249.0" text="Precio" />
                               <TableColumn fx:id="columnCantidad" editable="false" prefWidth="184.0" text="Cantidad disponible" />
                           </columns>
                         </TableView>
-                        <Button fx:id="btnAgregarCarrito" layoutX="383.0" layoutY="402.0" mnemonicParsing="false" onAction="#agregarAlCarrito" prefHeight="32.0" prefWidth="135.0" styleClass="buttonGreen" stylesheets="@css/styles.css" text="Agregar al carrito" textFill="WHITE">
+                        <Button fx:id="btnAgregarCarrito" layoutX="416.0" layoutY="466.0" mnemonicParsing="false" onAction="#agregarAlCarrito" prefHeight="43.0" prefWidth="175.0" styleClass="buttonGreen" stylesheets="@css/styles.css" text="Agregar al carrito" textFill="WHITE">
                            <graphic>
                               <FontAwesomeIconView fill="WHITE" glyphName="CHECK" />
                            </graphic>
-                        </Button>
-                        <TextField fx:id="txtCantidad" layoutX="530.0" layoutY="404.0" prefHeight="28.0" prefWidth="34.0" style="-fx-border-color: white;" styleClass="text-field2" stylesheets="@css/styles.css" />
-                        <Text fill="WHITE" layoutX="569.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantidad" />
-                        <TextField fx:id="txtBuscarProducto" layoutX="168.0" layoutY="52.0" prefHeight="28.0" prefWidth="210.0" style="-fx-border-color: white;" styleClass="text-field2" stylesheets="@css/styles.css" />
-                        <Text fill="WHITE" layoutX="82.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Producto">
                            <font>
-                              <Font size="19.0" />
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                        <TextField fx:id="txtCantidad" layoutX="599.0" layoutY="474.0" prefHeight="24.0" prefWidth="39.0" style="-fx-border-color: white;" styleClass="text-field2" stylesheets="@css/styles.css" />
+                        <Text fill="WHITE" layoutX="644.0" layoutY="493.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantidad" />
+                        <TextField fx:id="txtBuscarProducto" layoutX="233.0" layoutY="81.0" prefHeight="34.0" prefWidth="253.0" style="-fx-border-color: white;" styleClass="text-field2" stylesheets="@css/styles.css" />
+                        <Text fill="WHITE" layoutX="124.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Producto">
+                           <font>
+                              <Font size="25.0" />
                            </font>
                         </Text>
-                        <Button fx:id="btnLimpiarFiltros" layoutX="629.0" layoutY="51.0" mnemonicParsing="false" onAction="#limpiarFiltros" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: #b26500;" text="Limpiar filtros" textAlignment="CENTER" textFill="WHITE" />
+                        <Button fx:id="btnLimpiarFiltros" layoutX="635.0" layoutY="81.0" mnemonicParsing="false" onAction="#limpiarFiltros" prefHeight="35.0" prefWidth="172.0" style="-fx-background-color: #b26500;" text="Limpiar filtros" textAlignment="CENTER" textFill="WHITE" />
                      </children>
                   </AnchorPane>
             </content>

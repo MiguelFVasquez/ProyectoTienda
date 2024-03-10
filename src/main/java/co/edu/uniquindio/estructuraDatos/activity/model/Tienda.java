@@ -3,6 +3,7 @@ import co.edu.uniquindio.estructuraDatos.activity.exceptions.ClienteException;
 import co.edu.uniquindio.estructuraDatos.activity.exceptions.ProductoException;
 import co.edu.uniquindio.estructuraDatos.activity.exceptions.VentaException;
 import co.edu.uniquindio.estructuraDatos.activity.model.interfaces.ITienda;
+import co.edu.uniquindio.estructuraDatos.activity.utils.VentaFechaComparator;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -160,7 +161,7 @@ public class Tienda implements ITienda {
         return clienteOptional.orElse(null);
     }
 
-    public List<Venta> obtenerVentaFecha(String fecha){
+    public List<Venta> obtenerVentaFecha(LocalDate fecha){
         List<Venta> fechaVentas= this.listaVentas.stream()
                 .filter(v ->v.verificarFecha(fecha))
                 .toList();
@@ -175,7 +176,7 @@ public class Tienda implements ITienda {
         }else {
             creado= true;
             listaVentas.add(newVenta);
-            //Collections.sort(listaVentas);
+            listaVentas.sort(new VentaFechaComparator());
         }
         return creado;
     }
@@ -342,7 +343,7 @@ public class Tienda implements ITienda {
                 // Formatear la fecha como una cadena
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 String fechaActualComoString = fechaActual.format(formatter);
-                Venta venta = new Venta("VEN-" + System.currentTimeMillis(), fechaActual.toString());
+                Venta venta = new Venta("VEN-" + System.currentTimeMillis(), fechaActual);
                 for (Producto producto: cliente.obtenerProductosCarrito()) {
                     if(producto!=null){
                         venta.agregarProducto( producto );

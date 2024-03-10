@@ -2,6 +2,7 @@ package co.edu.uniquindio.estructuraDatos.activity.viewControllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.*;
 
 import co.edu.uniquindio.estructuraDatos.activity.app.App;
@@ -306,7 +307,7 @@ public class AdminViewController {
             // Código que se ejecutará cuando el usuario seleccione una nueva fecha
             if(newValue!=null){
                 btnLimpiarFiltrosVenta.setDisable( false );
-                String fechaVenta= datePickerDetalleVenta.getValue().toString();
+                LocalDate fechaVenta= datePickerDetalleVenta.getValue();
                 listaVentas.clear();
                 listaVentas.addAll(adminController.mfm.getListaVentasFecha(fechaVenta));
                 tableViewVentas.refresh();
