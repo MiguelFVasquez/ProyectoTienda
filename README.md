@@ -1,4 +1,12 @@
 # FINALIZADO
+Presentado por:
+
+-Santiago Orozco Zuluaga
+-Juan Miguel Florez Vasquez
+-Juan Camilo Albaran Montoya
+
+Repositorio del proyecto:
+https://github.com/MiguelFVasquez/ProyectoTienda
 ---
 
 ## ***TASKS***
